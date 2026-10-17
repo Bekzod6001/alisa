@@ -1,0 +1,2631 @@
+<!doctype html>
+<html lang="uz">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Alisa bilan rus tili</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Neucha&family=PT+Sans:ital,wght@0,400;0,700;1,400&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Russo+One&display=swap&subset=cyrillic,latin-ext">
+<style>
+/* Layout: school "kletka" notebook paper; ink-blue for the learner, red pen for the teacher's marks. */
+:root{
+  --bg:#f3f6fa; --grid:#dfe7f1; --card:#ffffff; --card2:#f7f9fc;
+  --fg:#1a2233; --muted:#5a6680; --line:#d3dcea;
+  --ink:#2343a0; --ink-soft:#e5ebfa; --red:#c4313a; --red-soft:#fbe9ea;
+  --ok:#2b7a4b; --ok-soft:#e3f3e9; --gold:#b7791f;
+  --f-display:"Russo One","PT Sans",system-ui,sans-serif;
+  --f-body:"PT Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-read:"PT Serif",Georgia,"Times New Roman",serif;
+  --f-hand:"Neucha","Comic Sans MS","PT Sans",cursive;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1524; --grid:#172238; --card:#141e31; --card2:#18243a;
+  --fg:#e5eaf4; --muted:#97a3bd; --line:#26344f;
+  --ink:#8db0ff; --ink-soft:#1c2c4d; --red:#ff7479; --red-soft:#3a1f27;
+  --ok:#62cf8f; --ok-soft:#173326; --gold:#e8b456; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1524; --grid:#172238; --card:#141e31; --card2:#18243a;
+  --fg:#e5eaf4; --muted:#97a3bd; --line:#26344f;
+  --ink:#8db0ff; --ink-soft:#1c2c4d; --red:#ff7479; --red-soft:#3a1f27;
+  --ok:#62cf8f; --ok-soft:#173326; --gold:#e8b456; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background-color:var(--bg);color:var(--fg);font:16px/1.55 var(--f-body);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:22px 22px;}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--card)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+a{color:var(--ink)}
+h1,h2,h3{text-wrap:balance;margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--card);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:12px;padding-block:10px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg);margin-right:auto}
+.brand b{font:400 18px/1 var(--f-display);letter-spacing:.01em}
+.brand small{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+.logo{width:34px;height:34px;flex:none}
+nav.tabs{display:flex;gap:4px;flex-wrap:wrap}
+nav.tabs a{padding:7px 12px;border-radius:999px;text-decoration:none;color:var(--muted);font-weight:700;font-size:14px}
+nav.tabs a[aria-current="page"]{background:var(--ink-soft);color:var(--ink)}
+nav.tabs a:hover{color:var(--ink)}
+.badge-due{display:inline-block;min-width:18px;padding:0 5px;margin-left:4px;border-radius:9px;background:var(--red);color:#fff;font-size:11px;line-height:18px;text-align:center}
+
+main{padding-block:24px 64px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r)}
+.muted{color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:8px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-weight:700;font-size:15px;text-decoration:none;color:var(--fg)}
+.btn:hover{border-color:var(--ink);color:var(--ink)}
+.btn.pri{background:var(--ink);border-color:var(--ink);color:var(--card)}
+.btn.pri:hover{filter:brightness(1.08);color:var(--card)}
+.btn.sm{padding:5px 10px;font-size:13px}
+.icon{width:18px;height:18px;flex:none}
+.ibtn{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:8px;border:1px solid transparent;background:transparent;cursor:pointer;color:var(--ink)}
+.ibtn:hover{background:var(--ink-soft)}
+.ibtn.on{color:var(--gold)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+/* home */
+.hero{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:28px;align-items:end;margin-bottom:28px}
+.hero h1{font:400 clamp(30px,5vw,48px)/1.08 var(--f-display);color:var(--ink);margin:6px 0 12px}
+.hero p{max-width:60ch;margin:0;color:var(--fg)}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.stat{padding:14px}
+.stat b{display:block;font:400 28px/1 var(--f-display);color:var(--ink);font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--muted)}
+.path{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin:8px 0 32px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--card)}
+.path div{padding:12px 12px 14px;border-right:1px solid var(--line);min-width:0}
+.path div:last-child{border-right:0}
+.path b{font:400 20px var(--f-display);display:block}
+.path span{font-size:13px;color:var(--muted);display:block;line-height:1.35}
+.path .now{background:var(--ink-soft)}
+.path .now b{color:var(--ink)}
+h2.sec{font:400 22px/1.2 var(--f-display);margin:0 0 6px}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.lessons{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-bottom:36px}
+.lcard{display:flex;flex-direction:column;gap:8px;padding:16px;text-decoration:none;color:var(--fg);position:relative;transition:border-color .15s,transform .15s}
+.lcard:hover{border-color:var(--ink);transform:translateY(-2px)}
+.lcard .n{font:400 30px/1 var(--f-display);color:var(--ink)}
+.lcard h3{font:700 19px/1.25 var(--f-read)}
+.lcard .uz{font-size:14px;color:var(--muted)}
+.lcard .tp{font-size:13px;padding:3px 8px;border-radius:6px;background:var(--card2);border:1px solid var(--line);align-self:flex-start}
+.lcard .foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:6px;font-size:12px;color:var(--muted)}
+.pips{display:flex;gap:3px}
+.pips i{width:14px;height:5px;border-radius:3px;background:var(--line)}
+.pips i.d{background:var(--ok)}
+.mark{position:absolute;top:12px;right:14px;font:22px/1 var(--f-hand);color:var(--red);transform:rotate(-8deg)}
+details.book{margin-bottom:10px}
+details.book summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+details.book summary::-webkit-details-marker{display:none}
+details.book summary .lv{font:400 14px var(--f-display);padding:3px 8px;border-radius:6px;background:var(--ink-soft);color:var(--ink)}
+details.book summary .t{font:700 17px var(--f-read)}
+details.book summary .c{margin-left:auto;font-size:13px;color:var(--muted)}
+.chlist{padding:0 16px 16px;columns:2 260px;column-gap:24px;font-size:14px}
+.chlist .pt{font-weight:700;color:var(--muted);margin:10px 0 4px;break-after:avoid}
+.chlist ol{margin:0;padding-left:22px}
+.chlist li{break-inside:avoid;padding:1px 0}
+.method{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:28px}
+.method div{padding:14px}
+.method b{display:block;margin-bottom:4px}
+.method p{margin:0;font-size:14px;color:var(--muted)}
+
+/* lesson */
+.crumb{font-size:14px;margin-bottom:10px;display:inline-flex;gap:6px;align-items:center}
+.lhead{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:start;margin-bottom:18px}
+.lhead .big{font:400 64px/0.9 var(--f-display);color:var(--ink)}
+.lhead h1{font:700 clamp(26px,4vw,36px)/1.15 var(--f-read);margin:4px 0}
+.lhead .sub{color:var(--muted);font-size:17px}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.chip{font-size:13px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--muted)}
+.chip.lv{color:var(--ink);border-color:var(--ink)}
+.layout{display:grid;grid-template-columns:200px minmax(0,1fr);gap:22px;align-items:start}
+.steps{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px);display:flex;flex-direction:column;gap:2px;padding:8px}
+.steps button{display:flex;gap:10px;align-items:center;text-align:left;padding:9px 10px;border-radius:8px;border:0;background:transparent;cursor:pointer;font-weight:700;color:var(--muted);font-size:15px}
+.steps button .k{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--line);font-size:12px;flex:none;font-variant-numeric:tabular-nums}
+.steps button[aria-current="step"]{background:var(--ink-soft);color:var(--ink)}
+.steps button[aria-current="step"] .k{border-color:var(--ink)}
+.steps button.d .k{background:var(--ok);border-color:var(--ok);color:var(--card)}
+.panel{padding:22px;min-width:0}
+.panel h2{font:400 22px/1.2 var(--f-display);margin-bottom:12px}
+.panel h3{font-size:17px;margin:22px 0 10px}
+.lede{font-size:17px;max-width:65ch}
+ul.can{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+ul.can li{display:flex;gap:10px;align-items:flex-start}
+ul.can input{width:18px;height:18px;margin-top:3px;accent-color:var(--ok);flex:none}
+.note{padding:14px 16px;border-radius:var(--r);background:var(--card2);border:1px dashed var(--line);font-size:15px}
+.note b{color:var(--fg)}
+.pager{display:flex;justify-content:space-between;gap:10px;margin-top:26px;padding-top:18px;border-top:1px solid var(--line);flex-wrap:wrap}
+
+/* vocab */
+.vtools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.vlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:8px}
+.vitem{display:flex;gap:6px;align-items:flex-start;padding:10px 8px 10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+.vitem .tx{flex:1;min-width:0}
+.vitem .ru{font:700 17px/1.3 var(--f-read)}
+.vitem .uz{font-size:14px;color:var(--muted)}
+.vitem .ex{font:italic 14px/1.4 var(--f-read);color:var(--ink);margin-top:3px}
+.vitem .tag{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* grammar */
+.gintro{max-width:68ch;font-size:16.5px}
+.tbl{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:8px}
+.tbl table{border-collapse:collapse;width:100%;font-size:15px;background:var(--card)}
+.tbl caption{text-align:left;padding:8px 12px;font-weight:700;color:var(--muted);font-size:13px;letter-spacing:.04em;text-transform:uppercase;caption-side:top;background:var(--card2);border-bottom:1px solid var(--line)}
+.tbl th,.tbl td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.tbl th{font-size:13px;color:var(--muted);background:var(--card2)}
+.tbl td{font-family:var(--f-read)}
+.tbl td b{color:var(--red)}
+.tbl tr:last-child td{border-bottom:0}
+ul.pts{padding-left:20px;max-width:70ch;display:grid;gap:6px;margin:0}
+.usage{display:grid;gap:8px}
+.ux{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 10px;padding:10px 12px;border-left:3px solid var(--ink);background:var(--card2);border-radius:0 8px 8px 0}
+.ux .ru{font:17px/1.4 var(--f-read)}
+.ux .ru b{color:var(--ink);background:var(--ink-soft);padding:0 3px;border-radius:3px}
+.ux .uz{font-size:14px;color:var(--muted);grid-column:2}
+.ux .why{font:15px var(--f-hand);color:var(--red);grid-column:2}
+
+/* reading */
+.rtools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.sheet{position:relative;padding:22px 22px 22px 46px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  background-image:linear-gradient(90deg,transparent 30px,var(--red) 30px,var(--red) 31px,transparent 31px)}
+.sheet p{font:18.5px/1.75 var(--f-read);margin:0 0 .9em;max-width:66ch}
+.sheet p.dlg{padding-left:0}
+.w{font:inherit;background:none;border:0;padding:0;cursor:pointer;color:inherit;border-bottom:1.5px dotted transparent;border-radius:2px}
+.hl .w{border-bottom-color:var(--ink);color:var(--ink)}
+.w:hover,.w.act{background:var(--ink-soft);color:var(--ink)}
+.w.fz{border-bottom-style:dashed}
+.w.un{border-bottom-color:transparent;color:inherit}
+.hl .w.un{color:inherit;border-bottom-color:transparent}
+.src{font-size:14px;margin-top:12px}
+
+/* popover */
+.pop{position:fixed;z-index:50;width:min(320px,calc(100vw - 32px));padding:14px 14px 12px;background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 32px rgba(10,20,40,.18)}
+.pop .ru{font:700 22px/1.25 var(--f-read);color:var(--ink);padding-right:30px}
+.pop .form{font-size:13px;color:var(--muted)}
+.pop .uz{font-size:16px;margin-top:4px}
+.pop .ex{font:italic 15px var(--f-read);color:var(--muted);margin-top:6px}
+.pop .x{position:absolute;top:8px;right:8px}
+.pop .row{margin-top:10px}
+
+/* exercises */
+.qlist{display:grid;gap:10px;counter-reset:q}
+.q{padding:14px 16px;border:1px solid var(--line);border-radius:8px;background:var(--card);counter-increment:q}
+.q .qt{font:18px/1.5 var(--f-read);display:flex;gap:10px;flex-wrap:wrap;align-items:baseline}
+.q .qt::before{content:counter(q) ".";font:700 14px var(--f-body);color:var(--muted)}
+.q .opts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.opt{padding:7px 14px;border-radius:8px;border:1.5px solid var(--line);background:var(--card2);cursor:pointer;font:16px var(--f-read)}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt.right{border-color:var(--ok);background:var(--ok-soft);color:var(--ok);font-weight:700}
+.opt.wrong{border-color:var(--red);background:var(--red-soft);color:var(--red);text-decoration:line-through}
+.opt:disabled{cursor:default}
+.gap{font:18px var(--f-read);border:0;border-bottom:2px solid var(--ink);background:transparent;color:var(--ink);width:9.5em;max-width:100%;padding:0 4px;text-align:center}
+.gap:focus{outline:none;background:var(--ink-soft)}
+.gap.right{border-color:var(--ok);color:var(--ok)}
+.gap.wrong{border-color:var(--red);color:var(--red)}
+.fb{margin-top:8px;font:17px var(--f-hand);color:var(--red)}
+.fb.ok{color:var(--ok)}
+.score{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:6px 0 14px}
+.score .val{font:30px/1 var(--f-hand);color:var(--red);transform:rotate(-4deg);display:inline-block}
+.bar{flex:1;min-width:120px;height:8px;border-radius:4px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok);transition:width .3s}
+
+.match{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:620px}
+.match button{padding:10px 12px;border-radius:8px;border:1.5px solid var(--line);background:var(--card);cursor:pointer;text-align:left;min-height:46px}
+.match .l{font:700 17px var(--f-read)}
+.match button.sel{border-color:var(--ink);background:var(--ink-soft)}
+.match button.ok{border-color:var(--ok);background:var(--ok-soft);color:var(--ok);cursor:default}
+.match button.bad{border-color:var(--red);background:var(--red-soft)}
+
+/* flashcards */
+.fc-wrap{max-width:560px;margin:0 auto}
+.fc{perspective:1200px;height:240px;cursor:pointer;margin:12px 0}
+.fc-in{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}
+.fc.flip .fc-in{transform:rotateY(180deg)}
+.fc-face{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px;text-align:center;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.fc-face.back{transform:rotateY(180deg);background:var(--card2)}
+.fc-face .main{font:700 30px/1.25 var(--f-read);color:var(--ink)}
+.fc-face .hint{font-size:13px;color:var(--muted)}
+.fc-face .ex{font:italic 16px var(--f-read);color:var(--muted)}
+.fc-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fc-btns .btn{justify-content:center;padding:12px}
+.btn.no{border-color:var(--red);color:var(--red)}
+.btn.yes{border-color:var(--ok);color:var(--ok)}
+.boxes{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin:14px 0}
+.boxes div{padding:8px;border:1px solid var(--line);border-radius:8px;text-align:center;background:var(--card)}
+.boxes b{display:block;font:400 20px var(--f-display);color:var(--ink);font-variant-numeric:tabular-nums}
+.boxes span{font-size:11px;color:var(--muted)}
+
+/* dictionary table */
+.dtools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.inp{padding:9px 12px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--fg);font:15px var(--f-body);min-width:0}
+.inp.grow{flex:1 1 220px}
+textarea.inp{width:100%;min-height:150px;font:17px/1.6 var(--f-read);resize:vertical}
+.dict{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+.dict table{border-collapse:collapse;width:100%}
+.dict td,.dict th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;font-size:15px;vertical-align:middle}
+.dict th{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:var(--card2);position:sticky;top:0}
+.dict td.r{font:700 16px var(--f-read)}
+.dict td.t{font-size:12px;color:var(--muted);white-space:nowrap}
+.dict tr:last-child td{border-bottom:0}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+pre.sample{white-space:pre-wrap;font:16px/1.6 var(--f-read);margin:10px 0 0;padding:14px;border-radius:8px;background:var(--card2);border:1px solid var(--line)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:9px 16px;border-radius:999px;font-size:14px;z-index:60}
+
+@media (max-width:820px){
+  .hero{grid-template-columns:1fr}
+  .layout{grid-template-columns:1fr}
+  .steps{position:sticky;top:calc(env(safe-area-inset-top,0px) + 58px);z-index:5;flex-direction:row;overflow-x:auto;padding:6px;background:var(--card)}
+  .steps button{white-space:nowrap;padding:7px 9px;font-size:14px}
+  .path{grid-template-columns:repeat(5,minmax(120px,1fr));overflow-x:auto}
+  .top .wrap{gap:8px}
+  .brand small{display:none}
+}
+@media (max-width:520px){
+  .panel{padding:16px}
+  .sheet{padding:16px 14px 16px 34px;background-image:linear-gradient(90deg,transparent 22px,var(--red) 22px,var(--red) 23px,transparent 23px)}
+  .sheet p{font-size:17.5px}
+  .lhead .big{font-size:46px}
+  .stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .stat b{font-size:22px}
+  .match{grid-template-columns:1fr 1fr}
+  nav.tabs a{padding:6px 9px;font-size:13px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header class="top"><div class="wrap">
+  <a class="brand" href="#kurs" aria-label="Bosh sahifa">
+    <svg class="logo" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--ink)"/><ellipse cx="20" cy="20" rx="18" ry="6" fill="none" stroke="var(--red)" stroke-width="1.6" transform="rotate(-25 20 20)"/><text x="20" y="26" text-anchor="middle" font-family="Russo One, sans-serif" font-size="17" fill="var(--ink)">А</text></svg>
+    <span><b>Alisa bilan rus tili</b><small>Kir Bulichyov · «Приключения Алисы»</small></span>
+  </a>
+  <nav class="tabs" id="nav">
+    <a href="#kurs" data-r="kurs">Kurs</a>
+    <a href="#lugat" data-r="lugat">Lug'atim</a>
+    <a href="#takror" data-r="takror">Takrorlash<span class="badge-due" id="dueBadge" hidden></span></a>
+    <a href="#tahlil" data-r="tahlil">Matn tahlili</a>
+  </nav>
+</div></header>
+<main class="wrap" id="app"></main>
+<div class="pop card" id="pop" role="dialog" aria-label="So'z tarjimasi" hidden></div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+// Stress: apostrophe after a Cyrillic vowel = stressed vowel. Uzbek: o' g' -> oʻ gʻ at render.
+// Reading markup: {form|lemma} or {lemma}. **bold** in examples = target form.
+const LESSONS = [];
+
+LESSONS.push({
+  id: "l1", num: 1, book: "b1", page: 11, level: "A2.1",
+  ru: "Вместо предисловия", uz: "So'zboshi o'rniga",
+  topic: "Hozirgi zamon: fe'l tuslanishi",
+  intro: "Ertaga Alisa birinchi marta maktabga boradi. Dadasi — hayvonot bog'ida ishlaydigan olim — qizining o'qituvchisiga Alisa haqidagi qiziq voqealarni yozib qoldirmoqchi. Bu bob butun kitobga kirish: qahramonlar bilan tanishamiz.",
+  cando: [
+    "O'zim va oilam haqida oddiy gaplar tuza olaman (kim qayerda ishlaydi, nima qiladi).",
+    "I va II tuslanishdagi fe'llarni hozirgi zamonda tuslay olaman.",
+    "Matndan qahramonlar haqidagi asosiy ma'lumotni topa olaman."
+  ],
+  warmup: ["Siz maktabga birinchi marta borgan kuningizni eslaysizmi?", "Oilangizda kim qayerda ishlaydi?"],
+  vocab: [
+    ["за'втра", "ertaga"],
+    ["шко'ла", "maktab", "Алиса идёт в шко'лу."],
+    ["идти' в шко'лу", "maktabga bormoq (o'qishni boshlamoq)"],
+    ["интере'сный", "qiziqarli", "Это интере'сный день."],
+    ["сего'дня", "bugun"],
+    ["с утра'", "ertalabdan beri"],
+    ["друг (мн. друзья')", "do'st (ko'pl. do'stlar)"],
+    ["знако'мый", "tanish (odam)"],
+    ["поздравля'ть / поздра'вить", "tabriklamoq", "Все поздравля'ют Алису."],
+    ["расска'зывать / рассказа'ть", "hikoya qilmoq, aytib bermoq"],
+    ["бу'дущий", "bo'lajak, kelajakdagi"],
+    ["марсиа'нин", "marslik (Mars aholisi)"],
+    ["присла'ть", "jo'natmoq, yubormoq"],
+    ["пода'рок", "sovg'a"],
+    ["удиви'тельный", "ajoyib, hayratlanarli"],
+    ["пена'л", "penal, qalamdon"],
+    ["открыва'ть / откры'ть", "ochmoq"],
+    ["никто' не", "hech kim ... -ma(ydi)", "Никто' не мо'жет откры'ть пена'л."],
+    ["учи'тельница", "o'qituvchi (ayol)"],
+    ["вме'сте", "birga"],
+    ["шум", "shovqin"],
+    ["зоопа'рк", "hayvonot bog'i"],
+    ["попроща'ться", "xayrlashmoq"],
+    ["до'ма", "uyda"],
+    ["ти'хо", "jim, sokin"],
+    ["исто'рия", "voqea, hikoya; tarix"],
+    ["жизнь (ж.)", "hayot"],
+    ["учёный", "olim"],
+    ["до'чка / дочь", "qiz (farzand)"],
+    ["ребёнок (мн. де'ти)", "bola (ko'pl. bolalar)"],
+    ["хара'ктер", "fe'l-atvor, xarakter"],
+    ["исчеза'ть / исче'знуть", "g'oyib bo'lmoq"],
+    ["ве'рный", "sodiq, vafodor"],
+    ["роди'тели", "ota-ona"],
+    ["рабо'тать", "ishlamoq", "Папа рабо'тает в зоопа'рке."],
+    ["стро'ить", "qurmoq", "Ма'ма стро'ит дома'."],
+    ["дом (мн. дома')", "uy (ko'pl. uylar)"],
+    ["плане'та", "sayyora"],
+    ["тру'дно", "qiyin"],
+    ["ча'сто", "tez-tez"],
+    ["век", "asr"],
+    ["случа'ться / случи'ться", "sodir bo'lmoq, yuz bermoq"],
+    ["ждать", "kutmoq"],
+    ["писа'ть", "yozmoq", "Папа пи'шет письмо'."],
+    ["сиде'ть", "o'tirmoq"],
+    ["звони'ть", "qo'ng'iroq qilmoq"]
+  ],
+  grammar: {
+    title: "Hozirgi zamon (настоящее время)",
+    intro: "Rus tilida hozirgi zamonda fe'l shaxs va songa qarab o'zgaradi. Ikki asosiy tuslanish bor: <b>I tuslanish</b> (ko'pincha <i>-ать, -ять, -еть</i> bilan tugaydi) va <b>II tuslanish</b> (ko'pincha <i>-ить</i>). Farq oxirgi qo'shimchalardagi unlida: I — <b>е/ё</b> va <b>-ут/-ют</b>, II — <b>и</b> va <b>-ат/-ят</b>.",
+    tables: [
+      { caption: "Fe'l tuslanishi", head: ["Shaxs", "I: рабо'тать", "II: стро'ить", "идти' (I, ё)"], rows: [
+        ["я", "рабо'та**ю**", "стро'**ю**", "ид**у'**"],
+        ["ты", "рабо'та**ешь**", "стро'**ишь**", "ид**ёшь**"],
+        ["он / она'", "рабо'та**ет**", "стро'**ит**", "ид**ёт**"],
+        ["мы", "рабо'та**ем**", "стро'**им**", "ид**ём**"],
+        ["вы", "рабо'та**ете**", "стро'**ите**", "ид**ёте**"],
+        ["они'", "рабо'та**ют**", "стро'**ят**", "ид**у'т**"]
+      ]}
+    ],
+    points: [
+      "Qo'shimcha urg'u ostida bo'lsa, I tuslanishda <b>е</b> o'rniga <b>ё</b> yoziladi: идёшь, живёшь.",
+      "Ba'zi fe'llarda «я» shaklida undosh almashadi: сиде'ть → си<b>ж</b>у', писа'ть → пи<b>ш</b>у', ходи'ть → хо<b>ж</b>у'.",
+      "Hozirgi zamon yaqin kelasi reja uchun ham ishlatiladi: <i>Завтра Алиса идёт в школу</i> — «Ertaga Alisa maktabga boradi».",
+      "Inkor uchun fe'l oldidan <b>не</b> qo'yiladi: <i>Никто не может открыть</i>."
+    ],
+    usage: [
+      ["За'втра Али'са **идёт** в шко'лу.", "Ertaga Alisa maktabga boradi.", "Hozirgi zamon kelasi reja ma'nosida."],
+      ["Папа **рабо'тает** в зоопа'рке.", "Dadam hayvonot bog'ida ishlaydi.", "I tuslanish, он."],
+      ["Ма'ма **стро'ит** дома' на други'х плане'тах.", "Onam boshqa sayyoralarda uylar quradi.", "II tuslanish, она."],
+      ["Друзья' **звоня'т** и **поздравля'ют** Али'су.", "Do'stlar qo'ng'iroq qilib, Alisani tabriklashyapti.", "они: II (-ят) va I (-ют)."],
+      ["Я **пишу'** письмо' учи'тельнице.", "Men o'qituvchiga xat yozyapman.", "писать → пишу (с → ш)."],
+      ["Мы не **мо'жем** всё вре'мя **сиде'ть** до'ма.", "Biz doim uyda o'tira olmaymiz.", "мочь → можем."]
+    ]
+  },
+  culture: "Kitob 1965–1974-yillarda yozilgan, lekin voqealar XXI asrda bo'lib o'tadi. Shuning uchun matnda <b>видеофон</b> (videotelefon), boshqa sayyoralar va marsliklar oddiy narsa sifatida tilga olinadi. Muallif Kir Bulichyov — asl ismi Igor Mojeyko, sharqshunos olim.",
+  reading: `{Завтра} Алиса первый раз {идёт в школу|идти в школу}. С утра ей {звонят|звонить} по видеофону {друзья|друг} и {знакомые|знакомый}. Все {поздравляют|поздравлять} девочку. Алиса очень {ждёт|ждать} этот день. Уже три месяца она каждый день {рассказывает|рассказывать} всем о своей {будущей|будущий} {школе|школа}.
+
+Друг Алисы, {марсианин} Бус, {прислал|прислать} ей {подарок} — {удивительный} {пенал}. Но {открыть} его {никто не} может: ни папа, ни {учёные|учёный} из {зоопарка|зоопарк}.
+
+Шуша тоже хочет идти в школу {вместе} с Алисой. Он хочет посмотреть, хорошая ли у неё {учительница}. Сколько {шума|шум}!
+
+Сейчас Алисы нет {дома}. Она пошла в {зоопарк}, чтобы {попрощаться} с Бронтей. В доме {тихо}. Папа {сидит|сидеть} за столом и {пишет|писать}. Он хочет рассказать учительнице несколько {историй|история} из {жизни|жизнь} дочки. Пусть учительница знает, какой у Алисы {характер}.
+
+Папа {работает|работать} в зоопарке, а мама {строит|строить} {дома|дом}, и {часто} на других {планетах|планета}. {Родители} не могут всё время сидеть дома. Поэтому с Алисой бывает {трудно}: она любит {исчезать} в самый неудобный момент. Но у неё много {верных|верный} друзей. И с ней всегда что-нибудь {случается|случаться}.
+
+Это рассказы о жизни Алисы — девочки из двадцать первого {века|век}.`,
+  questions: [
+    { t: "tf", s: "Завтра Алиса первый раз идёт в школу.", a: true },
+    { t: "tf", s: "Пенал Алисе прислал папа.", a: false, ex: "Penalni marslik Bus yuborgan." },
+    { t: "tf", s: "Пенал очень легко открыть.", a: false, ex: "Uni hech kim ocha olmaydi." },
+    { t: "tf", s: "Алиса пошла в зоопарк к Бронте.", a: true },
+    { t: "tf", s: "Мама Алисы работает в зоопарке.", a: false, ex: "Hayvonot bog'ida dadasi ishlaydi; onasi uylar quradi." },
+    { t: "mc", q: "Кому папа хочет рассказать истории об Алисе?", o: ["маме", "учительнице", "марсианину Бусу"], a: 1 },
+    { t: "mc", q: "Какой у Алисы характер?", o: ["Она всегда сидит дома.", "Она любит исчезать в неудобный момент.", "У неё нет друзей."], a: 1 }
+  ],
+  exercises: [
+    { t: "gap", q: "Я ___ в зоопарке. (работать)", a: ["работаю"] },
+    { t: "gap", q: "Мама ___ дома на Марсе. (строить)", a: ["строит"] },
+    { t: "gap", q: "Мы ___ в школу. (идти)", a: ["идём", "идем"] },
+    { t: "gap", q: "Ты ___ по-русски? (говорить)", a: ["говоришь"] },
+    { t: "gap", q: "Они ___ интересные истории. (рассказывать)", a: ["рассказывают"] },
+    { t: "gap", q: "Вы ___ Алису? (знать)", a: ["знаете"] },
+    { t: "mc", q: "Алиса и папа ___ дома.", o: ["сидит", "сидят", "сидим"], a: 1 },
+    { t: "mc", q: "Я ___ письмо учительнице.", o: ["пишу", "пишет", "писаю"], a: 0, ex: "писать → пишу (с → ш)." },
+    { t: "mc", q: "Друзья ___ Алису.", o: ["поздравляет", "поздравляем", "поздравляют"], a: 2 },
+    { t: "mc", q: "Никто ___ может открыть пенал.", o: ["нет", "не", "ни"], a: 1 }
+  ],
+  task: {
+    type: "Yozish",
+    prompt: "O'zingiz va oilangiz haqida 5–6 gap yozing: kim qayerda ishlaydi yoki o'qiydi, nima qiladi. Hozirgi zamon fe'llarini ishlating.",
+    sample: "Меня зовут Азиз. Я живу в Ташкенте. Я учусь в университете. Мой папа работает в больнице, он врач. Моя мама строит дома. Моя сестра ещё ходит в школу. Вечером мы вместе сидим дома и говорим."
+  }
+});
+
+LESSONS.push({
+  id: "l2", num: 2, book: "b1", page: 12, level: "A2.1",
+  ru: "Я набираю номер", uz: "Raqam teraman",
+  topic: "Buyruq mayli; почему? — потому что",
+  intro: "Kech bo'ldi, lekin Alisa uxlamaydi. Dadasi uni «Baba-yaga»ga qo'ng'iroq qilaman, deb qo'rqitmoqchi bo'ladi va tavakkaliga raqam teradi... Ekranda esa Mars elchixonasining xodimi paydo bo'ladi.",
+  cando: [
+    "Iltimos va buyruqlarni buyruq maylida ayta olaman (спи, позови, помогите).",
+    "Telefonda oddiy suhbat qura olaman: salomlashish, kechirim so'rash, xayrlashish.",
+    "«Почему?» savoliga «потому что» bilan javob bera olaman."
+  ],
+  warmup: ["Bolaligingizda kechqurun sizga qanday ertak aytib berishardi?", "Siz hech noto'g'ri raqamga qo'ng'iroq qilganmisiz?"],
+  vocab: [
+    ["набира'ть / набра'ть (но'мер)", "(raqam) termoq", "Я набира'ю но'мер."],
+    ["спать", "uxlamoq", "Али'са не спит."],
+    ["немедле'нно", "darhol, zudlik bilan"],
+    ["а то", "aks holda, bo'lmasa"],
+    ["видеофо'н", "videofon (ekranli telefon)"],
+    ["позвони'ть", "qo'ng'iroq qilmoq"],
+    ["ска'зка", "ertak"],
+    ["злой", "yovuz, jahldor"],
+    ["стра'шный", "qo'rqinchli"],
+    ["ба'бушка", "buvi, kampir"],
+    ["голо'дный", "och (qorni och)"],
+    ["избу'шка", "kulbacha"],
+    ["лес (в лесу')", "o'rmon (o'rmonda)"],
+    ["далеко'", "uzoqda, uzoq"],
+    ["ста'рый", "eski; qari"],
+    ["крова'ть (ж.)", "karavot"],
+    ["сади'ться / сесть", "o'tirmoq (o'tirib olmoq)"],
+    ["звать / позва'ть", "chaqirmoq", "Позови' Ба'бу-ягу'!"],
+    ["обеща'ть", "va'da bermoq"],
+    ["жале'ть / пожале'ть", "afsuslanmoq, pushaymon bo'lmoq"],
+    ["подходи'ть / подойти'", "yaqinlashmoq, yoniga bormoq"],
+    ["нажима'ть / нажа'ть", "bosmoq (tugmani)"],
+    ["кно'пка", "tugma"],
+    ["науга'д", "tavakkaliga, taxminan"],
+    ["экра'н", "ekran"],
+    ["загора'ться / загоре'ться", "yonmoq (chiroq, ekran)"],
+    ["го'лос", "ovoz"],
+    ["со'нный", "uyqusiragan"],
+    ["посо'льство", "elchixona"],
+    ["слу'шать", "tinglamoq; (telefonda) eshitaman"],
+    ["молодо'й", "yosh"],
+    ["глаз (мн. глаза')", "ko'z"],
+    ["зелёный", "yashil"],
+    ["ошиба'ться / ошиби'ться (но'мером)", "adashmoq (raqamni adashtirmoq)", "Прости'те, я оши'бся но'мером."],
+    ["улыба'ться / улыбну'ться", "jilmaymoq"],
+    ["стоя'ть", "turmoq"],
+    ["босико'м", "yalangoyoq"],
+    ["до'брый ве'чер", "xayrli kech"],
+    ["споко'йной но'чи", "xayrli tun"],
+    ["засыпа'ть / засну'ть", "uxlab qolmoq"],
+    ["по'здно", "kech"],
+    ["извини'те / прости'те", "kechirasiz"],
+    ["помога'ть / помо'чь", "yordam bermoq", "Помоги'те нам, пожа'луйста!"],
+    ["энциклопе'дия", "ensiklopediya"],
+    ["найти'", "topmoq"],
+    ["почему'", "nega, nima uchun"],
+    ["потому' что", "chunki"],
+    ["пожа'луйста", "iltimos; marhamat"]
+  ],
+  grammar: {
+    title: "Buyruq mayli (повелительное наклонение)",
+    intro: "Buyruq va iltimosni ifodalash uchun fe'lning <b>«они»</b> shaklidan qo'shimchani olib tashlaymiz va o'zakka qo'shimcha qo'shamiz. «Ты» uchun — <b>-й / -и / -ь</b>, «вы» (hurmat yoki ko'plik) uchun oxiriga <b>-те</b> qo'shiladi.",
+    tables: [
+      { caption: "Qanday yasaladi", head: ["Infinitiv", "они", "ты!", "вы!"], rows: [
+        ["чита'ть", "чита'-ют", "чита'**й**", "чита'**йте**"],
+        ["говори'ть", "говор-я'т", "говор**и'**", "говор**и'те**"],
+        ["спать", "сп-ят", "сп**и**", "сп**и'те**"],
+        ["позва'ть", "позов-у'т", "позов**и'**", "позов**и'те**"],
+        ["помо'чь", "помо'г-ут", "помог**и'**", "помог**и'те**"],
+        ["извини'ть", "извин-я'т", "извин**и'**", "извин**и'те**"],
+        ["есть (!)", "ед-я'т", "**ешь**", "**е'шьте**"]
+      ]}
+    ],
+    points: [
+      "O'zak unli bilan tugasa → <b>-й</b>: читай, слушай, давай.",
+      "O'zak undosh bilan tugasa va urg'u qo'shimchada bo'lsa → <b>-и</b>: спи, позови, помоги.",
+      "O'zak undosh bilan tugab, urg'u o'zakda bo'lsa → <b>-ь</b>: будь, встань, забудь.",
+      "Odobli shakl: <b>Извините / Простите</b> — notanish odamga, <b>Извини / Прости</b> — do'stga.",
+      "<b>Почему?</b> — «nega?», javob: <b>Потому что...</b> — «chunki...». Adashtirmang: <b>поэтому</b> — «shuning uchun».",
+      "<b>а то</b> — ogohlantirish: <i>Спи, а то...</i> — «Uxla, bo'lmasa...»."
+    ],
+    usage: [
+      ["Али'са, **спи** неме'дленно!", "Alisa, darhol uxla!", "спать → спи"],
+      ["Па'почка, **позови'** Ба'бу-ягу'!", "Dadajon, Baba-yagani chaqir!", "позвать → позови"],
+      ["**Прости'те**, я оши'бся но'мером.", "Kechirasiz, raqamni adashtiribman.", "Hurmat shakli (-те)"],
+      ["**Помоги'те** нам, пожа'луйста!", "Iltimos, bizga yordam bering!", "помочь → помогите"],
+      ["— **Почему'** она' голо'дная? — **Потому' что** у неё нет еды'.", "— Nega u och? — Chunki unda ovqat yo'q.", "Sabab so'rash va aytish"],
+      ["Надо спать, **а то** па'па позовёт Ба'бу-ягу'.", "Uxlash kerak, bo'lmasa dadang Baba-yagani chaqiradi.", "а то = bo'lmasa"]
+    ]
+  },
+  culture: "<b>Баба-яга</b> — rus xalq ertaklaridagi yovuz kampir. U o'rmondagi «tovuq oyoqli kulba»da yashaydi; ertaklarda uni «Баба-яга, костяная нога» (suyak oyoqli) deb atashadi. Bu taxminan o'zbek ertaklaridagi <b>yalmog'iz kampir</b>ga o'xshaydi. Marsliklar uni ensiklopediyadan topa olmagani shundan kulgili. <br><br>Telefonda: <b>Алло!</b> / <b>Слушаю!</b> — «Labbay, eshitaman». Rasmiy joylar: <i>«Посольство слушает»</i>.",
+  reading: `Уже {поздно}, десятый час. Но Алиса не {спит|спать}.
+
+— Алиса, {спи|спать}! {А то} я {позвоню|позвонить} {Бабе-яге|бабушка}, — говорит папа.
+
+— А кто это — Баба-яга? — спрашивает Алиса.
+
+Папа объясняет: Баба-яга — это {злая|злой} и {страшная|страшный} {бабушка} из {сказки|сказка}. Она живёт в {старой|старый} {избушке|избушка} {далеко} в {лесу|лес}, и она всегда {голодная|голодный}.
+
+— {Почему} голодная?
+
+— {Потому что} в избушке нет еды.
+
+Алисе так интересно, что она даже {садится|садиться} на {кровати|кровать}.
+
+— Папа, {позови|позвать} Бабу-ягу! {Пожалуйста}! Ты же {обещал|обещать}!
+
+— Хорошо, {позову|позвать}. Но ты {пожалеешь|пожалеть}.
+
+Папа {подходит|подходить} к {видеофону|видеофон} и {нажимает|нажимать} {кнопки|кнопка} {наугад}. Он думает, что никто не ответит. Но {экран} {загорается|загораться}, и {сонный} {голос} говорит: «Марсианское {посольство} {слушает|слушать}».
+
+На экране — {молодой} марсианин с {зелёными|зелёный} {глазами|глаз}.
+
+— {Простите|извините}, я {ошибся|ошибиться} номером, — говорит папа.
+
+А Алиса уже {стоит|стоять} рядом, {босиком}.
+
+— {Добрый вечер}! А Баба-яга живёт у вас? — спрашивает она.
+
+Марсианин {улыбается|улыбаться}:
+
+— {Спокойной ночи}, Алиса. Надо спать, а то папа позовёт Бабу-ягу.
+
+Наконец Алиса {засыпает|засыпать}, а папа работает. В час ночи видеофон звонит опять. На экране тот же марсианин.
+
+— {Извините}, что так поздно. {Помогите|помогать} нам, пожалуйста! Всё посольство не спит. Мы смотрели во всех {энциклопедиях|энциклопедия}. Кто такая Баба-яга? Где она живёт? Мы не можем {найти}!`,
+  questions: [
+    { t: "tf", s: "В десять часов Алиса уже спит.", a: false },
+    { t: "tf", s: "Папа хотел позвонить Бабе-яге.", a: true },
+    { t: "tf", s: "Папа попал в марсианское посольство.", a: true },
+    { t: "tf", s: "У марсианина синие глаза.", a: false, ex: "Uning ko'zlari yashil." },
+    { t: "tf", s: "Марсиане знают, кто такая Баба-яга.", a: false },
+    { t: "mc", q: "Почему Баба-яга голодная (по словам папы)?", o: ["Потому что она злая.", "Потому что в избушке нет еды.", "Потому что она живёт на Марсе."], a: 1 },
+    { t: "mc", q: "Когда марсианин позвонил второй раз?", o: ["в десять часов", "утром", "в час ночи"], a: 2 }
+  ],
+  exercises: [
+    { t: "gap", q: "Алиса, ___ немедленно! (спать)", a: ["спи"] },
+    { t: "gap", q: "Папа, ___ Бабу-ягу! (позвать)", a: ["позови"] },
+    { t: "gap", q: "___ нам, пожалуйста! (помочь, вы)", a: ["помогите"] },
+    { t: "gap", q: "___ мне сказку! (читать, ты)", a: ["читай"] },
+    { t: "gap", q: "___, я ошибся номером. (извинить, вы)", a: ["извините"] },
+    { t: "gap", q: "___ кашу, Алиса! (есть, ты)", a: ["ешь"] },
+    { t: "mc", q: "— Почему Алиса не спит? — ___ ей интересно.", o: ["Почему", "Потому что", "Поэтому"], a: 1 },
+    { t: "mc", q: "Простите, я ошибся ___.", o: ["номер", "номером", "номера"], a: 1, ex: "ошибиться чем? → номером." },
+    { t: "mc", q: "Вы сказали учителю: «___, пожалуйста».", o: ["Повтори", "Повторите", "Повторить"], a: 1 },
+    { t: "mc", q: "Спи, ___ я позову Бабу-ягу.", o: ["а то", "потому что", "почему"], a: 0 }
+  ],
+  task: {
+    type: "Gapirish (dialog)",
+    prompt: "Juftlikda dialog tuzing: siz noto'g'ri raqamga qo'ng'iroq qildingiz. Salomlashing, kimnidir so'rang, kechirim so'rang va xayrlashing. Kamida 2 ta buyruq shaklini ishlating.",
+    sample: "— Алло! Слушаю.\n— Добрый вечер! Позовите, пожалуйста, Алису.\n— Здесь нет Алисы. Это посольство.\n— Ой, простите, я ошибся номером.\n— Ничего. Спокойной ночи!\n— Спокойной ночи!"
+  }
+});
+
+LESSONS.push({
+  id: "l3", num: 3, book: "b1", page: 15, level: "A2.1",
+  ru: "Бронтя", uz: "Bronti",
+  topic: "O'tgan zamon va rod bo'yicha moslashuv",
+  intro: "Yenisey daryosi bo'yidan muz ichida million yillab saqlangan brontozavr tuxumi topiladi. Uni Moskva hayvonot bog'iga olib kelishadi va kunlardan bir kuni tuxum yoriladi. Alisa kichkina brontozavrga «Bronti» deb ism qo'yadi va uni hayotdan qutqarib qoladi.",
+  cando: [
+    "O'tgan voqealarni oddiy gaplar bilan hikoya qila olaman.",
+    "O'tgan zamon fe'lini egasining rodi va soniga moslay olaman (был / была / было / были).",
+    "Hayvonlar va ularning parvarishi haqida oddiy so'zlarni bilaman."
+  ],
+  warmup: ["Siz hayvonot bog'ida qaysi hayvonni ko'rishni yaxshi ko'rasiz?", "Kecha nima qildingiz? 2–3 gap ayting."],
+  vocab: [
+    ["яйцо'", "tuxum"],
+    ["бронтоза'вр", "brontozavr (dinozavr)"],
+    ["привози'ть / привезти'", "olib kelmoq (transportda)", "В зоопа'рк привезли' яйцо'."],
+    ["находи'ть / найти'", "topmoq", "Яйцо' нашли' тури'сты."],
+    ["тури'ст", "sayyoh"],
+    ["бе'рег (на берегу')", "qirg'oq (qirg'oqda)"],
+    ["река'", "daryo"],
+    ["кру'глый", "dumaloq"],
+    ["лёд (во льду)", "muz (muz ichida)"],
+    ["све'жий", "yangi, buzilmagan"],
+    ["весь мир", "butun dunyo"],
+    ["журнали'ст", "jurnalist"],
+    ["гости'ница", "mehmonxona"],
+    ["по'лный", "to'la"],
+    ["кварти'ра", "kvartira, xonadon"],
+    ["вздра'гивать / вздро'гнуть", "silkinmoq, titramoq"],
+    ["тре'скаться / тре'снуть", "yorilmoq, darz ketmoq"],
+    ["голова'", "bosh"],
+    ["чёрный", "qora"],
+    ["роди'ться", "tug'ilmoq"],
+    ["Как его' зову'т?", "Uning ismi nima?"],
+    ["нельзя'", "mumkin emas"],
+    ["мо'жно", "mumkin"],
+    ["дочь / до'чка", "qiz (farzand)"],
+    ["приходи'ть / прийти'", "kelmoq", "Али'са пришла' в инкуба'тор."],
+    ["ка'ждый день", "har kuni"],
+    ["расти' (рос, росла')", "o'smoq", "Бро'нтя бы'стро рос."],
+    ["павильо'н", "pavilyon (yopiq bino)"],
+    ["бассе'йн", "hovuz, basseyn"],
+    ["пла'вать", "suzmoq"],
+    ["тёплый", "iliq"],
+    ["вода'", "suv"],
+    ["есть (ем, ешь, ест)", "yemoq"],
+    ["перестава'ть / переста'ть", "(biror ishni) to'xtatmoq", "Он переста'л есть."],
+    ["лежа'ть", "yotmoq"],
+    ["врач", "shifokor"],
+    ["мочь (мог, могла')", "qila olmoq"],
+    ["узнава'ть / узна'ть", "bilib qolmoq"],
+    ["телеви'зор", "televizor"],
+    ["прибежа'ть", "yugurib kelmoq"],
+    ["приезжа'ть / прие'хать", "(transportda) kelmoq"],
+    ["рука' (в руке')", "qo'l (qo'lda)"],
+    ["бу'лка", "bulka, oq non"],
+    ["надоеда'ть / надое'сть", "joniga tegmoq, zeriktirmoq", "Тебе' надое'ли бана'ны."],
+    ["взять", "olmoq"],
+    ["спо'рить", "bahslashmoq"],
+    ["до сих пор", "hozirgacha"],
+    ["ручно'й", "qo'lga o'rgangan, xonaki"],
+    ["до'брый", "mehribon, yaxshi"],
+    ["ката'ть", "mindirib aylantirmoq"],
+    ["спина' (на спине')", "orqa, yelka (orqasida)"],
+    ["быть (был, была', бы'ло, бы'ли)", "bo'lmoq"]
+  ],
+  grammar: {
+    title: "O'tgan zamon (прошедшее время)",
+    intro: "O'tgan zamon juda oddiy yasaladi: infinitivdan <b>-ть</b> ni olib tashlab, <b>-л</b> qo'shamiz. Ammo fe'l shaxsga emas, <b>rod va songa</b> qarab o'zgaradi: erkak rodi <b>-л</b>, ayol rodi <b>-ла</b>, o'rta rod <b>-ло</b>, ko'plik <b>-ли</b>.",
+    tables: [
+      { caption: "Rod va son bo'yicha", head: ["Ega", "быть", "прийти'", "найти'"], rows: [
+        ["он, папа, Бронтя (m.)", "**был**", "**пришёл**", "**нашёл**"],
+        ["она, Алиса, мама (j.)", "**была'**", "**пришла'**", "**нашла'**"],
+        ["оно, яйцо (o'.)", "**бы'ло**", "**пришло'**", "**нашло'**"],
+        ["они, учёные (ko'pl.)", "**бы'ли**", "**пришли'**", "**нашли'**"]
+      ]},
+      { caption: "Noto'g'ri shakllar", head: ["Infinitiv", "он", "она", "они"], rows: [
+        ["расти'", "рос", "росла'", "росли'"],
+        ["мочь", "мог", "могла'", "могли'"],
+        ["есть", "ел", "е'ла", "е'ли"],
+        ["нести'", "нёс", "несла'", "несли'"]
+      ]}
+    ],
+    points: [
+      "«Я» va «ты» uchun ham rod muhim: qiz bola <i>я была</i>, o'g'il bola <i>я был</i> deydi.",
+      "<b>-ся</b> bilan tugaydigan fe'llar: <i>поссорился</i> (u — m.), <i>поссорилась</i> (u — j.), <i>поссорились</i> (ko'pl.).",
+      "Egasi aytilmagan ko'plik shakli «kimdir qildi» degan ma'noni beradi: <i>В зоопарк привезли яйцо</i> — «Hayvonot bog'iga tuxum olib kelishdi».",
+      "<b>Нельзя / можно</b> + infinitiv yoki dativ: <i>Детям сюда нельзя</i> — «Bolalarga bu yerga kirish mumkin emas»."
+    ],
+    usage: [
+      ["Яйцо' **нашли'** тури'сты на берегу' Енисе'я.", "Tuxumni Yenisey qirg'og'ida sayyohlar topishdi.", "ko'plik: нашли"],
+      ["Яйцо' **бы'ло** совсе'м све'жее.", "Tuxum mutlaqo yangi edi.", "o'rta rod: было"],
+      ["Ма'ма **была'** в Нуку'се, она' **стро'ила** стадио'н.", "Onam Nukusda edi, u stadion qurayotgandi.", "ayol rodi: была, строила"],
+      ["Али'са **пришла'** с журнали'стами.", "Alisa jurnalistlar bilan keldi.", "прийти → пришла"],
+      ["Бро'нтя бы'стро **рос**.", "Bronti tez o'sdi.", "расти → рос"],
+      ["Учёные до'лго **спо'рили**.", "Olimlar uzoq bahslashishdi.", "ko'plik: спорили"]
+    ]
+  },
+  culture: "Alisaning onasi <b>Nukus</b>da stadion qurayotgan edi! Kitob yozilgan paytda Nukus (Qoraqalpog'iston) uzoq va kam taniqli shahar edi — muallif «kelajak»da u yerda katta qurilishlar bo'lishini tasavvur qilgan. <br><br><b>Енисей</b> — Sibirdagi eng katta daryolardan biri. <b>Вечная мерзлота</b> — «abadiy muzlik», yer ming yillab muzlab yotgan joy; shuning uchun tuxum buzilmagan.",
+  reading: `В Московский {зоопарк} {привезли|привезти} {яйцо} {бронтозавра|бронтозавр}. Его {нашли|найти} {туристы|турист} на {берегу|берег} {реки|река} Енисей. Яйцо было почти {круглое|круглый}. Оно долго лежало во {льду|лёд}, поэтому {было|быть} совсем {свежее|свежий}. {Учёные|учёный} положили его в инкубатор.
+
+Скоро {весь мир} узнал об этом яйце. В Москву {приехали|приехать} учёные и {журналисты|журналист}. Все {гостиницы|гостиница} были {полные|полный}. Даже в {квартире|квартира} у Алисы жили гости: восемь учёных спали в столовой!
+
+Через сорок шесть дней яйцо {вздрогнуло|вздрогнуть} и {треснуло|треснуть}. Из него показалась маленькая {чёрная|чёрный} {голова}. {Родился|родиться} бронтозаврёнок!
+
+— Папа, {как его зовут}? — вдруг спросила Алиса.
+
+Она {пришла|прийти} в инкубатор вместе с журналистами. Детям туда было {нельзя}, но Алиса всем говорила: «Я {дочка} профессора». И её пустили.
+
+Так у малыша появилось имя — Бронтя. Алиса приходила к нему почти {каждый день}.
+
+Бронтя быстро {рос|расти}. Он жил в большом {павильоне|павильон}, ел бамбук и бананы и {плавал|плавать} в {бассейне|бассейн} с {тёплой|тёплый} {водой|вода}. Но однажды он {перестал|переставать} {есть}. Три дня он ничего не {ел|есть} и {лежал|лежать} на дне бассейна. Лучшие {врачи|врач} мира не {могли|мочь} ему помочь.
+
+Алиса {узнала|узнавать} об этом по {телевизору|телевизор} и {прибежала|прибежать} в павильон. Она перелезла через барьер и побежала к Бронте. В {руке|рука} у неё была белая {булка}.
+
+— Ешь, Бронтя! Тебе, наверно, {надоели|надоедать} бананы.
+
+И Бронтя {взял|взять} булку из её рук! Учёные {до сих пор} {спорят|спорить}, почему так случилось.
+
+Сейчас Бронтя очень большой — почти тридцать метров. Но он {ручной|ручной} и {добрый}. Он любит {катать} Алису на {спине|спина} и плавать с ней в бассейне.`,
+  questions: [
+    { t: "tf", s: "Яйцо нашли на берегу Енисея.", a: true },
+    { t: "tf", s: "Яйцо было старое и плохое.", a: false, ex: "U muzda yotgani uchun yangi edi." },
+    { t: "tf", s: "Детям можно было ходить в инкубатор.", a: false },
+    { t: "tf", s: "Бронтя три дня ничего не ел.", a: true },
+    { t: "tf", s: "Бронтя съел банан у Алисы.", a: false, ex: "U bulkani oldi." },
+    { t: "mc", q: "Через сколько дней треснуло яйцо?", o: ["через неделю", "через сорок шесть дней", "через месяц"], a: 1 },
+    { t: "mc", q: "Как Алиса попала в инкубатор?", o: ["с врачами", "с журналистами", "с мамой"], a: 1 },
+    { t: "mc", q: "Что Бронтя любит делать теперь?", o: ["спать весь день", "катать Алису на спине", "есть только бананы"], a: 1 }
+  ],
+  exercises: [
+    { t: "gap", q: "Бронтя быстро ___ . (расти)", a: ["рос"] },
+    { t: "gap", q: "Алиса ___ в зоопарк. (прийти)", a: ["пришла"] },
+    { t: "gap", q: "Яйцо ___ свежее. (быть)", a: ["было"] },
+    { t: "gap", q: "Учёные долго ___ . (спорить)", a: ["спорили"] },
+    { t: "gap", q: "Туристы ___ яйцо. (найти)", a: ["нашли"] },
+    { t: "gap", q: "Бронтя ___ булку. (взять)", a: ["взял"] },
+    { t: "mc", q: "Мама ___ в Нукусе.", o: ["был", "была", "было"], a: 1 },
+    { t: "mc", q: "Яйцо ___ .", o: ["треснул", "треснула", "треснуло"], a: 2 },
+    { t: "mc", q: "Папа и Алиса ___ .", o: ["поссорился", "поссорилась", "поссорились"], a: 2 },
+    { t: "mc", q: "Врачи не ___ помочь.", o: ["мог", "могла", "могли"], a: 2 }
+  ],
+  task: {
+    type: "Yozish",
+    prompt: "«Вчера» so'zi bilan boshlab, kecha qilgan ishlaringiz haqida 6 ta gap yozing. Kamida 4 xil fe'lni o'tgan zamonda ishlating va rodga e'tibor bering.",
+    sample: "Вчера я была в зоопарке. Я видела белых медведей и слона. Потом мы с подругой пошли в кафе. Мы ели мороженое и долго говорили. Вечером я читала книгу. Я легла спать поздно."
+  }
+});
+
+LESSONS.push({
+  id: "l4", num: 4, book: "b1", page: 20, level: "A2.1",
+  ru: "Тутексы", uz: "Tutekslar",
+  topic: "Predlojniy kelishik: где? о чём?",
+  intro: "Dadasi Alisani o'zi bilan Marsga olib boradi. Alisa bolalar internatida qolganida birdan g'oyib bo'ladi — butun Mars uni qidiradi. Topilganda esa ma'lum bo'ladiki, u tasodifan qadimgi tuteks sivilizatsiyasining binosini topib olgan.",
+  cando: [
+    "«Где?» savoliga joy nomini to'g'ri kelishikda ayta olaman (в городе, на Марсе).",
+    "«в» va «на» predloglarini farqlay olaman.",
+    "Biror narsa haqida gapira olaman: «о чём? о ком?»."
+  ],
+  warmup: ["Siz qayerlarda bo'lgansiz? Qaysi shahar yoki mamlakatda?", "Bolaligingizda adashib qolganmisiz?"],
+  vocab: [
+    ["лете'ть / полете'ть", "uchmoq / uchib ketmoq"],
+    ["конфере'нция", "konferensiya"],
+    ["брать / взять с собо'й", "o'zi bilan olmoq"],
+    ["кора'бль (м.)", "kema"],
+    ["каби'на", "kabina"],
+    ["чуть не", "sal bo'lmasa, oz qoldi"],
+    ["кра'сный", "qizil"],
+    ["го'род (в го'роде)", "shahar (shaharda)"],
+    ["пусты'ня (в пусты'не)", "cho'l (cho'lda)"],
+    ["пеще'ра", "g'or"],
+    ["оставля'ть / оста'вить", "qoldirmoq"],
+    ["интерна'т", "internat (yotoqli maktab)"],
+    ["ку'пол", "gumbaz"],
+    ["находи'ться", "joylashmoq, ...da bo'lmoq"],
+    ["настоя'щий", "haqiqiy"],
+    ["земно'й", "yerdagi, Yerga oid"],
+    ["де'рево (мн. дере'вья)", "daraxt"],
+    ["пропада'ть / пропа'сть", "yo'qolib qolmoq"],
+    ["теря'ться / потеря'ться", "adashib qolmoq"],
+    ["невозмо'жно", "imkonsiz"],
+    ["нигде'", "hech qayerda"],
+    ["иска'ть", "qidirmoq", "Её иска'ли все."],
+    ["шко'льник", "maktab o'quvchisi"],
+    ["ро'бот", "robot"],
+    ["сообще'ние", "xabar"],
+    ["скафа'ндр", "skafandr"],
+    ["кислоро'д", "kislorod"],
+    ["но'вость (ж.)", "yangilik"],
+    ["киломе'тр", "kilometr"],
+    ["попада'ть / попа'сть", "borib qolmoq, tushib qolmoq", "Как она' туда' попа'ла?"],
+    ["раке'та", "raketa"],
+    ["почто'вый", "pochta (sifat)"],
+    ["письмо'", "xat"],
+    ["залеза'ть / зале'зть", "kirib olmoq (tirmashib)"],
+    ["дверь (ж.)", "eshik"],
+    ["закрыва'ться / закры'ться", "yopilmoq"],
+    ["после'дний", "oxirgi"],
+    ["пла'кать", "yig'lamoq"],
+    ["поднима'ться / подня'ться", "ko'tarilmoq, chiqmoq"],
+    ["го'рка", "tepalik"],
+    ["ко'мната", "xona"],
+    ["ка'менный", "toshdan yasalgan"],
+    ["пирами'да", "piramida"],
+    ["дре'вний", "qadimgi"],
+    ["цивилиза'ция", "sivilizatsiya"],
+    ["журна'л", "jurnal"],
+    ["статья'", "maqola"],
+    ["фотогра'фия", "fotosurat"],
+    ["портре'т", "portret"],
+    ["знако'мый", "tanish"],
+    ["рисова'ть", "rasm chizmoq"],
+    ["ску'чно", "zerikarli"],
+    ["о (об, обо) + предл. п.", "...haqida"]
+  ],
+  grammar: {
+    title: "Predlojniy kelishik (предложный падеж)",
+    intro: "Bu kelishik ikki savolga javob beradi: <b>Где?</b> (qayerda?) — <b>в / на</b> bilan, va <b>О ком? О чём?</b> (kim / nima haqida?) — <b>о / об</b> bilan. Ko'pchilik otlar <b>-е</b> qo'shimchasini oladi.",
+    tables: [
+      { caption: "Otlar", head: ["Turi", "Bosh kelishik", "Где? / О чём?"], rows: [
+        ["m. (undosh)", "го'род, Марс", "в го'род**е**, на Ма'рс**е**"],
+        ["o'. -о", "окно'", "на окн**е'**"],
+        ["j. -а / -я", "пусты'ня, ко'мната", "в пусты'н**е**, в ко'мнат**е**"],
+        ["j. -ь", "пло'щадь, дверь", "на пло'щад**и**, в двер**и'**"],
+        ["-ия / -ие", "конфере'нция, зда'ние", "на конфере'нци**и**, в зда'ни**и**"],
+        ["ko'plik", "пеще'ры, города'", "в пеще'р**ах**, в города'**х**"]
+      ]},
+      { caption: "Sifatlar va olmoshlar", head: ["", "m. / o'.", "j.", "ko'pl."], rows: [
+        ["sifat", "в больш**о'м** го'роде", "в марсиа'нск**ой** пусты'не", "в больш**и'х** пеще'рах"],
+        ["olmosh", "о**бо мне**, о **тебе'**, о **нём**", "о **ней**", "о **нас**, о **вас**, о **них**"]
+      ]}
+    ],
+    points: [
+      "<b>в</b> — ichida (в городе, в школе, в комнате). <b>на</b> — ustida, ochiq joy yoki tadbir (на Марсе, на Земле, на улице, на конференции, на работе).",
+      "Sayyoralar va orollar ko'pincha <b>на</b> bilan: <i>на Марсе, на Луне</i>. Mamlakat va shaharlar — <b>в</b>: <i>в Узбекистане, в Ташкенте</i>.",
+      "Ba'zi m. otlar urg'uli <b>-у</b> oladi: <i>в лесу, в саду, на берегу, в году</i>.",
+      "Unli tovush oldidan <b>об</b>: <i>об Алисе, об этом</i>."
+    ],
+    usage: [
+      ["Мы бы'ли **на Ма'рсе**.", "Biz Marsda bo'ldik.", "на + -е"],
+      ["Али'са жила' **в интерна'те**.", "Alisa internatda yashadi.", "в + -е"],
+      ["Де'вочку нашли' **в пусты'не**.", "Qizchani cho'ldan topishdi.", "j. -я → -е"],
+      ["**В ко'мнате** стоя'ла ма'ленькая пирами'да.", "Xonada kichkina piramida turardi.", "joy"],
+      ["Па'па прочита'л статью' **в журна'ле**.", "Dadam jurnalda maqola o'qidi.", "joy"],
+      ["Учёные пи'шут **о тутекса'х**.", "Olimlar tutekslar haqida yozishyapti.", "о + ko'plik -ах"],
+      ["Па'па был **на конфере'нции**.", "Dadam konferensiyada edi.", "-ия → -ии"]
+    ]
+  },
+  culture: "<b>Вокруг света</b> («Dunyo bo'ylab») — 1861-yildan beri chiqib kelayotgan mashhur rus geografiya va sayohat jurnali. Kitobda dadasi tutekslar haqidagi maqolani aynan shu jurnalda o'qiydi. <br><br>Alisa piramidani «как египетская пирамида, только маленькая» deb ta'riflaydi — <b>как</b> «...dek, ...ga o'xshab» ma'nosida.",
+  reading: `Папа {полетел|лететь} на Марс на {конференцию|конференция} и {взял с собой|взять с собой} Алису. На {корабле|корабль} Алиса летала по {кабине|кабина} и {чуть не} нажала {красную|красный} кнопку.
+
+На Марсе они посмотрели {город}, были в {пустыне|пустыня} и в больших {пещерах|пещера}. Потом у папы началась работа, и он {оставил|оставлять} Алису на неделю в детском {интернате|интернат}. Интернат {находится|находиться} под большим {куполом|купол}. Там растут {настоящие|настоящий} {земные|земной} {деревья|дерево}.
+
+А на третий день Алиса {пропала|пропадать}!
+
+На Марсе {потеряться|теряться} {невозможно}. Но Алисы {нигде} не было. Её {искали|искать} все: марсиане, люди, {роботы|робот}, {школьники|школьник}. По телевизору каждые три минуты передавали {сообщение} о девочке с Земли. А {кислорода|кислород} в её {скафандре|скафандр} было только на три часа.
+
+Через два часа пришла {новость}: «Нашли! В пустыне, в двухстах {километрах|километр} от {города|город}!»
+
+Как она туда {попала|попадать}? На {почтовой|почтовый} {ракете|ракета}! Алиса хотела взять {письмо} от мамы и {залезла|залезать} в ракету. {Дверь} {закрылась|закрываться}, и ракета полетела. Алиса нажала на {последнюю|последний} кнопку, и ракета села в пустыне.
+
+Алиса немного {поплакала|плакать}, а потом {поднялась|подниматься} на {горку|горка}. В горке была дверь, а за дверью — маленькая {комната}. В {комнате|комната} стояла {каменная|каменный} {пирамида}.
+
+— Тутексы! — закричали марсиане.
+
+Тутексы — это {древняя|древний} {цивилизация} на Марсе. Учёные давно искали их дома, но не могли найти. А Алиса нашла!
+
+Через два месяца папа прочитал в {журнале|журнал} {статью|статья} о тутексах. В статье была {фотография} пирамиды с {портретом|портрет} тутекса. Портрет был очень {знакомый}...
+
+— Алиса, это ты {рисовала|рисовать}?
+
+— Да. Это ты, папа. Мне там было так {скучно}!`,
+  questions: [
+    { t: "tf", s: "Папа полетел на Марс на конференцию.", a: true },
+    { t: "tf", s: "В интернате на Марсе растут земные деревья.", a: true },
+    { t: "tf", s: "Алиса потерялась в первый день.", a: false, ex: "U uchinchi kuni yo'qoldi." },
+    { t: "tf", s: "Алиса улетела в пустыню на почтовой ракете.", a: true },
+    { t: "tf", s: "Портрет тутекса нарисовал древний художник.", a: false, ex: "Portretni Alisa chizgan — bu dadasi!" },
+    { t: "mc", q: "Зачем Алиса залезла в ракету?", o: ["Она хотела полететь домой.", "Она хотела взять письмо от мамы.", "Она искала тутексов."], a: 1 },
+    { t: "mc", q: "На сколько часов было кислорода в скафандре?", o: ["на два часа", "на три часа", "на десять часов"], a: 1 }
+  ],
+  exercises: [
+    { t: "gap", q: "Мы живём в ___ . (Москва)", a: ["москве"] },
+    { t: "gap", q: "Алиса была на ___ . (Марс)", a: ["марсе"] },
+    { t: "gap", q: "Девочку нашли в ___ . (пустыня)", a: ["пустыне"] },
+    { t: "gap", q: "Учёный работает в ___ . (лаборатория)", a: ["лаборатории"] },
+    { t: "gap", q: "Мы говорим о ___ . (ты)", a: ["тебе"] },
+    { t: "gap", q: "Книга лежит на ___ . (стол)", a: ["столе"] },
+    { t: "mc", q: "Папа был ___ конференции.", o: ["в", "на"], a: 1 },
+    { t: "mc", q: "Алиса сидела в ___ комнате.", o: ["маленькая", "маленькой", "маленьком"], a: 1 },
+    { t: "mc", q: "Грибы растут в ___ .", o: ["лесе", "лесу", "лес"], a: 1, ex: "в лесу — maxsus -у shakli." },
+    { t: "mc", q: "Статья ___ Алисе.", o: ["о", "об", "обо"], a: 1, ex: "Unli oldidan: об." }
+  ],
+  task: {
+    type: "Gapirish",
+    prompt: "Siz bo'lgan bitta shahar yoki joy haqida 5–6 gap ayting: qayerda bo'ldingiz, u yerda nima bor, nima haqida eshitdingiz. «в / на» va «о» ni ishlating.",
+    sample: "Летом я был в Самарканде. Я жил в гостинице в центре города. На площади Регистан было очень красиво. В музее я узнал много о Тимуре. Вечером мы гуляли в парке. Я часто думаю о Самарканде."
+  }
+});
+
+LESSONS.push({
+  id: "l5", num: 5, book: "b1", page: 23, level: "A2.2",
+  ru: "Застенчивый Шуша", uz: "Uyatchan Shusha",
+  topic: "Vinitelniy kelishik: кого? что?",
+  intro: "Sirius yulduzidan qaytgan ekspeditsiya Yerga g'aroyib olti oyoqli hayvonchalar — «shusha»larni olib keladi. Alisa ulardan birini sovg'a qilib oladi. Bir kuni ma'lum bo'ladiki, Shusha... gapira oladi, faqat uyalgani uchun indamay yurgan ekan.",
+  cando: [
+    "Harakat obyektini to'g'ri kelishikda ayta olaman: «Я вижу Алису / космонавта / телевизор».",
+    "Jonli va jonsiz otlarning farqini bilaman.",
+    "Uy hayvonini va uning odatlarini tasvirlay olaman."
+  ],
+  warmup: ["Uyingizda hayvon bormi? U nima yeydi, nimani yaxshi ko'radi?", "Sizga eng yoqqan sovg'a qaysi?"],
+  vocab: [
+    ["застенчи'вый", "uyatchan, tortinchoq"],
+    ["зверь (м.) / зверёк", "hayvon / hayvoncha"],
+    ["знако'мый", "tanish"],
+    ["котёнок (мн. котя'та)", "mushukcha (ko'pl. mushukchalar)"],
+    ["богомо'л", "beshikterbatar (hasharot)"],
+    ["соба'ка", "it"],
+    ["сосе'дский", "qo'shnining"],
+    ["экспеди'ция", "ekspeditsiya"],
+    ["возвраща'ться / верну'ться", "qaytmoq"],
+    ["космона'вт", "kosmonavt"],
+    ["космодро'м", "kosmodrom"],
+    ["приноси'ть / принести'", "olib kelmoq (qo'lda)"],
+    ["буке'т", "guldasta"],
+    ["ро'за", "atirgul"],
+    ["голубо'й", "havorang"],
+    ["брать / взять на ру'ки", "qo'liga ko'tarib olmoq"],
+    ["су'мка", "sumka"],
+    ["шевели'ться / зашевели'ться", "qimirlamoq / qimirlab qolmoq"],
+    ["пода'рок", "sovg'a"],
+    ["достава'ть / доста'ть", "(ichidan) olib chiqmoq"],
+    ["похо'ж на (+ вин. п.)", "...ga o'xshash", "Он похо'ж на кенгурёнка."],
+    ["ла'па", "panja, oyoq (hayvonniki)"],
+    ["стрекоза'", "ninachi"],
+    ["ми'лый", "yoqimtoy, yoqimli"],
+    ["споко'йный", "xotirjam, tinch"],
+    ["корзи'на", "savat"],
+    ["мя'со", "go'sht"],
+    ["дружи'ть", "do'st bo'lmoq"],
+    ["боя'ться (+ род. п.)", "qo'rqmoq"],
+    ["ро'стом с (+ вин. п.)", "bo'yi ... bilan barobar"],
+    ["гуля'ть", "sayr qilmoq"],
+    ["оше'йник", "bo'yinbog' (hayvon uchun)"],
+    ["обижа'ться / оби'деться", "xafa bo'lmoq"],
+    ["включа'ть / включи'ть", "yoqmoq (qurilmani)", "Включи' мне ска'зку!"],
+    ["за'нят (занята')", "band"],
+    ["проси'ть / попроси'ть", "so'ramoq, iltimos qilmoq"],
+    ["слы'шать / услы'шать", "eshitmoq"],
+    ["входи'ть / войти'", "kirmoq"],
+    ["ви'деть / уви'деть", "ko'rmoq"],
+    ["сам (сама', са'ми)", "o'zi"],
+    ["учи'ться / научи'ться", "o'rganmoq", "Я сам научи'лся."],
+    ["удивля'ться / удиви'ться", "hayron bo'lmoq"],
+    ["изуча'ть", "o'rganmoq (tadqiq qilmoq)"],
+    ["никогда' не", "hech qachon ... -ma"],
+    ["молча'ть", "jim turmoq, indamaslik"],
+    ["стесня'ться", "uyalmoq, tortinmoq"],
+    ["гла'дить", "silamoq"],
+    ["люби'ть", "sevmoq, yaxshi ko'rmoq"],
+    ["ти'хий", "sokin, past (ovoz)"]
+  ],
+  grammar: {
+    title: "Vinitelniy kelishik (винительный падеж)",
+    intro: "Bu kelishik harakatning <b>to'g'ridan-to'g'ri obyekti</b>ni bildiradi (o'zbekchadagi tushum kelishigi: <i>-ni</i>): <i>Я вижу <b>Алису</b></i> — «Men Alisa<b>ni</b> ko'ryapman». Savollar: <b>кого?</b> (jonli) va <b>что?</b> (jonsiz). Shuningdek <b>в / на</b> + vinitelniy yo'nalishni bildiradi: <i>идти в школу</i>.",
+    tables: [
+      { caption: "Otlar", head: ["Rod", "Bosh kelishik", "Vinitelniy", "Qoida"], rows: [
+        ["j. -а / -я", "Али'са, су'мка, Бро'нтя", "Али'с**у**, су'мк**у**, Бро'нт**ю**", "-а → -у, -я → -ю"],
+        ["j. -ь", "дверь, ночь", "дверь, ночь", "o'zgarmaydi"],
+        ["m. jonsiz", "телеви'зор, подаро'к", "телеви'зор, подаро'к", "o'zgarmaydi"],
+        ["m. jonli", "космона'вт, котёнок", "космона'вт**а**, котёнк**а**", "+ -а / -я"],
+        ["o'.", "письмо', мя'со", "письмо', мя'со", "o'zgarmaydi"]
+      ]},
+      { caption: "Olmoshlar va sifatlar", head: ["Bosh kel.", "Vinitelniy", "Misol"], rows: [
+        ["я / ты", "**меня' / тебя'**", "Он меня' лю'бит."],
+        ["он / она'", "**его' / её**", "Я его' ви'жу."],
+        ["мы / вы / они'", "**нас / вас / их**", "Мы их и'щем."],
+        ["кра'сная (j.)", "кра'сн**ую**", "Она' несёт кра'сную су'мку."],
+        ["большо'й (m. jonli)", "больш**о'го**", "Я ви'жу большо'го зве'ря."]
+      ]}
+    ],
+    points: [
+      "<b>Shusha</b> va <b>Bronti</b> erkak jinsidagi qahramonlar, lekin -а / -я bilan tugaydi — ular ham ayol rodidagi otlardek o'zgaradi: <i>Шушу, Бронтю</i>. <i>Папа → папу</i> ham shunday.",
+      "Jonli erkak otlarda vinitelniy = roditelniy: <i>вижу космонавта, люблю кота</i>.",
+      "Fe'llar: <i>видеть, любить, гладить, включить, взять, просить, изучать</i> — vinitelniy talab qiladi.",
+      "<b>Бояться</b> esa roditelniy bilan: <i>боялся богомола</i> (6-darsga qarang)."
+    ],
+    usage: [
+      ["Али'са принесла' **буке'т** голубы'х роз.", "Alisa havorang atirgullardan guldasta olib keldi.", "m. jonsiz — o'zgarmaydi"],
+      ["Полоско'в взял **Али'су** на ру'ки.", "Poloskov Alisani qo'liga ko'tarib oldi.", "-а → -у"],
+      ["Али'са **гла'дит Шу'шу**.", "Alisa Shushani silayapti.", "-а → -у"],
+      ["Па'па смотре'л **телеви'зор**.", "Dadam televizor ko'rdi.", "jonsiz"],
+      ["Ви'дишь, он **меня'** уже лю'бит.", "Ko'rdingmi, u meni allaqachon yaxshi ko'radi.", "я → меня"],
+      ["Шу'ша сам **включи'л микрофи'льм**.", "Shusha mikrofilmni o'zi yoqdi.", "m. jonsiz"],
+      ["Учёные изуча'ют **шуш**, но ни оди'н шу'ша не говори'л.", "Olimlar shushalarni o'rganishadi, lekin birorta shusha gapirmagan.", "ko'plik jonli → -"]
+    ]
+  },
+  culture: "<b>Доктор Айболит</b> — Korney Chukovskiy ertagidagi hayvonlarni davolaydigan mehribon shifokor. Rus bolalari uni xuddi o'zbek bolalari «Zumrad va Qimmat»ni bilgandek yaxshi bilishadi. <br><br><b>Сириус</b> — tungi osmondagi eng yorqin yulduz.",
+  reading: `У Алисы много {знакомых|знакомый} {зверей|зверь}: два {котёнка|котёнок}, марсианский {богомол}, бронтозавр Бронтя и {соседская|соседский} {собака} Рекс. А потом у неё появился Шуша.
+
+Когда на Землю {вернулась|возвращаться} {экспедиция} с Сириуса, Алиса пришла на {космодром}. Она {принесла|приносить} {космонавту|космонавт} Полоскову большой {букет} голубых {роз|роза}. Полосков {взял|взять на руки} девочку на руки.
+
+Вечером Алиса пришла домой с красной {сумкой|сумка}. Вдруг сумка {зашевелилась|шевелиться}.
+
+— Что это? — спросил папа.
+
+— Это {подарок} от Полоскова. Это Шуша!
+
+Из сумки Алиса {достала|доставать} маленького {зверька|зверёк}. Он был {похож на} кенгурёнка, но у него было шесть {лап|лапа} и большие глаза, как у {стрекозы|стрекоза}.
+
+Шуши — {милые|милый} и {спокойные|спокойный} звери с планеты у Сириуса. Космонавты нашли их на корабле, когда летели домой.
+
+Шуша жил в {корзине|корзина} около кровати Алисы. Он не ел {мяса|мясо}, {дружил|дружить} с котятами и {боялся|бояться} богомола. Он быстро рос и скоро стал {ростом с} Алису. Они вместе {гуляли|гулять} в саду, и Алиса никогда не надевала на него {ошейник}: «Он {обидится|обижаться}!»
+
+Однажды вечером Алиса не хотела спать и {просила|просить} папу {включить|включать} ей сказку про доктора Айболита. Но папа был {занят}.
+
+— Не хочешь — я Шушу {попрошу|просить}, — сказала Алиса.
+
+Через минуту папа {услышал|слышать} сказку. Он {вошёл|входить} в комнату и {увидел|видеть}: Шуша {сам} включил микрофильм!
+
+— Извините, — вдруг сказал Шуша {тихим|тихий} голосом. — Я сам {научился|учиться}. Это нетрудно.
+
+Папа очень {удивился|удивляться}. Учёные {изучают|изучать} шуш, но ни один шуша {никогда не} говорил!
+
+— Почему же вы так долго {молчали|молчать}?
+
+— Он {стеснялся|стесняться}, — ответила Алиса.`,
+  questions: [
+    { t: "tf", s: "Алиса подарила космонавту букет роз.", a: true },
+    { t: "tf", s: "У Шуши четыре лапы.", a: false, ex: "Shushaning oltita oyog'i bor." },
+    { t: "tf", s: "Шуша ел много мяса.", a: false },
+    { t: "tf", s: "Шуша боялся богомола.", a: true },
+    { t: "tf", s: "Шуша сам включил микрофильм.", a: true },
+    { t: "mc", q: "На кого похож Шуша?", o: ["на котёнка", "на кенгурёнка", "на собаку"], a: 1 },
+    { t: "mc", q: "Почему Шуша долго молчал?", o: ["Он не умел говорить.", "Он стеснялся.", "Он был болен."], a: 1 }
+  ],
+  exercises: [
+    { t: "gap", q: "Алиса любит ___ . (Шуша)", a: ["шушу"] },
+    { t: "gap", q: "Полосков взял ___ на руки. (Алиса)", a: ["алису"] },
+    { t: "gap", q: "Я вижу ___ . (космонавт)", a: ["космонавта"] },
+    { t: "gap", q: "Папа смотрит ___ . (телевизор)", a: ["телевизор"] },
+    { t: "gap", q: "Шуша любит ___ . (я)", a: ["меня"] },
+    { t: "gap", q: "Алиса гладит ___ . (котёнок)", a: ["котёнка", "котенка"] },
+    { t: "mc", q: "Алиса несёт ___ сумку.", o: ["красная", "красную", "красной"], a: 1 },
+    { t: "mc", q: "Мы ищем ___ .", o: ["Бронтя", "Бронтю", "Бронте"], a: 1 },
+    { t: "mc", q: "Космонавт любит ___ .", o: ["её", "ей", "она"], a: 0 },
+    { t: "mc", q: "Алиса пошла ___ .", o: ["в зоопарке", "в зоопарк", "зоопарк"], a: 1, ex: "Yo'nalish: в + vinitelniy." }
+  ],
+  task: {
+    type: "Yozish",
+    prompt: "O'zingizning (yoki orzuyingizdagi) uy hayvoningizni tasvirlang: u kimga o'xshaydi, nimani yaxshi ko'radi, nimadan qo'rqadi, siz u bilan nima qilasiz. 6 gap, vinitelniy kelishikni ishlating.",
+    sample: "У меня есть кот. Его зовут Барсик. Он похож на маленького тигра. Барсик любит молоко и рыбу. Он боится собаки соседа. Каждый вечер я глажу Барсика, и он тихо мурлычет."
+  }
+});
+
+LESSONS.push({
+  id: "l6", num: 6, book: "b1", page: 29, level: "A2.2",
+  ru: "Об одном привидении", uz: "Bir arvoh haqida",
+  topic: "Roditelniy kelishik: нет кого? чего? у кого?",
+  intro: "Yozda Alisa va dadasi dala hovlida yashashadi. Alisaning aytishicha, bog'dagi eski olma daraxti tagida arvoh yashaydi. Dadasi kuladi — toki o'z ko'zi bilan havorang soyani ko'rmaguncha. Arvoh esa yordam so'rab xat yozib qo'ygan ekan.",
+  cando: [
+    "Biror narsaning yo'qligini ayta olaman: «У меня нет бумаги».",
+    "Kimdadir nima borligini ayta olaman: «У Алисы есть гербарий».",
+    "Otlarning grammatik rodini (m., j., o'.) aniqlay olaman."
+  ],
+  warmup: ["Siz arvohlarga ishonasizmi?", "Yozni qayerda o'tkazishni yaxshi ko'rasiz: shahardami yoki qishloqdami?"],
+  vocab: [
+    ["ле'то / ле'том", "yoz / yozda"],
+    ["да'ча (на да'че)", "dala hovli (dala hovlida)"],
+    ["гриб (мн. грибы')", "qo'ziqorin"],
+    ["ма'льчик", "o'g'il bola"],
+    ["отнима'ть / отня'ть", "tortib olmoq"],
+    ["игру'шка", "o'yinchoq"],
+    ["близнецы'", "egizaklar"],
+    ["привиде'ние", "arvoh"],
+    ["сад (в саду')", "bog' (bog'da)"],
+    ["я'блоня", "olma daraxti"],
+    ["ве'рить / пове'рить (в + вин. п.)", "ishonmoq", "Я ве'рю в привиде'ния."],
+    ["терра'са", "ayvon, terrasa"],
+    ["ма'нная ка'ша", "manniy bo'tqa"],
+    ["гото'вить / пригото'вить", "tayyorlamoq, pishirmoq"],
+    ["род", "rod (grammatik jins)"],
+    ["темно'", "qorong'i"],
+    ["тень (ж.)", "soya"],
+    ["во'здух (по во'здуху)", "havo (havoda)"],
+    ["плыть / поплы'ть", "suzmoq, suzib ketmoq"],
+    ["бежа'ть / побежа'ть", "yugurmoq / yugurib ketmoq"],
+    ["вниз", "pastga"],
+    ["исчеза'ть / исче'знуть", "g'oyib bo'lmoq"],
+    ["ве'тер (род. п. ве'тра)", "shamol"],
+    ["ме'дленно", "sekin"],
+    ["листо'к", "varaqcha"],
+    ["бума'га", "qog'oz"],
+    ["запи'ска", "xatcha, yozuv"],
+    ["профе'ссор", "professor"],
+    ["о'пыт", "tajriba, eksperiment"],
+    ["перемести'ть", "ko'chirmoq, joyini o'zgartirmoq"],
+    ["лаборато'рия", "laboratoriya"],
+    ["про'бки (электри'ческие)", "elektr saqlagichlari («probka»lar)"],
+    ["перегора'ть / перегоре'ть", "kuyib qolmoq (elektr)"],
+    ["эне'ргия", "energiya"],
+    ["хвата'ть / хвати'ть (+ род. п.)", "yetmoq, yetarli bo'lmoq", "Эне'ргии не хвати'ло."],
+    ["уходи'ть / уйти'", "ketmoq"],
+    ["посыла'ть / посла'ть", "jo'natmoq"],
+    ["телегра'мма", "telegramma"],
+    ["чини'ть / почини'ть", "tuzatmoq"],
+    ["ста'нция", "bekat, stansiya"],
+    ["япо'нец", "yapon (erkak)"],
+    ["пока'зывать / показа'ть", "ko'rsatmoq"],
+    ["колле'кция", "to'plam, kolleksiya"],
+    ["ба'бочка", "kapalak"],
+    ["спаса'ть / спасти'", "qutqarmoq"],
+    ["О'чень прия'тно познако'миться!", "Tanishganimdan juda xursandman!"],
+    ["у (+ род. п.) есть / нет", "...da bor / yo'q", "У меня' нет бума'ги."],
+    ["без (+ род. п.)", "...siz"],
+    ["из (+ род. п.)", "...dan (ichidan, -lik)"],
+    ["от (+ род. п.)", "...dan (yonidan, kimdan)"]
+  ],
+  grammar: {
+    title: "Roditelniy kelishik (родительный падеж)",
+    intro: "Roditelniy kelishik (o'zbekchada ko'pincha qaratqich <i>-ning</i> yoki chiqish <i>-dan</i> ma'nosiga yaqin) juda ko'p ishlatiladi: <b>нет</b> + roditelniy (yo'qlik), <b>у кого?</b> (egalik), predloglardan keyin: <b>из, от, до, без, около, для</b>, va miqdorni bildiruvchi so'zlardan keyin: <i>много грибов</i>.",
+    tables: [
+      { caption: "Birlik", head: ["Rod", "Bosh kel.", "Roditelniy", "Qoida"], rows: [
+        ["m.", "сад, ве'тер, Токио", "са'д**а**, ве'тр**а**", "+ -а / -я"],
+        ["o'.", "привиде'ние, мя'со", "привиде'ни**я**, мя'с**а**", "-о → -а, -е → -я"],
+        ["j. -а", "бума'га, я'блоня", "бума'г**и**, я'блон**и**", "-а → -ы / -и*"],
+        ["j. -ь", "тень, эне'ргия", "те'н**и**, эне'рги**и**", "→ -и"],
+        ["olmosh", "я, ты, он, она'", "у **меня'**, у **тебя'**, у **него'**, у **неё**", "у + н-"]
+      ]},
+      { caption: "Ko'plik (miqdor bilan)", head: ["Bosh kel. ko'pl.", "Roditelniy ko'pl.", "Misol"], rows: [
+        ["грибы'", "гриб**о'в**", "мно'го грибо'в"],
+        ["игру'шки", "игру'ш**ек**", "нет игру'шек"],
+        ["привиде'ния", "привиде'н**ий**", "привиде'ний не быва'ет"],
+        ["де'ти", "дет**е'й**", "мно'го дете'й"]
+      ]}
+    ],
+    points: [
+      "* <b>г, к, х, ж, ш, ч, щ</b> dan keyin <b>-ы</b> emas, <b>-и</b> yoziladi: <i>бумаги, книги</i>.",
+      "Chet so'zlar (-о, -и bilan tugaganlar) o'zgarmaydi: <i>из Токио, без радио, у Коли — lekin Коля o'zgaradi!</i>",
+      "O'tgan zamonda: <i>У него <b>не было</b> бумаги</i> (doim o'rta rod <b>было</b>). Kelasida: <i>не будет</i>.",
+      "Rod qoidasi: <b>-о, -е, -ие</b> bilan tugaydigan otlar o'rta rodda: <i>привидение — оно, моё</i>. Alisa «мой привидений» deb xato qiladi!"
+    ],
+    usage: [
+      ["У приви'дения **не' было бума'ги**.", "Arvohda qog'oz yo'q edi.", "нет / не было + rod."],
+      ["Приви'дений **не быва'ет**.", "Arvohlar bo'lmaydi.", "ko'plik roditelniy"],
+      ["Он не мо'жет уйти' **от я'блони**.", "U olma daraxtidan uzoqlasha olmaydi.", "от + -и"],
+      ["Профе'ссор Кура'ки — **из То'кио**.", "Professor Kuraki Tokiodan.", "Токио o'zgarmaydi"],
+      ["**У Али'сы** есть колле'кция ба'бочек.", "Alisada kapalaklar kolleksiyasi bor.", "у + -ы; бабочек — ko'pl."],
+      ["Эне'ргии **не хвати'ло**.", "Energiya yetmadi.", "хватить + rod."],
+      ["В лесу' **мно'го грибо'в**.", "O'rmonda qo'ziqorin ko'p.", "много + rod. ko'pl."]
+    ]
+  },
+  culture: "<b>Дача</b> — rus hayotining muhim qismi: shahar tashqarisidagi dala hovli, u yerda yozni o'tkazishadi, qo'ziqorin terishadi. <b>Внуково</b> — Moskva yaqinidagi dacha joyi (hozir u yerda aeroport ham bor). <br><br><b>Подберёзовик</b> va <b>подосиновик</b> — qayin va tog'terak ostida o'sadigan qo'ziqorinlar; nomlari daraxt nomidan: <i>под + берёза</i>.",
+  reading: `{Летом|лето} Алиса с папой живут на {даче|дача} во Внукове. Рядом лес, а в лесу много {грибов|гриб}.
+
+На даче жили разные люди: соседский {мальчик} Коля, который всегда {отнимал|отнимать} у детей {игрушки|игрушка}, его бабушка, трое {близнецов|близнецы}... И ещё {привидение}. Оно жило в {саду|сад}, под старой {яблоней|яблоня}. В привидение {верили|верить} только Алиса и Колина бабушка.
+
+Однажды вечером папа и Алиса сидели на {террасе|терраса}. Робот {готовил|готовить} {манную кашу|манная каша}. Алиса сказала:
+
+— Сегодня он придёт. Мой привидений.
+
+— Не «мой привидений», а «моё привидение», — сказал папа. — Это слово среднего {рода|род}.
+
+Когда стало {темно}, Алиса пошла в сад. Папа смотрел на неё с террасы. И вдруг от яблони отошла голубая {тень} и {поплыла|плыть} к Алисе по {воздуху|воздух}!
+
+Папа быстро {побежал|бежать} {вниз}. Тень сразу {исчезла|исчезать}.
+
+— Папа, что ты сделал! — плакала Алиса. — Он боится {ветра|ветер}. К нему надо подходить {медленно}!
+
+У Алисы в руке был {листок}. Это было письмо от привидения. У привидения не было {бумаги|бумага}, и Алиса дала ему папину {записку|записка}.
+
+В письме было написано: «Я {профессор} Кураки из Токио. Я делал {опыт}: хотел {переместить} себя в другое место. Но в {лаборатории|лаборатория} {перегорели|перегорать} {пробки}, и {энергии|энергия} не {хватило|хватать}. Теперь я живу под яблоней и не могу {уйти|уходить}. Пожалуйста, {пошлите|посылать} {телеграмму|телеграмма} в Токио. Пусть {починят|чинить} пробки!»
+
+Папа сразу побежал на {станцию|станция} и позвонил в Токио.
+
+Когда он вернулся, на террасе сидел маленький {японец} и ел манную кашу. Алиса {показывала|показывать} ему свою {коллекцию|коллекция} {бабочек|бабочка}.
+
+— Вы и ваша дочь {спасли|спасать} мне жизнь, — сказал профессор Кураки.
+
+— Ну что, папа, теперь ты веришь в привидения?
+
+— Верю. {Очень приятно познакомиться}!`,
+  questions: [
+    { t: "tf", s: "Летом Алиса живёт на даче.", a: true },
+    { t: "tf", s: "В привидение верили все соседи.", a: false, ex: "Faqat Alisa va Kolyaning buvisi ishonardi." },
+    { t: "tf", s: "Привидение боится ветра.", a: true },
+    { t: "tf", s: "Привидение — это японский профессор.", a: true },
+    { t: "tf", s: "Папа послал телеграмму в Париж.", a: false, ex: "Tokioga." },
+    { t: "mc", q: "Почему профессор стал привидением?", o: ["Он был очень старый.", "В лаборатории перегорели пробки.", "Он потерялся в лесу."], a: 1 },
+    { t: "mc", q: "Что ел профессор на террасе?", o: ["грибы", "манную кашу", "яблоки"], a: 1 }
+  ],
+  exercises: [
+    { t: "gap", q: "У меня нет ___ . (бумага)", a: ["бумаги"] },
+    { t: "gap", q: "У ___ есть гербарий. (Алиса)", a: ["алисы"] },
+    { t: "gap", q: "Профессор не может уйти от ___ . (яблоня)", a: ["яблони"] },
+    { t: "gap", q: "Папа пошёл в сад без ___ . (фонарь)", a: ["фонаря"] },
+    { t: "gap", q: "Он приехал из ___ . (Япония)", a: ["японии"] },
+    { t: "gap", q: "Привидение боится ___ . (ветер)", a: ["ветра"] },
+    { t: "mc", q: "Привидение — какого рода?", o: ["мужского", "женского", "среднего"], a: 2 },
+    { t: "mc", q: "У ___ нет игрушек.", o: ["Коля", "Коли", "Колю"], a: 1 },
+    { t: "mc", q: "У меня ___ брата.", o: ["нет", "не", "без"], a: 0 },
+    { t: "mc", q: "Вчера у привидения не ___ бумаги.", o: ["был", "была", "было"], a: 2 }
+  ],
+  task: {
+    type: "Gapirish",
+    prompt: "Xonangizni yoki uyingizni tasvirlang: unda nima bor va nima yo'q? «У меня есть...», «У меня нет...», «много...» qurilmalarini ishlating (6 gap).",
+    sample: "У меня есть маленькая комната. В комнате есть стол, кровать и шкаф. У меня много книг. Но у меня нет телевизора. И у меня нет кота, а я очень хочу кота. Без музыки я не могу жить!"
+  }
+});
+
+LESSONS.push({
+  id: "l7", num: 7, book: "b1", page: 33, level: "A2.2",
+  ru: "Пропавшие гости", uz: "Yo'qolgan mehmonlar",
+  topic: "Harakat fe'llari: идти — ходить, ехать — ездить",
+  intro: "Yerga juda uzoq yulduzdan birinchi marta mehmonlar — labutsillar uchib keladi. Ular Moskva yaqiniga qo'nadi-yu, g'oyib bo'ladi. Butun dunyo ularni qidiradi. Mehmonlarni esa... Alisa qulupnay savatchasida olib kelgan bo'lib chiqadi.",
+  cando: [
+    "Bir yo'nalishli va ko'p yo'nalishli harakat fe'llarini farqlay olaman (идти / ходить).",
+    "Piyoda va transportda harakatni to'g'ri fe'l bilan ayta olaman (идти / ехать).",
+    "При-, у-, вы- old qo'shimchali fe'llarni tushunaman (прилететь, улететь, выйти)."
+  ],
+  warmup: ["Siz ishga yoki o'qishga qanday borasiz: piyodami, avtobusdami?", "Agar o'zga sayyoraliklar kelsa, ularni qayerda kutib olardingiz?"],
+  vocab: [
+    ["гость (мн. го'сти)", "mehmon"],
+    ["пропа'вший", "yo'qolgan, g'oyib bo'lgan"],
+    ["звезда'", "yulduz"],
+    ["издалека'", "uzoqdan"],
+    ["украша'ть / укра'сить", "bezamoq"],
+    ["цветы'", "gullar"],
+    ["стихи'", "she'rlar"],
+    ["жить", "yashamoq"],
+    ["сообща'ть / сообщи'ть", "xabar bermoq"],
+    ["приземля'ться / приземли'ться", "yerga qo'nmoq"],
+    ["недалеко' от (+ род. п.)", "...dan uncha uzoq emas"],
+    ["связь (ж.)", "aloqa"],
+    ["прерыва'ться / прерва'ться", "uzilmoq"],
+    ["маши'на", "mashina"],
+    ["е'хать / е'здить", "(transportda) bormoq — bir yo'nalish / ko'p yo'nalish", "Мы е'дем на да'чу. Мы ча'сто е'здим на да'чу."],
+    ["идти' / ходи'ть", "piyoda bormoq — bir yo'nalish / ko'p yo'nalish", "Я иду' домо'й. Я ка'ждый день хожу' в шко'лу."],
+    ["лете'ть / лета'ть", "uchmoq — bir yo'nalish / ko'p yo'nalish"],
+    ["бежа'ть / бе'гать", "yugurmoq — bir yo'nalish / ko'p yo'nalish"],
+    ["прилета'ть / прилете'ть", "uchib kelmoq"],
+    ["улета'ть / улете'ть", "uchib ketmoq"],
+    ["приходи'ть / прийти'", "kelmoq (piyoda)"],
+    ["выходи'ть / вы'йти", "chiqmoq"],
+    ["вертолёт", "vertolyot"],
+    ["над (+ твор. п.)", "...ustida"],
+    ["по'ле", "dala"],
+    ["кора'бль", "kema"],
+    ["невиди'мый", "ko'rinmas"],
+    ["сосе'д (мн. сосе'ди)", "qo'shni"],
+    ["держа'ться за ру'ки", "qo'l ushlashmoq"],
+    ["ра'дио", "radio"],
+    ["корзи'нка", "savatcha"],
+    ["земляни'ка", "yertut, o'rmon qulupnayi"],
+    ["заче'м", "nima uchun, nimaga"],
+    ["теря'ться / потеря'ться", "adashib qolmoq"],
+    ["ждать", "kutmoq"],
+    ["испуга'ться", "qo'rqib ketmoq"],
+    ["поля'нка / поля'на", "o'rmon ichidagi ochiq joy, o'tloq"],
+    ["стра'нный", "g'alati"],
+    ["оставля'ть / оста'вить себе'", "o'ziga olib qolmoq"],
+    ["я'года", "rezavor meva"],
+    ["челове'чек", "odamcha (kichkina odam)"],
+    ["гно'мик", "gnomcha (ertakdagi mitti odam)"],
+    ["трава'", "o't, maysa"],
+    ["высо'кий", "baland"],
+    ["встре'ча", "uchrashuv, kutib olish"],
+    ["пе'рвый", "birinchi"],
+    ["Че'стное сло'во!", "Rostini aytaman! Chin so'zim!"]
+  ],
+  grammar: {
+    title: "Harakat fe'llari (глаголы движения)",
+    intro: "Rus tilida «bormoq»ning bir nechta fe'li bor. Avvalo: <b>piyoda</b> (идти) yoki <b>transportda</b> (ехать). Keyin har bir fe'lning ikki shakli bor: <b>bir yo'nalishli</b> — hozir, aniq bir tomonga (идти, ехать, лететь, бежать) va <b>ko'p yo'nalishli</b> — takroriy, umuman, borib-kelish (ходить, ездить, летать, бегать).",
+    tables: [
+      { caption: "Juftliklar (hozirgi zamon)", head: ["", "Bir yo'nalish → (hozir)", "Ko'p yo'nalish ↔ (doim, umuman)"], rows: [
+        ["piyoda", "идти': ид**у'**, ид**ёшь**, ид**у'т**", "ходи'ть: хо**жу'**, хо'д**ишь**, хо'д**ят**"],
+        ["transportda", "е'хать: е'д**у**, е'д**ешь**, е'д**ут**", "е'здить: е'з**жу**, е'зд**ишь**, е'зд**ят**"],
+        ["uchib", "лете'ть: ле**чу'**, лет**и'шь**, лет**я'т**", "лета'ть: лета'**ю**, лета'**ешь**, лета'**ют**"],
+        ["yugurib", "бежа'ть: бег**у'**, беж**и'шь**, бег**у'т**", "бе'гать: бе'га**ю**, бе'га**ешь**, бе'га**ют**"]
+      ]},
+      { caption: "Old qo'shimchalar", head: ["Old qo'sh.", "Ma'nosi", "Misol"], rows: [
+        ["при-", "kelmoq", "прилете'ть, прийти', прие'хать"],
+        ["у-", "ketmoq", "улете'ть, уйти', уе'хать"],
+        ["вы-", "chiqmoq", "вы'йти, вы'лететь"],
+        ["по-", "yo'lga chiqmoq (boshlash)", "пойти', поле'теть, побежа'ть"]
+      ]}
+    ],
+    points: [
+      "<b>Hozir, shu daqiqada</b> bir tomonga → bir yo'nalishli: <i>Смотри, вертолёт <b>летит</b> к лесу!</i>",
+      "<b>Har kuni, tez-tez</b> → ko'p yo'nalishli: <i>Каждое лето мы <b>ездим</b> на дачу.</i>",
+      "<b>Borib keldi</b> (o'tgan zamonda) → ko'p yo'nalishli: <i>Вчера я <b>ходил</b> в лес</i> = borib, qaytib keldim.",
+      "Umumiy qobiliyat → ko'p yo'nalishli: <i>Птицы <b>летают</b>. Ребёнок уже <b>ходит</b>.</i>",
+      "Old qo'shimcha qo'shilsa, juftlik aspekt juftligiga aylanadi: <i>прилетать</i> (НСВ) — <i>прилететь</i> (СВ)."
+    ],
+    usage: [
+      ["Лабуци'льцы **лете'ли** на Зе'млю.", "Labutsillar Yerga uchib kelayotgan edi.", "bir yo'nalish, jarayon"],
+      ["Го'сти **прилете'ли** и потеря'лись.", "Mehmonlar uchib kelishdi va adashib qolishdi.", "при- = kelmoq"],
+      ["Вертолёты **лета'ли** над поля'ми и леса'ми.", "Vertolyotlar dalalar va o'rmonlar ustida uchib yurishdi.", "har tomonga"],
+      ["Сосе'ди **ходи'ли** по ле'су.", "Qo'shnilar o'rmon bo'ylab yurishdi.", "har tomonga"],
+      ["Сотни маши'н **пое'хали** иска'ть госте'й.", "Yuzlab mashinalar mehmonlarni qidirishga yo'l oldi.", "по- = yo'lga chiqish"],
+      ["Заче'м все **бе'гают**?", "Nega hamma yuguryapti?", "turli tomonga"],
+      ["Они' **пришли'** со мной.", "Ular men bilan kelishdi.", "прийти = kelmoq"]
+    ]
+  },
+  culture: "<b>Шереметьево</b> va <b>Внуково</b> — bugun Moskvaning haqiqiy aeroportlari. Muallif kelajakda u yerda <b>космодром</b> (kosmodrom) bo'lishini tasavvur qilgan. <br><br>«<b>Каравай, каравай</b>» — rus bolalarining tug'ilgan kunda o'ynaladigan davra o'yini: hamma qo'l ushlashib aylanadi. Qo'shnilar ko'rinmas mehmonlarni xuddi shunday qidirishadi.",
+  reading: `Земля {ждала|ждать} {гостей|гость}. К нам {летели|лететь} лабуцильцы — жители очень далёкой {звезды|звезда}. Ещё никогда гости не {прилетали|прилетать} к нам так {издалека}.
+
+Космодром {украсили|украшать} {цветами|цветы}, поэты выучили {стихи}, журналисты {жили|жить} прямо в буфете космодрома. Все ждали.
+
+9 марта лабуцильцы {сообщили|сообщать}: «Мы {приземлились|приземляться} {недалеко от} Москвы». И потом {связь} {прервалась|прерываться}.
+
+Сотни {машин|машина} и тысячи людей {поехали|ехать} искать гостей. {Вертолёты|вертолёт} {летали|летать} над {полями|поле} и лесами. Но {корабль} никто не нашёл. Его никто не видел!
+
+«Может быть, гости {невидимые|невидимый}?» — думали люди. {Соседи|сосед} папы {ходили|ходить} по лесу, {держались за руки|держаться за руки} и искали невидимых гостей.
+
+Потом по {радио} пришло новое сообщение от лабуцильцев: «Мы в лесу. Ищем людей. Почему никто не {приходит|приходить}?»
+
+В этот момент на террасу {пришла|прийти} Алиса с {корзинкой|корзинка} {земляники|земляника}.
+
+— {Зачем} все {бегают|бегать}? — спросила она.
+
+— Лабуцильцы {потерялись|теряться}, — ответил папа. — Они {прилетели|прилетать} и ждут людей в лесу.
+
+— В лесу? Вот хорошо! А я {испугалась|испугаться}, что я их видела. Но я была не в лесу, а на {полянке|полянка}. {Честное слово}!
+
+— Алиса! Кого ты видела?
+
+— Они не {странные|странный}. Они пришли со мной. Я хотела {оставить себе|оставлять} их.
+
+И Алиса показала корзинку. На {ягоде|ягода} земляники сидели два маленьких {человечка|человечек} в скафандрах!
+
+— Я думала, что это {гномики|гномик} из сказки, — тихо сказала Алиса.
+
+Для таких маленьких гостей даже {трава} была как {высокий} лес.
+
+Так прошла {первая|первый} {встреча} людей с лабуцильцами.`,
+  questions: [
+    { t: "tf", s: "Лабуцильцы прилетели с очень далёкой звезды.", a: true },
+    { t: "tf", s: "Корабль лабуцильцев быстро нашли.", a: false },
+    { t: "tf", s: "Люди думали, что гости невидимые.", a: true },
+    { t: "tf", s: "Алиса нашла гостей в поле.", a: false, ex: "O'rmondagi polyankada." },
+    { t: "tf", s: "Гости были очень маленькие.", a: true },
+    { t: "mc", q: "Что было в корзинке у Алисы?", o: ["грибы", "земляника и два человечка", "цветы"], a: 1 },
+    { t: "mc", q: "Кем Алиса считала гостей?", o: ["роботами", "гномиками из сказки", "марсианами"], a: 1 }
+  ],
+  exercises: [
+    { t: "mc", q: "Смотри! Вертолёт ___ к лесу.", o: ["летит", "летает"], a: 0, ex: "Hozir, bir tomonga." },
+    { t: "mc", q: "Птицы умеют ___ .", o: ["лететь", "летать"], a: 1, ex: "Umumiy qobiliyat." },
+    { t: "mc", q: "Вчера Алиса ___ в лес за земляникой (и вернулась).", o: ["шла", "ходила"], a: 1 },
+    { t: "mc", q: "Гости ___ на Землю 9 марта.", o: ["прилетели", "улетели"], a: 0 },
+    { t: "mc", q: "Каждое лето мы ___ на дачу.", o: ["едем", "ездим"], a: 1 },
+    { t: "mc", q: "Когда я ___ домой, я увидел соседей.", o: ["шёл", "ходил"], a: 0, ex: "Bir yo'nalishli jarayon." },
+    { t: "gap", q: "Сейчас я ___ домой. (идти)", a: ["иду"] },
+    { t: "gap", q: "Мы ___ на дачу на монорельсе. (ехать, сейчас)", a: ["едем"] },
+    { t: "gap", q: "Ты ___ каждое утро? (бегать)", a: ["бегаешь"] },
+    { t: "gap", q: "Папа каждый день ___ на работу. (ездить)", a: ["ездит"] }
+  ],
+  task: {
+    type: "Yozish",
+    prompt: "Oddiy kuningiz haqida 6 gap yozing: qayerga piyoda, qayerga transportda borasiz; bugun hozir qayerga ketyapsiz; kecha qayerga borib keldingiz. Kamida 4 ta harakat fe'lini ishlating.",
+    sample: "Каждый день я хожу в университет пешком. Иногда я езжу на метро. Сейчас я иду в библиотеку. Вчера я ходил в кино с другом. Летом мы ездим в горы. Мой брат часто летает в Москву."
+  }
+});
+
+LESSONS.push({
+  id: "l8", num: 8, book: "b1", page: 38, level: "A2.2",
+  ru: "Свой человек в прошлом", uz: "O'tmishdagi o'z odamimiz",
+  topic: "Fe'l aspekti va kelasi zamon",
+  intro: "Olimlar uyida vaqt mashinasi sinovi bo'lyapti. Ko'ngilli kerak bo'lganda, sahnaga albatta Alisa chiqadi va... XX asrga uchib ketadi! U yerda uni bir yozuvchi kutib oladi va sovg'aga o'z kitobini beradi.",
+  cando: [
+    "Tugallangan va tugallanmagan harakatni farqlay olaman (читал / прочитал).",
+    "Kelasi zamonni ikki usulda yasay olaman (буду читать / прочитаю).",
+    "Rejalarim va va'dalarim haqida gapira olaman."
+  ],
+  warmup: ["Agar vaqt mashinasi bo'lsa, qaysi asrga borardingiz?", "Ertaga nima qilmoqchisiz?"],
+  vocab: [
+    ["маши'на вре'мени", "vaqt mashinasi"],
+    ["испыта'ние", "sinov"],
+    ["Дом учёных", "Olimlar uyi"],
+    ["зал", "zal"],
+    ["де'тский сад", "bolalar bog'chasi"],
+    ["забира'ть / забра'ть", "olib ketmoq (kimnidir biror joydan)"],
+    ["опа'здывать / опозда'ть", "kechikmoq"],
+    ["дава'ть / дать сло'во", "so'z bermoq, va'da qilmoq"],
+    ["вести' себя' (хорошо')", "o'zini (yaxshi) tutmoq"],
+    ["институ'т", "institut"],
+    ["расска'зывать / рассказа'ть", "hikoya qilmoq, aytib bermoq"],
+    ["о'пыт", "tajriba"],
+    ["неуда'чный", "muvaffaqiyatsiz"],
+    ["нача'ло", "boshlanish, boshi"],
+    ["метеори'т", "meteorit"],
+    ["про'шлое", "o'tmish"],
+    ["бу'дущее", "kelajak"],
+    ["отправля'ть / отпра'вить", "jo'natmoq"],
+    ["доброво'лец", "ko'ngilli (volontyor)"],
+    ["молча'ть", "jim turmoq"],
+    ["сце'на", "sahna"],
+    ["возвраща'ться / верну'ться", "qaytmoq", "Верни'сь!"],
+    ["волнова'ться", "xavotirlanmoq, hayajonlanmoq", "Не волну'йтесь!"],
+    ["случа'ться / случи'ться", "sodir bo'lmoq", "Со мной ничего' не слу'чится."],
+    ["надева'ть / наде'ть", "kiymoq, kiydirmoq"],
+    ["по'яс", "kamar"],
+    ["каби'на", "kabina"],
+    ["исчеза'ть / исче'знуть", "g'oyib bo'lmoq"],
+    ["пуга'ться / испуга'ться", "qo'rqmoq / qo'rqib ketmoq"],
+    ["че'рез (+ вин. п.)", "...dan keyin (vaqt)", "Урок начнётся че'рез пять минут."],
+    ["встреча'ть / встре'тить", "kutib olmoq, uchratmoq"],
+    ["второ'й", "ikkinchi"],
+    ["то'лстый", "qalin; semiz"],
+    ["писа'тель", "yozuvchi"],
+    ["фантасти'ческий", "fantastik"],
+    ["чита'ть / прочита'ть", "o'qimoq / o'qib chiqmoq"],
+    ["писа'ть / написа'ть", "yozmoq / yozib bo'lmoq"],
+    ["де'лать / сде'лать", "qilmoq / qilib bo'lmoq"],
+    ["пока'зывать / показа'ть", "ko'rsatmoq"],
+    ["дари'ть / подари'ть", "sovg'a qilmoq"],
+    ["аплоди'ровать", "qarsak chalmoq"],
+    ["акаде'мик", "akademik"],
+    ["уме'ть", "qila bilmoq (malaka)"],
+    ["учи'ться / научи'ться", "o'rganmoq / o'rganib olmoq"],
+    ["ско'ро", "tez orada"],
+    ["секре'т", "sir"],
+    ["приду'мывать / приду'мать", "o'ylab topmoq"],
+    ["век (двадца'тый век)", "asr (yigirmanchi asr)"]
+  ],
+  grammar: {
+    title: "Fe'l aspekti (вид глагола) va kelasi zamon",
+    intro: "Rus fe'llarining ko'pchiligi <b>juftlik</b>da keladi: <b>tugallanmagan aspekt (НСВ)</b> — jarayon, takror, umumiy fakt; <b>tugallangan aspekt (СВ)</b> — natija, bir martalik tugagan harakat. <i>Читать</i> — «o'qimoq (jarayon)», <i>прочитать</i> — «o'qib chiqmoq (natija)».",
+    tables: [
+      { caption: "Asosiy juftliklar", head: ["НСВ (jarayon)", "СВ (natija)", "Qanday yasaladi"], rows: [
+        ["чита'ть", "**про**чита'ть", "old qo'shimcha"],
+        ["писа'ть", "**на**писа'ть", "old qo'shimcha"],
+        ["де'лать", "**с**де'лать", "old qo'shimcha"],
+        ["учи'ться", "**на**учи'ться", "old qo'shimcha"],
+        ["возвра**ща'**ться", "вер**ну'**ться", "boshqa o'zak"],
+        ["говори'ть", "сказа'ть", "boshqa o'zak"],
+        ["брать", "взять", "boshqa o'zak"]
+      ]},
+      { caption: "Kelasi zamon", head: ["", "НСВ: буду + infinitiv", "СВ: oddiy tuslanish"], rows: [
+        ["я", "**бу'ду** чита'ть", "прочита'**ю**"],
+        ["ты", "**бу'дешь** чита'ть", "прочита'**ешь**"],
+        ["он / она'", "**бу'дет** чита'ть", "прочита'**ет**"],
+        ["мы", "**бу'дем** чита'ть", "прочита'**ем**"],
+        ["вы", "**бу'дете** чита'ть", "прочита'**ете**"],
+        ["они'", "**бу'дут** чита'ть", "прочита'**ют**"]
+      ]}
+    ],
+    points: [
+      "СВ fe'llarning <b>hozirgi zamoni yo'q</b>: <i>прочитаю</i> — bu kelasi zamon («o'qib chiqaman»).",
+      "<b>Будет + СВ</b> — xato! <i>будет прочитать</i> ✗ → <i>прочитает</i> ✓.",
+      "НСВ: <i>Вчера я весь вечер <b>читал</b></i> (jarayon, qancha davom etgani muhim). СВ: <i>Я <b>прочитал</b> книгу</i> (tugatdim, natija bor).",
+      "Buyruqda ham farq bor: <i>Вернись!</i> (СВ — aniq bir harakat), <i>Не волнуйтесь!</i> (inkorda ko'pincha НСВ)."
+    ],
+    usage: [
+      ["Али'са дала' сло'во, что **бу'дет вести'** себя' хорошо'.", "Alisa o'zini yaxshi tutishga so'z berdi.", "kelasi НСВ: будет + inf."],
+      ["Со мной ничего' не **слу'чится**!", "Menga hech narsa bo'lmaydi!", "kelasi СВ"],
+      ["Че'рез три мину'ты она' **вернётся**.", "Uch daqiqadan keyin u qaytadi.", "kelasi СВ"],
+      ["Там за столо'м сиде'л дя'дя и **писа'л**.", "U yerda stol oldida bir amaki o'tirib yozayotgandi.", "o'tgan НСВ — jarayon"],
+      ["Он **подари'л** мне свою' кни'гу.", "U menga o'z kitobini sovg'a qildi.", "o'tgan СВ — natija"],
+      ["Я ско'ро **научу'сь** и сама' её **прочита'ю**!", "Tez orada o'rganib olaman va uni o'zim o'qib chiqaman!", "kelasi СВ"]
+    ]
+  },
+  culture: "<b>Тунгусский метеорит</b> — 1908-yil 30-iyunda Sibirdagi Podkamennaya Tunguska daryosi yaqinida bo'lgan ulkan portlash. Uning sababi haligacha bahsli; muallif hazil qilib, uni «vaqt mashinasidagi mushukcha» bilan bog'laydi. <br><br>Alisa XX asrda uchratgan yozuvchi <b>Аркадий</b> — ehtimol mashhur fantast <b>Arkadiy Strugatskiy</b>ga ishora. U «kelajakni o'ylab topmaydi» — kelajakdan unga odamlar kelib aytib berishadi!",
+  reading: `В Доме учёных проходило {испытание} {машины времени|машина времени}. Папа {забрал|забирать} Алису из {детского сада|детский сад}, но домой идти было некогда: они бы {опоздали|опаздывать}. Поэтому Алиса {дала слово|дать слово}, что {будет вести себя хорошо|вести себя}, и они пошли в {зал} вместе.
+
+Учёный из {института|институт} времени {рассказал|рассказывать} о машине. Первый {опыт} был {неудачный}: котёнок попал в {начало} двадцатого века и стал Тунгусским {метеоритом|метеорит}. Но сейчас машина работает хорошо. Правда, {отправить|отправлять} человека можно только в семидесятые годы двадцатого {века|век}.
+
+— Кто хочет помочь? Мне нужен {доброволец}, — сказал учёный.
+
+Все {молчали|молчать}. И тут на {сцену|сцена} вышла... Алиса!
+
+— Алиса, {вернись|возвращаться}! — закричал папа.
+
+— Не {волнуйтесь|волноваться}. С ребёнком ничего не {случится|случаться}, — сказал учёный и {надел|надевать} на Алису специальный {пояс}.
+
+— Со мной ничего не случится, папа! — весело сказала Алиса. И вошла в {кабину|кабина}. И {исчезла|исчезать}!
+
+Папа очень {испугался|пугаться}. А учёный сказал:
+
+— {Через} три минуты она {вернётся|возвращаться}. Там её {встретит|встречать} наш человек. Он живёт в двадцатом веке, и у него дома стоит {вторая|второй} кабина.
+
+И правда, скоро Алиса вышла из кабины. В руках у неё была старая {толстая|толстый} книга.
+
+— Там было интересно! — рассказала она. — Там за столом сидел дядя и {писал|писать}. Его зовут Аркадий. Он {писатель} и {пишет|писать} {фантастические|фантастический} книги о {будущем|будущее}. Он не всё {придумывает|придумывать}: к нему иногда приходят люди из нашего времени. Но это {секрет}! Он {показал|показывать} мне старую Москву и {подарил|дарить} мне свою книгу.
+
+Все в зале {аплодировали|аплодировать}. Один {академик} попросил:
+
+— Девочка, подари мне эту книгу. Ты ведь ещё не {умеешь|уметь} {читать}.
+
+— Нет, — ответила Алиса. — Я {скоро} {научусь|учиться} и сама её {прочитаю|читать}!`,
+  questions: [
+    { t: "tf", s: "Испытание проходило в Доме учёных.", a: true },
+    { t: "tf", s: "Первый опыт с котёнком был удачный.", a: false },
+    { t: "tf", s: "Машина отправляет людей в любой век.", a: false, ex: "Faqat XX asrning 70-yillariga." },
+    { t: "tf", s: "Алиса вернулась через три минуты.", a: true },
+    { t: "tf", s: "Алиса подарила книгу академику.", a: false, ex: "U «o'zim o'qib chiqaman» dedi." },
+    { t: "mc", q: "Кто встретил Алису в прошлом?", o: ["академик", "писатель Аркадий", "котёнок"], a: 1 },
+    { t: "mc", q: "Что Алиса принесла из прошлого?", o: ["пояс", "старую толстую книгу", "фотографию Москвы"], a: 1 }
+  ],
+  exercises: [
+    { t: "mc", q: "Вчера я весь вечер ___ книгу.", o: ["читал", "прочитал"], a: 0, ex: "Jarayon, davomiylik." },
+    { t: "mc", q: "Я ___ книгу и отдал её другу.", o: ["читал", "прочитал"], a: 1, ex: "Natija: tugatdim." },
+    { t: "mc", q: "Завтра я ___ письмо.", o: ["буду написать", "напишу"], a: 1 },
+    { t: "mc", q: "Алиса ___ себя хорошо.", o: ["будет вести", "будет вела"], a: 0 },
+    { t: "mc", q: "Через три минуты она ___ .", o: ["вернётся", "будет вернуться"], a: 0 },
+    { t: "mc", q: "Писатель ___ Алисе свою книгу.", o: ["дарил", "подарил"], a: 1 },
+    { t: "gap", q: "Я скоро ___ читать. (научиться)", a: ["научусь"] },
+    { t: "gap", q: "Вечером мы ___ уроки. (делать, НСВ, kelasi)", a: ["будем делать"] },
+    { t: "gap", q: "Со мной ничего не ___ . (случиться)", a: ["случится"] },
+    { t: "gap", q: "Завтра ты ___ эту книгу? (прочитать)", a: ["прочитаешь"] }
+  ],
+  task: {
+    type: "Gapirish / Yozish",
+    prompt: "Agar sizda vaqt mashinasi bo'lsa: qaysi yilga borasiz, u yerda nima qilasiz, kimni uchratasiz, nima olib qaytasiz? 6 gap, kelasi zamonning ikkala shaklini ishlating.",
+    sample: "Я полечу в пятнадцатый век, в Самарканд. Там я буду гулять по старому городу. Я встречу Улугбека и посмотрю на звёзды в его обсерватории. Я буду задавать много вопросов. Я куплю там старую книгу. Потом я вернусь и всё расскажу друзьям."
+  }
+});
+
+LESSONS.unshift({
+  id: "l0", num: 0, book: "b1", page: null, level: "A2.1",
+  ru: "Ударе́ние", uz: "Urg'u va uning qo'llanilishi",
+  topic: "Urg'u, unlilar reduksiyasi, ko'chuvchi urg'u",
+  intro: "Rus tilida urg'u so'zning ma'nosini ham, talaffuzini ham o'zgartiradi. Bu kirish darsidan keyin darslikdagi urg'u belgisi (а́) nima uchun kerakligini tushunasiz va keyingi 8 darsdagi so'zlarni to'g'ri o'qiysiz.",
+  srcNote: "Bu matn kirish darsi uchun maxsus yozilgan: unda barcha so'zlarning urg'usi belgilangan. Avval jim, keyin ovoz chiqarib o'qing.",
+  cando: [
+    "So'zdagi urg'uli bo'g'inni topa olaman va belgilay olaman.",
+    "Urg'usiz «о» va «е / я» qanday aytilishini bilaman.",
+    "Urg'usi bilan farq qiladigan juft so'zlarni ajrata olaman (за́мок / замо́к).",
+    "So'z shakli o'zgarganda urg'u ko'chishi mumkinligini bilaman (рука́ → ру́ку)."
+  ],
+  warmup: ["O'zbek tilida urg'u odatda qaysi bo'g'inga tushadi? (kitob, maktab, olma)", "«Olma» so'zini ikki xil urg'u bilan ayting: olmá (meva) va ólma (olmagin). Ma'no o'zgardimi?"],
+  vocab: [
+    ["ударе'ние", "urg'u", "В слове «мама» ударе'ние на первом слоге."],
+    ["слог", "bo'g'in", "В слове «школа» два сло'га."],
+    ["уда'рный", "urg'uli", "Уда'рный гласный звучит ясно."],
+    ["безуда'рный", "urg'usiz", "Безуда'рное «о» звучит как «а»."],
+    ["гла'сный (звук)", "unli tovush", "В русском языке десять гла'сных букв."],
+    ["согла'сный (звук)", "undosh tovush", "«Б», «в», «г» — согла'сные."],
+    ["произноше'ние", "talaffuz", "У тебя хорошее произноше'ние."],
+    ["чита'ть вслух", "ovoz chiqarib o'qimoq", "Чита'й текст вслух!"],
+    ["повторя'ть / повтори'ть", "takrorlamoq", "Повтори'те, пожалуйста!"],
+    ["за'мок", "qasr", "В горах стоит старый за'мок."],
+    ["замо'к", "qulf", "На двери большой замо'к."],
+    ["му'ка", "azob", "Это не работа, а му'ка!"],
+    ["мука'", "un", "Для хлеба нужна мука'."],
+    ["пла'чу", "yig'layman", "Я не пла'чу, я смеюсь."],
+    ["плачу'", "to'layman", "Я плачу' за обед."],
+    ["до'ма", "uyda", "Папа сидит до'ма."],
+    ["дома'", "uylar", "Мама строит дома'."],
+    ["а'тлас", "atlas (xaritalar kitobi)", "Открой а'тлас мира."],
+    ["атла'с", "atlas (ipak mato)", "Я купила платье из узбекского атла'са."],
+    ["сто'ит", "turadi (narxi)", "Сколько сто'ит эта книга?"],
+    ["стои'т", "turibdi (tik)", "Книга стои'т на полке."]
+  ],
+  grammar: {
+    title: "Urg'u (ударе'ние)",
+    intro: "Rus tilida urg'u <b>erkin</b>: u so'zning istalgan bo'g'iniga tushishi mumkin (<i>ма'ма, соба'ка, молоко'</i>). O'zbek tilida urg'u odatda oxirgi bo'g'inda bo'ladi, rus tilida esa har bir so'zni urg'usi bilan birga yodlash kerak. Oddiy kitob va gazetalarda urg'u belgilanmaydi — u faqat lug'at va darsliklarda (а́) ko'rsatiladi.",
+    tables: [
+      { caption: "Urg'usiz unlilar (reduksiya)", head: ["Harf", "Urg'u ostida", "Urg'usiz", "Misol"], rows: [
+        ["о", "[о]: **до'**м", "[а]", "молоко' → [малако']"],
+        ["е", "[е]: **ле'**с", "[и]", "сестра' → [сʼистра']"],
+        ["я", "[я]: **я'**блоко", "[и]", "язы'к → [йизы'к]"],
+        ["а", "[а]: **ма'**ма", "[а]", "Али'са → [али'са]"],
+        ["ё", "doim urg'uli", "—", "зелёный, идёт"]
+      ]},
+      { caption: "Ko'chuvchi urg'u (подвижное ударение)", head: ["So'z", "Shakllar"], rows: [
+        ["рука'", "ру'ку, ру'ки (ko'pl.), руки' (rod. birlik)"],
+        ["писа'ть", "пишу', lekin: пи'шешь, пи'шет"],
+        ["мочь", "могу', lekin: мо'жешь, мо'жет"],
+        ["быть", "был, была', lekin: бы'ло, бы'ли"],
+        ["жить", "жил, жила', lekin: жи'ли"]
+      ]}
+    ],
+    points: [
+      "Urg'u ma'noni o'zgartiradi: <i>за'мок</i> (qasr) — <i>замо'к</i> (qulf), <i>до'ма</i> (uyda) — <i>дома'</i> (uylar).",
+      "<b>ё</b> harfi har doim urg'uli: <i>идёт, зелёный, учёный</i>. Shuning uchun ё bor so'zga urg'u belgisi qo'yilmaydi.",
+      "Urg'usiz <b>о</b> [а] kabi aytiladi: <i>молоко'</i> → [малако']. Bu xato emas, to'g'ri talaffuz!",
+      "Bir bo'g'inli so'zlarga belgi qo'yilmaydi: <i>дом, лес, шум, спать</i>.",
+      "Ko'p uchraydigan xatolar: <i>звони'т</i> (зво'нит ✗), <i>то'рты</i> (торты' ✗), <i>кварта'л</i> (ква'ртал ✗), <i>красиве'е</i> (краси'вее ✗)."
+    ],
+    usageTitle: "Kitobdagi nomlar",
+    usage: [
+      ["**Али'са**", "Alisa", "2-bo'g'in"],
+      ["**Бро'нтя**", "Bronti", "1-bo'g'in"],
+      ["**Шу'ша**", "Shusha", "1-bo'g'in"],
+      ["**марсиа'нин**", "marslik", "3-bo'g'in"],
+      ["**бронтоза'вр**", "brontozavr", "oxirgi bo'g'in"],
+      ["**привиде'ние**", "arvoh", "3-bo'g'in"],
+      ["**космодро'м**", "kosmodrom", "oxirgi bo'g'in"]
+    ]
+  },
+  culture: "<b>Ё</b> harfini 1783-yilda Yekaterina Dashkova taklif qilgan, yozuvchi Nikolay Karamzin esa uni ommalashtirgan. Bugun ko'p kitoblarda ё o'rniga е yoziladi (<i>еще = ещё</i>), shuning uchun lug'atga qarab tekshirish foydali.<br><br>O'zbek <b>atlasi</b> rus tilida <i>атла'с</i> deb ataladi — urg'u oxirida. <i>А'тлас</i> esa xaritalar kitobi.",
+  reading: `Али'са — де'вочка из бу'дущего. Она' живёт в Москве' с па'пой и ма'мой. Па'па рабо'тает в {зоопа'рке|зоопарк}, а ма'ма стро'ит {дома'}. У Али'сы мно'го друзе'й: {бронтоза'вр|бронтозавр} Бро'нтя, {зверёк} Шу'ша и {марсиа'нин|марсианин} Бус.
+
+Ве'чером па'па сиди'т {до'ма} и пи'шет кни'гу, а ма'ма стро'ит {дома'} на други'х {плане'тах|планета}. За'втра Али'са идёт в {шко'лу|школа}. Она' о'чень ра'да!`,
+  questions: [
+    { t: "tf", s: "Алиса живёт в Москве.", a: true },
+    { t: "tf", s: "Папа строит дома.", a: false, ex: "Uylarni onasi quradi." },
+    { t: "tf", s: "Бронтя — друг Алисы.", a: true },
+    { t: "tf", s: "Завтра Алиса идёт в зоопарк.", a: false, ex: "U maktabga boradi." },
+    { t: "mc", q: "Где вечером сидит папа?", o: ["до́ма", "в шко́ле", "на Ма́рсе"], a: 0 },
+    { t: "mc", q: "В тексте «дома́» и «до́ма» — это...", o: ["одно слово", "разные слова", "ошибка"], a: 1 }
+  ],
+  exercises: [
+    { t: "mc", q: "Urgʻu qayerda? — школа", o: ["шко́ла", "школа́"], a: 0 },
+    { t: "mc", q: "Urgʻu qayerda? — планета", o: ["пла́нета", "плане́та", "планета́"], a: 1 },
+    { t: "mc", q: "Urgʻu qayerda? — учительница", o: ["учи́тельница", "учи́тельни́ца", "учительни́ца"], a: 0 },
+    { t: "mc", q: "Urgʻu qayerda? — телевизор", o: ["те́левизор", "телеви́зор", "телевизо́р"], a: 1 },
+    { t: "mc", q: "«Молоко́» qanday aytiladi?", o: ["[молоко]", "[малако]"], a: 1 },
+    { t: "mc", q: "«Сестра́» qanday aytiladi?", o: ["[сестра]", "[систра]"], a: 1 },
+    { t: "mc", q: "Алиса ___ в зоопарке.", o: ["была́", "бы́ла"], a: 0 },
+    { t: "mc", q: "Я ___ письмо.", o: ["пи́шу", "пишу́"], a: 1 },
+    { t: "mc", q: "Ты ___ помочь?", o: ["мо́жешь", "може́шь"], a: 0 },
+    { t: "mc", q: "Сколько ___ эта книга?", o: ["сто́ит", "стои́т"], a: 0, ex: "сто́ит — narxi; стои́т — tik turibdi." }
+  ],
+  task: {
+    type: "Gapirish",
+    prompt: "O'qish matnini ovoz chiqarib 3 marta o'qing va telefoningizga yozib oling. Keyin 1-darsdagi 10 ta so'zni urg'usi bilan daftaringizga yozing va ularni ham ovoz chiqarib ayting.",
+    sample: "шко́ла, за́втра, сего́дня, пода́рок, учи́тельница, вме́сте, роди́тели, плане́та, тру́дно, ча́сто"
+  }
+});
+
+const EX = {
+l1: {
+"за'втра":"За'втра Алиса идёт в школу.",
+"идти' в шко'лу":"Мой брат идёт в шко'лу в сентябре.",
+"сего'дня":"Сего'дня у Алисы большой праздник.",
+"с утра'":"С утра' Алисе звонят друзья.",
+"друг (мн. друзья')":"Марсианин Бус — друг Алисы.",
+"знако'мый":"Это мой знако'мый из Ташкента.",
+"расска'зывать / рассказа'ть":"Папа расска'зывает истории об Алисе.",
+"бу'дущий":"Алиса много говорит о бу'дущей школе.",
+"марсиа'нин":"Марсиа'нин прислал Алисе подарок.",
+"присла'ть":"Бабушка присла'ла мне письмо.",
+"пода'рок":"Это пода'рок на день рождения.",
+"удиви'тельный":"У Алисы удиви'тельный пенал.",
+"пена'л":"Мой пена'л лежит в сумке.",
+"открыва'ть / откры'ть":"Никто не может откры'ть этот пенал.",
+"учи'тельница":"Наша учи'тельница очень добрая.",
+"вме'сте":"Мы вме'сте идём в школу.",
+"шум":"Почему здесь такой шум?",
+"зоопа'рк":"В воскресенье мы ходили в зоопа'рк.",
+"попроща'ться":"Алиса пошла попроща'ться с Бронтей.",
+"до'ма":"Вечером я всегда до'ма.",
+"ти'хо":"В комнате было ти'хо.",
+"исто'рия":"Папа рассказал интересную исто'рию.",
+"жизнь (ж.)":"Это рассказ о жизни Алисы.",
+"учёный":"Мой дядя — учёный.",
+"до'чка / дочь":"Алиса — до'чка профессора.",
+"ребёнок (мн. де'ти)":"В парке играют де'ти.",
+"хара'ктер":"У Алисы весёлый хара'ктер.",
+"исчеза'ть / исче'знуть":"Алиса часто исчеза'ет.",
+"ве'рный":"Шуша — ве'рный друг.",
+"роди'тели":"Мои роди'тели живут в Самарканде.",
+"дом (мн. дома')":"Наш дом стоит рядом с парком.",
+"плане'та":"Марс — красная плане'та.",
+"тру'дно":"Говорить по-русски не тру'дно.",
+"ча'сто":"Я ча'сто звоню маме.",
+"век":"Алиса живёт в двадцать первом ве'ке.",
+"случа'ться / случи'ться":"Что случи'лось?",
+"ждать":"Я жду автобус.",
+"сиде'ть":"Папа сиди'т за столом.",
+"звони'ть":"Друзья звоня'т Алисе по видеофону."
+},
+l2: {
+"немедле'нно":"Иди домой немедле'нно!",
+"а то":"Надень куртку, а то замёрзнешь.",
+"видеофо'н":"Папа подошёл к видеофо'ну.",
+"позвони'ть":"Позвони' мне вечером!",
+"ска'зка":"Бабушка читает внуку ска'зку.",
+"злой":"В сказке живёт злой волк.",
+"стра'шный":"Это очень стра'шный фильм.",
+"ба'бушка":"Моя ба'бушка живёт в деревне.",
+"голо'дный":"Я голо'дный, давай пообедаем!",
+"избу'шка":"В лесу стоит маленькая избу'шка.",
+"лес (в лесу')":"Летом мы гуляем в лесу'.",
+"далеко'":"Мой дом далеко' от школы.",
+"ста'рый":"У меня ста'рый телефон.",
+"крова'ть (ж.)":"Кот спит на крова'ти.",
+"сади'ться / сесть":"Сади'тесь, пожалуйста!",
+"обеща'ть":"Папа обеща'л купить мне книгу.",
+"жале'ть / пожале'ть":"Ты пожале'ешь об этом!",
+"подходи'ть / подойти'":"Подойди' к доске, пожалуйста.",
+"нажима'ть / нажа'ть":"Нажми' на зелёную кнопку.",
+"кно'пка":"Где кно'пка лифта?",
+"науга'д":"Я выбрал книгу науга'д.",
+"экра'н":"На экра'не появился марсианин.",
+"загора'ться / загоре'ться":"Вечером на улице загора'ются фонари.",
+"го'лос":"У неё красивый го'лос.",
+"со'нный":"Утром я всегда со'нный.",
+"посо'льство":"Посо'льство Узбекистана находится в Москве.",
+"слу'шать":"Я люблю слу'шать музыку.",
+"молодо'й":"Наш учитель ещё молодо'й.",
+"глаз (мн. глаза')":"У Алисы голубые глаза'.",
+"зелёный":"Я люблю зелёный чай.",
+"улыба'ться / улыбну'ться":"Марсианин улыбну'лся.",
+"стоя'ть":"Алиса стои'т у окна.",
+"босико'м":"Летом дети бегают босико'м.",
+"до'брый ве'чер":"До'брый ве'чер! Как дела?",
+"споко'йной но'чи":"Споко'йной но'чи, мама!",
+"засыпа'ть / засну'ть":"Алиса долго не могла засну'ть.",
+"по'здно":"Уже по'здно, пора спать.",
+"извини'те / прости'те":"Извини'те, где здесь метро?",
+"энциклопе'дия":"Я нашёл это слово в энциклопе'дии.",
+"найти'":"Я не могу найти' ключи.",
+"почему'":"Почему' ты не спишь?",
+"потому' что":"Я не пришёл, потому' что болел.",
+"пожа'луйста":"Дайте, пожа'луйста, воды."
+},
+l3: {
+"яйцо'":"На завтрак я ем яйцо'.",
+"бронтоза'вр":"Бронтоза'вр — очень большой динозавр.",
+"тури'ст":"В Бухаре много тури'стов.",
+"бе'рег (на берегу')":"Мы отдыхали на берегу' реки.",
+"река'":"Сырдарья — большая река'.",
+"кру'глый":"Яйцо было почти кру'глое.",
+"лёд (во льду)":"Зимой на реке лёд.",
+"све'жий":"Я купил све'жий хлеб.",
+"весь мир":"Об этом узнал весь мир.",
+"журнали'ст":"Журнали'ст пишет статью.",
+"гости'ница":"Мы жили в гости'нице в центре города.",
+"по'лный":"Автобус по'лный, мест нет.",
+"кварти'ра":"У нас новая кварти'ра.",
+"вздра'гивать / вздро'гнуть":"Вдруг яйцо вздро'гнуло.",
+"тре'скаться / тре'снуть":"Чашка тре'снула.",
+"голова'":"У меня болит голова'.",
+"чёрный":"У меня чёрный кот.",
+"роди'ться":"Я роди'лся в Ташкенте.",
+"Как его' зову'т?":"— Как его' зову'т? — Его зовут Бронтя.",
+"нельзя'":"Здесь нельзя' курить.",
+"мо'жно":"Мо'жно войти?",
+"дочь / до'чка":"У профессора есть дочь.",
+"ка'ждый день":"Я ка'ждый день читаю по-русски.",
+"павильо'н":"Бронтя жил в большом павильо'не.",
+"бассе'йн":"Летом мы плаваем в бассе'йне.",
+"пла'вать":"Я умею пла'вать.",
+"тёплый":"Сегодня тёплый день.",
+"вода'":"Дайте, пожалуйста, стакан воды'.",
+"есть (ем, ешь, ест)":"Что ты ешь на завтрак?",
+"лежа'ть":"Книга лежи'т на столе.",
+"врач":"Мой брат — врач.",
+"мочь (мог, могла')":"Я не могу' прийти сегодня.",
+"узнава'ть / узна'ть":"Алиса узна'ла новость по телевизору.",
+"телеви'зор":"Вечером мы смотрим телеви'зор.",
+"прибежа'ть":"Алиса прибежа'ла в павильон.",
+"приезжа'ть / прие'хать":"Летом к нам прие'хали гости.",
+"рука' (в руке')":"В руке' у Алисы была булка.",
+"бу'лка":"Я купил бу'лку и молоко.",
+"взять":"Возьми' зонт, идёт дождь.",
+"спо'рить":"Не надо спо'рить!",
+"до сих пор":"Я до сих пор помню этот день.",
+"ручно'й":"У нас дома ручно'й попугай.",
+"до'брый":"Бронтя большой, но до'брый.",
+"ката'ть":"Папа ката'ет сына на велосипеде.",
+"спина' (на спине')":"Бронтя катает Алису на спине'.",
+"быть (был, была', бы'ло, бы'ли)":"Вчера я был в театре."
+},
+l4: {
+"лете'ть / полете'ть":"Завтра мы полети'м в Москву.",
+"конфере'нция":"Папа был на конфере'нции.",
+"брать / взять с собо'й":"Возьми меня с собо'й!",
+"кора'бль (м.)":"Космический кора'бль летит на Марс.",
+"каби'на":"Пилот сидит в каби'не.",
+"чуть не":"Я чуть не опоздал на урок.",
+"кра'сный":"Не нажимай на кра'сную кнопку!",
+"го'род (в го'роде)":"Я живу в большом го'роде.",
+"пусты'ня (в пусты'не)":"В пусты'не очень жарко.",
+"пеще'ра":"В горах мы видели старую пеще'ру.",
+"оставля'ть / оста'вить":"Я оста'вил телефон дома.",
+"интерна'т":"Дети жили в интерна'те неделю.",
+"ку'пол":"Город стоит под большим ку'полом.",
+"находи'ться":"Где нахо'дится музей?",
+"настоя'щий":"Это настоя'щий друг.",
+"земно'й":"На Марсе растут земны'е деревья.",
+"де'рево (мн. дере'вья)":"В саду растёт высокое де'рево.",
+"пропада'ть / пропа'сть":"У меня пропа'л ключ.",
+"теря'ться / потеря'ться":"Не потеря'йся в городе!",
+"невозмо'жно":"Это невозмо'жно сделать за час.",
+"нигде'":"Я нигде' не могу найти книгу.",
+"шко'льник":"Шко'льники идут на экскурсию.",
+"ро'бот":"Ро'бот готовит завтрак.",
+"сообще'ние":"Я получил сообще'ние от друга.",
+"скафа'ндр":"Космонавт надел скафа'ндр.",
+"кислоро'д":"На Марсе мало кислоро'да.",
+"но'вость (ж.)":"У меня хорошая но'вость!",
+"киломе'тр":"До школы два киломе'тра.",
+"раке'та":"Раке'та полетела на Луну.",
+"почто'вый":"Где здесь почто'вый ящик?",
+"письмо'":"Я написал письмо' бабушке.",
+"залеза'ть / зале'зть":"Кот зале'з на дерево.",
+"дверь (ж.)":"Закрой, пожалуйста, дверь.",
+"закрыва'ться / закры'ться":"Магазин закрыва'ется в девять.",
+"после'дний":"Это после'дний урок сегодня.",
+"пла'кать":"Не пла'чь, всё будет хорошо!",
+"поднима'ться / подня'ться":"Мы подняли'сь на гору.",
+"го'рка":"Дети катаются с го'рки.",
+"ко'мната":"Это моя ко'мната.",
+"ка'менный":"В комнате стояла ка'менная пирамида.",
+"пирами'да":"В Египте есть большие пирами'ды.",
+"дре'вний":"Самарканд — дре'вний город.",
+"цивилиза'ция":"Учёные изучают древнюю цивилиза'цию.",
+"журна'л":"Я читаю журна'л о путешествиях.",
+"статья'":"Это интересная статья'.",
+"фотогра'фия":"Покажи мне эту фотогра'фию!",
+"портре'т":"На стене висит портре'т бабушки.",
+"знако'мый":"Портрет был очень знако'мый.",
+"рисова'ть":"Алиса любит рисова'ть.",
+"ску'чно":"Мне ску'чно без друзей.",
+"о (об, обо) + предл. п.":"Расскажи мне о себе."
+},
+l5: {
+"застенчи'вый":"Мой брат очень застенчи'вый.",
+"зверь (м.) / зверёк":"В зоопарке много разных звере'й.",
+"знако'мый":"Рекс — знако'мая собака Алисы.",
+"котёнок (мн. котя'та)":"У кошки родились котя'та.",
+"богомо'л":"Под кроватью живёт марсианский богомо'л.",
+"соба'ка":"У соседа есть соба'ка.",
+"сосе'дский":"Сосе'дский мальчик часто к нам приходит.",
+"экспеди'ция":"Экспеди'ция вернулась с Сириуса.",
+"возвраща'ться / верну'ться":"Папа верну'лся домой поздно.",
+"космона'вт":"Я хочу стать космона'втом.",
+"космодро'м":"Ракета стоит на космодро'ме.",
+"приноси'ть / принести'":"Принеси', пожалуйста, воды.",
+"буке'т":"Я подарил маме буке'т цветов.",
+"ро'за":"Это красная ро'за.",
+"голубо'й":"Небо сегодня голубо'е.",
+"брать / взять на ру'ки":"Мама взяла ребёнка на ру'ки.",
+"су'мка":"Моя су'мка очень тяжёлая.",
+"шевели'ться / зашевели'ться":"Вдруг сумка зашевели'лась.",
+"пода'рок":"Спасибо за пода'рок!",
+"достава'ть / доста'ть":"Алиса доста'ла из сумки зверька.",
+"ла'па":"У собаки болит ла'па.",
+"стрекоза'":"Над рекой летает стрекоза'.",
+"ми'лый":"Какой ми'лый котёнок!",
+"споко'йный":"У меня споко'йный характер.",
+"корзи'на":"Шуша спал в корзи'не.",
+"мя'со":"Я не ем мя'со.",
+"дружи'ть":"Мы дру'жим с детства.",
+"боя'ться (+ род. п.)":"Я бою'сь темноты.",
+"ро'стом с (+ вин. п.)":"Сын уже ро'стом с папу.",
+"гуля'ть":"Вечером мы гуля'ем в парке.",
+"оше'йник":"У собаки красный оше'йник.",
+"обижа'ться / оби'деться":"Не обижа'йся на меня!",
+"за'нят (занята')":"Извини, я сейчас за'нят.",
+"проси'ть / попроси'ть":"Я попроси'л друга помочь.",
+"слы'шать / услы'шать":"Ты меня слы'шишь?",
+"входи'ть / войти'":"Можно войти'?",
+"ви'деть / уви'деть":"Я ви'жу море!",
+"сам (сама', са'ми)":"Алиса сама' сделала уроки.",
+"удивля'ться / удиви'ться":"Папа очень удиви'лся.",
+"изуча'ть":"Я изуча'ю русский язык.",
+"никогда' не":"Я никогда' не был в Москве.",
+"молча'ть":"Почему ты молчи'шь?",
+"стесня'ться":"Не стесня'йся, говори!",
+"гла'дить":"Алиса гла'дит котёнка.",
+"люби'ть":"Я люблю' читать книги.",
+"ти'хий":"Шуша говорил ти'хим голосом."
+},
+l6: {
+"ле'то / ле'том":"Ле'том мы живём на даче.",
+"да'ча (на да'че)":"У нас есть да'ча за городом.",
+"гриб (мн. грибы')":"В лесу мы собирали грибы'.",
+"ма'льчик":"Этот ма'льчик — мой брат.",
+"отнима'ть / отня'ть":"Коля отнима'ет у детей игрушки.",
+"игру'шка":"Это моя любимая игру'шка.",
+"близнецы'":"Мои сёстры — близнецы'.",
+"привиде'ние":"Ты веришь в привиде'ния?",
+"сад (в саду')":"В саду' растут яблони.",
+"я'блоня":"Под я'блоней стоит стол.",
+"терра'са":"Мы пьём чай на терра'се.",
+"ма'нная ка'ша":"На завтрак у нас ма'нная ка'ша.",
+"гото'вить / пригото'вить":"Мама гото'вит плов.",
+"род":"Слово «окно» — среднего ро'да.",
+"темно'":"На улице уже темно'.",
+"тень (ж.)":"Давай сядем в тень.",
+"во'здух (по во'здуху)":"В горах чистый во'здух.",
+"плыть / поплы'ть":"Тень поплыла' по воздуху.",
+"бежа'ть / побежа'ть":"Папа побежа'л в сад.",
+"вниз":"Мы спустились вниз по лестнице.",
+"исчеза'ть / исче'знуть":"Тень сразу исче'зла.",
+"ве'тер (род. п. ве'тра)":"Сегодня сильный ве'тер.",
+"ме'дленно":"Говорите, пожалуйста, ме'дленно.",
+"листо'к":"Дай мне листо'к бумаги.",
+"бума'га":"Дай мне, пожалуйста, бума'гу.",
+"запи'ска":"Мама оставила мне запи'ску.",
+"профе'ссор":"Профе'ссор читает лекцию.",
+"о'пыт":"Учёные делают о'пыт в лаборатории.",
+"перемести'ть":"Профессор хотел перемести'ть себя в другое место.",
+"лаборато'рия":"Мой брат работает в лаборато'рии.",
+"про'бки (электри'ческие)":"В доме перегорели про'бки, и свет погас.",
+"перегора'ть / перегоре'ть":"Лампочка перегоре'ла.",
+"эне'ргия":"У детей много эне'ргии.",
+"уходи'ть / уйти'":"Не уходи', пожалуйста!",
+"посыла'ть / посла'ть":"Я посла'л другу сообщение.",
+"телегра'мма":"Раньше люди посылали телегра'ммы.",
+"чини'ть / почини'ть":"Папа почини'л велосипед.",
+"ста'нция":"Где ближайшая ста'нция метро?",
+"япо'нец":"Мой коллега — япо'нец.",
+"пока'зывать / показа'ть":"Покажи' мне свой гербарий!",
+"колле'кция":"У меня большая колле'кция марок.",
+"ба'бочка":"На цветке сидит ба'бочка.",
+"спаса'ть / спасти'":"Врачи спасли' ему жизнь.",
+"О'чень прия'тно познако'миться!":"— Меня зовут Азиз. — О'чень прия'тно познако'миться!",
+"без (+ род. п.)":"Я пью чай без сахара.",
+"из (+ род. п.)":"Я из Узбекистана.",
+"от (+ род. п.)":"Это письмо от мамы."
+},
+l7: {
+"гость (мн. го'сти)":"Сегодня к нам придут го'сти.",
+"пропа'вший":"Все искали пропа'вших гостей.",
+"звезда'":"На небе горит яркая звезда'.",
+"издалека'":"Гости приехали издалека'.",
+"украша'ть / укра'сить":"Мы укра'сили комнату цветами.",
+"цветы'":"Я купил маме цветы'.",
+"стихи'":"Я люблю читать стихи' Навои.",
+"жить":"Где ты живёшь?",
+"сообща'ть / сообщи'ть":"По радио сообщи'ли новость.",
+"приземля'ться / приземли'ться":"Самолёт приземли'лся в Ташкенте.",
+"недалеко' от (+ род. п.)":"Я живу недалеко' от школы.",
+"связь (ж.)":"Связь с кораблём прервалась.",
+"прерыва'ться / прерва'ться":"Разговор вдруг прерва'лся.",
+"маши'на":"У папы новая маши'на.",
+"лете'ть / лета'ть":"Птицы лета'ют над морем.",
+"бежа'ть / бе'гать":"Я бе'гаю каждое утро.",
+"прилета'ть / прилете'ть":"Самолёт прилете'л вовремя.",
+"улета'ть / улете'ть":"Осенью птицы улета'ют на юг.",
+"приходи'ть / прийти'":"Приходи' ко мне в гости!",
+"выходи'ть / вы'йти":"Я вы'шел из дома в восемь часов.",
+"вертолёт":"Над городом летит вертолёт.",
+"над (+ твор. п.)":"Над рекой летают птицы.",
+"по'ле":"За деревней большое по'ле.",
+"кора'бль":"Кора'бль гостей никто не нашёл.",
+"невиди'мый":"Люди думали, что гости невиди'мые.",
+"сосе'д (мн. сосе'ди)":"Мой сосе'д — врач.",
+"держа'ться за ру'ки":"Дети шли, держа'сь за ру'ки.",
+"ра'дио":"Я слушаю ра'дио в машине.",
+"корзи'нка":"У Алисы была корзи'нка земляники.",
+"земляни'ка":"Земляни'ка растёт в лесу.",
+"заче'м":"Заче'м ты это сделал?",
+"теря'ться / потеря'ться":"Гости потеря'лись в лесу.",
+"ждать":"Жди меня у входа!",
+"испуга'ться":"Девочка испуга'лась собаки.",
+"поля'нка / поля'на":"Мы отдыхали на поля'не.",
+"стра'нный":"Какой стра'нный человек!",
+"оставля'ть / оста'вить себе'":"Можно мне оста'вить эту книгу себе'?",
+"я'года":"Земляника — вкусная я'года.",
+"челове'чек":"На ягоде сидел маленький челове'чек.",
+"гно'мик":"В сказке живёт добрый гно'мик.",
+"трава'":"Дети сидят на траве'.",
+"высо'кий":"Мой брат очень высо'кий.",
+"встре'ча":"Встре'ча с друзьями будет в субботу.",
+"пе'рвый":"Это мой пе'рвый урок русского языка.",
+"Че'стное сло'во!":"Я не брал твою ручку, че'стное сло'во!"
+},
+l8: {
+"маши'на вре'мени":"Учёные построили маши'ну вре'мени.",
+"испыта'ние":"Испыта'ние прошло хорошо.",
+"Дом учёных":"Вечером в Доме учёных была лекция.",
+"зал":"В за'ле было много людей.",
+"де'тский сад":"Моя сестра ходит в де'тский сад.",
+"забира'ть / забра'ть":"Папа забра'л Алису из детского сада.",
+"опа'здывать / опозда'ть":"Не опа'здывай на урок!",
+"дава'ть / дать сло'во":"Я даю' сло'во, что приду.",
+"вести' себя' (хорошо')":"Дети, веди'те себя хорошо!",
+"институ'т":"Мой брат учится в институ'те.",
+"расска'зывать / рассказа'ть":"Расскажи' мне о своей семье.",
+"о'пыт":"У него большой о'пыт работы.",
+"неуда'чный":"Сегодня был неуда'чный день.",
+"нача'ло":"Не пропусти нача'ло фильма!",
+"метеори'т":"Метеори'т упал в тайге.",
+"про'шлое":"Алиса побывала в про'шлом.",
+"бу'дущее":"Писатель пишет книги о бу'дущем.",
+"отправля'ть / отпра'вить":"Я отпра'вил письмо вчера.",
+"доброво'лец":"Нужен доброво'лец! Кто поможет?",
+"молча'ть":"Все в зале молча'ли.",
+"сце'на":"Актёры вышли на сце'ну.",
+"надева'ть / наде'ть":"Наде'нь шапку, на улице холодно.",
+"по'яс":"Учёный надел на Алису по'яс.",
+"каби'на":"Алиса вошла в каби'ну.",
+"исчеза'ть / исче'знуть":"Девочка исче'зла на глазах у всех.",
+"пуга'ться / испуга'ться":"Не пуга'йся, это мой кот.",
+"встреча'ть / встре'тить":"Мы встре'тили друзей на вокзале.",
+"второ'й":"Это мой второ'й урок сегодня.",
+"то'лстый":"Это очень то'лстая книга.",
+"писа'тель":"Мой любимый писа'тель — Чехов.",
+"фантасти'ческий":"Я люблю фантасти'ческие фильмы.",
+"чита'ть / прочита'ть":"Я уже прочита'л эту книгу.",
+"писа'ть / написа'ть":"Я написа'л письмо другу.",
+"де'лать / сде'лать":"Ты сде'лал домашнее задание?",
+"пока'зывать / показа'ть":"Писатель показа'л Алисе старую Москву.",
+"дари'ть / подари'ть":"Что тебе подари'ть на день рождения?",
+"аплоди'ровать":"Все зрители аплоди'ровали.",
+"акаде'мик":"Акаде'мик попросил книгу.",
+"уме'ть":"Ты уме'ешь плавать?",
+"учи'ться / научи'ться":"Я хочу научи'ться играть на гитаре.",
+"ско'ро":"Ско'ро лето!",
+"секре'т":"Это наш секре'т!",
+"приду'мывать / приду'мать":"Писатель приду'мал интересную историю.",
+"век (двадца'тый век)":"Алиса попала в двадца'тый век."
+}
+};
+const _miss=[];LESSONS.forEach(l=>{const m=EX[l.id]||{};const used=new Set();l.vocab.forEach(v=>{if(!v[2]){if(m[v[0]]){v[2]=m[v[0]];used.add(v[0]);}else _miss.push(l.id+': '+v[0]);}else if(m[v[0]])used.add(v[0]);});Object.keys(m).forEach(k=>{if(!used.has(k))_miss.push('UNUSED '+l.id+': '+k)});});
+if(typeof module!=='undefined')module.exports=_miss;
+
+const ORD = ["первая","вторая","третья","четвертая","пятая","шестая","седьмая","восьмая","девятая","десятая","одиннадцатая","двенадцатая","тринадцатая","четырнадцатая","пятнадцатая","шестнадцатая","семнадцатая","восемнадцатая","девятнадцатая"];
+const BOOKS = [
+  { id: "b1", ru: "Девочка, с которой ничего не случится", uz: "Hech narsa bo'lmaydigan qizcha", level: "A2", pages: "11–42", ready: true,
+    note: "Qisqa hikoyalar, oddiy dialoglar — rus tilining asosiy grammatikasi uchun ideal boshlanish." },
+  { id: "b2", ru: "Ржавый фельдмаршал", uz: "Zanglagan feldmarshal", level: "A2+", pages: "43–116",
+    parts: [{ ch: ["Новости будущего века","Берта и дельфины","Туды-сюды дедушка","Чемодан Светланы Одинокой","Хозяин пиратского острова","В замке на мысе Сан-Бонифацио","Падение Ржавого фельдмаршала"] }] },
+  { id: "b3", ru: "Путешествие Алисы", uz: "Alisaning sayohati", level: "B1", pages: "117–316",
+    parts: [{ ch: ["Преступница Алиса","Сорок три «зайца»","Ты слышал о трёх капитанах?","Пропали головасты","Советы доктора Верховцева","Кустики","Загадка пустой планеты","Что рассказали ушаны","Нам нужен говорун","Мы купили говоруна","Курс к системе Медузы","Такое печальное изобретение","Парализованные роботы","Погоня за леди Винтер","Птенец птицы Крок","Зеркальные цветы","Мы смотрим в прошлое","Шпион","Где девчонка?","В плену","А в это время…","Толстяк врёт","Пленник в подземелье","Конец путешествия"] }] },
+  { id: "b4", ru: "День рождения Алисы", uz: "Alisaning tug'ilgan kuni", level: "B1", pages: "317–396",
+    parts: [{ ch: ORD.map(o => "Глава " + o) }] },
+  { id: "b5", ru: "Миллион приключений", uz: "Million sarguzasht", level: "B1+", pages: "397–682",
+    parts: [
+      { title: "Новые подвиги Геракла", ch: ["Авгиева лаборатория","Появление Геракла","Второй день рождения","Пожалейте маслят","Куда улетают комгуси?","Джинн в корабле"] },
+      { title: "Заграничная принцесса", ch: ["Мы летим в джунгли Пенелопы!","Пенелопа и Жангле-многоточие","Все беды от романтики","Свиня Ула","Всё для шпиона","Два лица Фуукса","Где Пашка Гераскин?","Документы для принцессы","Латы в металлолом","Обиженный маркиз","Другой Жангле…","Номер с ванной для принцессы","Королевский обед","Жалобы на рыцаря","Начинается турнир","Роковой поединок","Победитель не уйдёт от наказания","Суд во дворце","Палач подтверждает","Бегство из города","Прощай, шут!","Снова Фуукс","Вы не поверите, где мы были!"] },
+      { title: "Каникулы на Пенелопе", ch: ["Половина рогатой собаки","Дикарь ловит рыбу","Дикарь пьёт чай","Там был город","Дикарь в городе","Тигры на дороге к дому","Вести из города","Они любят друг друга!","Где живёт собака?","В поисках дикаря","Пашка исчез","Говорящий тигрокрыс","Дикарь собрался улетать","Считаю до десяти…"] },
+      { title: "Шкатулка пиратской мамаши", ch: ["Приезжай на Брастак отведать скррулей","Возьми меня с собой!","Их никто не встретил","Планета в карантине","Гостиница для почётных гостей","Беглец","Где вы его спрятали?","Как это случилось","Возвращение археолога","Туристка любит драгоценности","Пиратская мамаша","Маленькая тюрьма","Бегство","Драматические события на космодроме","Вроде бы всё удалось…","Полная шкатулка пиратов","Средство от пиратов"] }
+    ] },
+  { id: "b6", ru: "Сто лет тому вперёд", uz: "Yuz yil oldinga", level: "B2", pages: "683–964",
+    parts: [
+      { title: "Гость из прошлого", ch: ["А если за дверью анаконда?","Это не Индия","Дедушка-ровесник","Синяя лошадь и другие лингвисты","Ты любишь мангодыню?","Как вырастить дом","Автобус никуда не едет","Чемпион по мороженому","Флипнем до космодрома!","Пассажир до любой планеты","«Зайцы» в вазе","Пиратские неудачи","Посетитель космозо","Береги миелофон","Бегом к машине времени"] },
+      { title: "Три К", ch: ["Она не помнит","У нас в классе три Коли","Я твой папочка!","Как всё было","Ботинки доктора Алика","Бегство","Туристы и другие спасители","Будем учиться вместе","Я её никогда не видел","Запасной игрок","Это бандит из будущего!","Рассказ и вещественные доказательства","Наполеон по заказу","Странная девочка","Спроси у Садовского","Супергёрла!","Через забор и обратно","Опасная беглянка","Две Аллы","Ишутин не вмешивается","Военный совет","Поиски","Ишутин передумал","Прощай, Супергёрла!"] }
+    ] }
+];
+
+</script>
+<script>
+(function () {
+"use strict";
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const app = $("#app");
+
+/* ---------- text helpers ---------- */
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+// Cyrillic vowel + ' -> combining acute; Uzbek o' g' -> oʻ gʻ; other ' -> ʼ
+const mix = s => String(s)
+  .replace(/([аеёиоуыэюяАЕЁИОУЫЭЮЯ])'/g, "$1́")
+  .replace(/([OoGg])'/g, "$1ʻ")
+  .replace(/'/g, "ʼ");
+const bold = s => s.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
+const T = s => bold(mix(esc(s)));         // safe text
+const H = s => bold(mix(s));              // trusted HTML from data
+const plain = s => String(s).replace(/'/g, "").replace(/́/g, "");
+const norm = s => plain(s).replace(/[?!.,«»"]/g, "").replace(/ё/g, "е").replace(/Ё/g, "Е").toLowerCase().replace(/\s+/g, " ").trim();
+const keysOf = ru => ru.replace(/\([^)]*\)/g, "").split("/").map(norm).filter(Boolean);
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
+const ICON = {
+  play: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>',
+  star: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9z"/></svg>',
+  starOn: '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9z"/></svg>',
+  x: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+  back: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>',
+  next: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>',
+  cards: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="14" height="14" rx="2"/><path d="M7 3h12a2 2 0 0 1 2 2v12"/></svg>'
+};
+
+/* ---------- state (per-viewer, browser only) ---------- */
+const KEY = "alisa-ru-v1";
+let S = { done: {}, score: {}, star: {}, srs: {}, cando: {}, dir: "ru" };
+try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch (e) {}
+const save = () => { S.ts = Date.now(); try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} updateBadge(); if (window.__onSave) window.__onSave(); };
+
+/* ---------- dictionary index ---------- */
+const DICT = new Map();   // key -> {ru, uz, ex, lesson}
+const ENTRIES = [];       // unique entries for "Lug'atim"
+const FORMS = new Map();  // normalized form -> key
+LESSONS.forEach(l => l.vocab.forEach(v => {
+  const e = { ru: v[0], uz: v[1], ex: v[2] || "", lesson: l.id, num: l.num, id: norm(v[0]) };
+  const ks = keysOf(v[0]);
+  e.key = ks[ks.length - 1] || e.id;
+  let fresh = false;
+  ks.forEach(k => { if (!DICT.has(k)) { DICT.set(k, e); fresh = true; } });
+  if (fresh && !ENTRIES.some(x => x.id === e.id)) ENTRIES.push(e);
+}));
+LESSONS.forEach(l => {
+  const re = /\{([^}|]+)(?:\|([^}]+))?\}/g; let m;
+  while ((m = re.exec(l.reading))) { const f = norm(m[1]), k = norm(m[2] || m[1]); if (!FORMS.has(f)) FORMS.set(f, k); }
+});
+const STEMS = new Map();
+const END = /(ться|тся|ть|ти|чь|ся|ый|ий|ой|ая|яя|ое|ее|ые|ие|ов|ев|ей|ам|ям|ах|ях|ом|ем|ую|юю|а|я|о|е|ь|ы|и|у|ю|й)$/;
+DICT.forEach((e, k) => { if (k.includes(" ")) return; const st = k.replace(END, ""); if (st.length >= 3 && !STEMS.has(st)) STEMS.set(st, k); });
+function lookup(word) {
+  const n = norm(word);
+  if (FORMS.has(n)) return { key: FORMS.get(n), fuzzy: false };
+  if (DICT.has(n)) return { key: n, fuzzy: false };
+  let w = n;
+  for (let i = 0; i < 3 && w.length > 3; i++) {
+    const st = w.replace(END, "");
+    if (st === w) break;
+    if (STEMS.has(st)) return { key: STEMS.get(st), fuzzy: true };
+    w = st;
+  }
+  if (STEMS.has(n)) return { key: STEMS.get(n), fuzzy: true };
+  return null;
+}
+const entryOf = k => DICT.get(k);
+
+/* ---------- speech ---------- */
+let ruVoice = null;
+function pickVoice() {
+  try { const vs = speechSynthesis.getVoices(); ruVoice = vs.find(v => /^ru/i.test(v.lang)) || null; } catch (e) {}
+}
+if ("speechSynthesis" in window) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function speak(text, rate, quiet) {
+  if (!("speechSynthesis" in window)) { if (window.__noVoice) window.__noVoice(); else toast("Brauzeringiz ovozli o'qishni qo'llamaydi"); return; }
+  try {
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(plain(text).replace(/\*\*/g, "").replace(/\(.*?\)/g, ""));
+    u.lang = "ru-RU"; if (ruVoice) u.voice = ruVoice; u.rate = rate || 0.9;
+    speechSynthesis.speak(u);
+    if (!ruVoice && !quiet) toast("Rus ovozi topilmadi — qurilma sozlamalaridan rus tilini o'rnating");
+  } catch (e) { toast("Ovoz ishlamadi"); }
+}
+
+/* ---------- toast & popover ---------- */
+let tt;
+function toast(msg) { const t = $("#toast"); t.textContent = mix(msg); t.hidden = false; clearTimeout(tt); tt = setTimeout(() => t.hidden = true, 2600); }
+const pop = $("#pop");
+let popAnchor = null;
+function showPop(anchor, word, res) {
+  $$(".w.act").forEach(x => x.classList.remove("act"));
+  anchor.classList.add("act"); popAnchor = anchor;
+  const e = res && entryOf(res.key);
+  if (e) {
+    const on = !!S.star[e.id];
+    pop.innerHTML = `<button class="ibtn x" data-a="close" aria-label="Yopish">${ICON.x}</button>
+      <div class="ru">${T(e.ru)}</div>
+      ${norm(word) !== res.key ? `<div class="form">${mix("Matndagi shakl")}: <i>${esc(word)}</i>${res.fuzzy ? " · " + mix("taxminiy moslik") : ""}</div>` : ""}
+      <div class="uz">${T(e.uz)}</div>
+      ${e.ex ? `<div class="ex">${T(e.ex)}</div>` : ""}
+      <div class="row"><button class="btn sm" data-a="say" data-t="${esc(plain(e.ru))}">${ICON.play}${mix("Tinglash")}</button>
+      <button class="btn sm" data-a="star" data-id="${esc(e.id)}">${on ? ICON.starOn : ICON.star}${on ? mix("Saqlangan") : mix("Saqlash")}</button>
+      <span class="muted" style="font-size:12px">${mix(e.num + "-dars")}</span></div>`;
+  } else {
+    pop.innerHTML = `<button class="ibtn x" data-a="close" aria-label="Yopish">${ICON.x}</button>
+      <div class="ru">${esc(word)}</div>
+      <div class="uz muted">${mix("Bu so'z hozircha kurs lug'atida yo'q.")}</div>
+      <div class="row"><button class="btn sm" data-a="say" data-t="${esc(word)}">${ICON.play}${mix("Tinglash")}</button>
+      <a class="btn sm" href="https://ru.wiktionary.org/wiki/${encodeURIComponent(word.toLowerCase())}" target="_blank" rel="noopener">${mix("Viktsionariyda ochish")}</a></div>`;
+  }
+  pop.hidden = false;
+  const r = anchor.getBoundingClientRect(), pw = pop.offsetWidth, ph = pop.offsetHeight;
+  let x = Math.min(Math.max(16, r.left + r.width / 2 - pw / 2), innerWidth - pw - 16);
+  let y = r.bottom + 8; if (y + ph > innerHeight - 12) y = Math.max(12, r.top - ph - 8);
+  pop.style.left = x + "px"; pop.style.top = y + "px";
+}
+function hidePop() { pop.hidden = true; $$(".w.act").forEach(x => x.classList.remove("act")); popAnchor = null; }
+document.addEventListener("click", ev => {
+  const a = ev.target.closest("[data-a]");
+  if (a) {
+    const act = a.dataset.a;
+    if (act === "close") { hidePop(); return; }
+    if (act === "say") { speak(a.dataset.t); return; }
+    if (act === "star") { toggleStar(a.dataset.id); if (popAnchor && !pop.hidden) { const w = popAnchor; showPop(w, w.textContent, w.dataset.k ? { key: w.dataset.k, fuzzy: w.classList.contains("fz") } : lookup(w.textContent)); } else rerenderStars(a); return; }
+  }
+  const w = ev.target.closest(".w");
+  if (w) { const res = w.dataset.k ? { key: w.dataset.k, fuzzy: w.classList.contains("fz") } : null; showPop(w, w.textContent, res); return; }
+  if (!ev.target.closest("#pop")) hidePop();
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape") hidePop(); });
+addEventListener("scroll", () => { if (!pop.hidden) hidePop(); }, { passive: true });
+function toggleStar(id) { if (S.star[id]) delete S.star[id]; else S.star[id] = 1; save(); toast(S.star[id] ? "Lug'atimga saqlandi" : "Saqlanganlardan olib tashlandi"); }
+function rerenderStars(btn) { const id = btn.dataset.id, on = !!S.star[id]; btn.classList.toggle("on", on); btn.innerHTML = on ? ICON.starOn : ICON.star; }
+
+/* ---------- SRS (Leitner) ---------- */
+const DAY = 864e5, GAP = [0, 0, 1, 3, 7, 16];
+const now = () => Date.now();
+function dueList(filter) {
+  const pool = ENTRIES.filter(filter || (() => true));
+  const due = pool.filter(e => S.srs[e.id] && S.srs[e.id].d <= now());
+  const fresh = pool.filter(e => !S.srs[e.id]);
+  return shuffle(due).concat(fresh.slice(0, Math.max(0, 15 - due.length)));
+}
+function grade(id, ok) {
+  const c = S.srs[id] || { b: 0 };
+  c.b = ok ? Math.min(5, (c.b || 0) + 1) : 1;
+  c.d = now() + GAP[c.b] * DAY - (ok ? 0 : 0);
+  S.srs[id] = c; save();
+}
+function updateBadge() {
+  const n = ENTRIES.filter(e => S.srs[e.id] && S.srs[e.id].d <= now()).length;
+  const b = $("#dueBadge"); b.textContent = n; b.hidden = !n;
+}
+
+/* ---------- routing ---------- */
+const STEPS = ["Kirish", "So'zlar", "Grammatika", "O'qish", "Mashqlar", "Yakun"];
+const STEP_IDS = ["kirish", "sozlar", "grammatika", "oqish", "mashq", "yakun"];
+function route() {
+  hidePop();
+  try { speechSynthesis.cancel(); } catch (e) {}
+  const h = (location.hash || "#kurs").slice(1);
+  let r = "kurs";
+  const m = h.match(/^(l\d+)(?:-(\w+))?$/);
+  if (m && LESSONS.find(l => l.id === m[1])) { r = "lesson"; renderLesson(m[1], Math.max(0, STEP_IDS.indexOf(m[2] || "kirish"))); }
+  else if (h === "lugat") { r = h; renderDict(); }
+  else if (h === "takror") { r = h; renderReview(); }
+  else if (h === "tahlil") { r = h; renderAnalyzer(); }
+  else renderHome();
+  $$("#nav a").forEach(a => a.toggleAttribute("aria-current", a.dataset.r === r || (r === "lesson" && a.dataset.r === "kurs")));
+  $$("#nav a").forEach(a => { if (a.hasAttribute("aria-current")) a.setAttribute("aria-current", "page"); });
+  scrollTo(0, 0);
+}
+addEventListener("hashchange", route);
+
+/* ---------- home ---------- */
+function lessonDone(id) { return (S.done[id] || []).length; }
+function renderHome() {
+  const doneLessons = LESSONS.filter(l => lessonDone(l.id) >= 6).length;
+  const learned = ENTRIES.filter(e => S.srs[e.id] && S.srs[e.id].b >= 3).length;
+  const due = ENTRIES.filter(e => S.srs[e.id] && S.srs[e.id].d <= now()).length;
+  const next = LESSONS.find(l => lessonDone(l.id) < 6) || LESSONS[0];
+  const total = BOOKS.reduce((n, b) => n + (b.ready ? LESSONS.length : b.parts.reduce((m, p) => m + p.ch.length, 0)), 0);
+  app.innerHTML = `
+  <section class="hero">
+    <div>
+      <div class="eyebrow">${mix("Kir Bulichyov · «Приключения Алисы» · A2 → B2")}</div>
+      <h1>${mix("Rus tilini Alisa bilan o'rganing")}</h1>
+      <p>${mix("Kitobning har bir bobi — bitta dars: yangi so'zlar, grammatika va u bobda qanday ishlatilgani, moslashtirilgan o'qish matni, mashqlar va shaxsiy lug'at. Darslar CEFR (Yevropa umumiy til kompetensiyalari) bo'yicha A2 darajadan boshlanib, bosqichma-bosqich qiyinlashadi.")}</p>
+      <div class="row" style="margin-top:16px">
+        <a class="btn pri" href="#${next.id}">${mix(lessonDone(next.id) ? "Davom etish" : "Boshlash")}: ${next.num}-dars ${ICON.next}</a>
+        <a class="btn" href="#takror">${ICON.cards}${mix("So'zlarni takrorlash")}</a>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat card"><b>${doneLessons}/${LESSONS.length}</b><span>${mix("dars tugatildi")}</span></div>
+      <div class="stat card"><b>${learned}</b><span>${mix("so'z o'zlashtirildi")}</span></div>
+      <div class="stat card"><b>${due}</b><span>${mix("takrorlash kerak")}</span></div>
+    </div>
+  </section>
+  <div class="path" aria-label="Daraja yo'li">
+    <div class="now"><b>A2</b><span>${mix("1-kitob · hozir")}</span></div>
+    <div><b>A2+</b><span>${mix("2-kitob")}</span></div>
+    <div><b>B1</b><span>${mix("3–4-kitoblar")}</span></div>
+    <div><b>B1+</b><span>${mix("5-kitob")}</span></div>
+    <div><b>B2</b><span>${mix("6-kitob")}</span></div>
+  </div>
+  <div class="sec-head"><div><div class="eyebrow">${mix("1-kitob · A2 · kitobda 11–42-betlar")}</div>
+    <h2 class="sec">${esc(BOOKS[0].ru)}</h2><div class="muted">${mix(BOOKS[0].uz + " — " + BOOKS[0].note)}</div></div></div>
+  <div class="lessons">${LESSONS.map(l => {
+    const d = S.done[l.id] || [], sc = S.score[l.id];
+    return `<a class="card lcard" href="#${l.id}">
+      ${d.length >= 6 ? `<span class="mark">${sc && sc.ex != null ? Math.max(2, Math.round(sc.ex * 5)) : 5}</span>` : ""}
+      <span class="n">${l.num}</span><h3>${esc(l.ru)}</h3><span class="uz">${mix(l.uz)}</span>
+      <span class="tp">${mix(l.topic)}</span>
+      <span class="foot"><span>${mix(l.level + " · " + (l.page ? l.page + "-bet" : "kirish darsi") + " · " + l.vocab.length + " so'z")}</span>
+      <span class="pips">${STEPS.map((_, i) => `<i class="${d.includes(i) ? "d" : ""}"></i>`).join("")}</span></span></a>`;
+  }).join("")}</div>
+  <div class="sec-head"><div><div class="eyebrow">${mix("Keyingi kitoblar · jami " + total + " bob")}</div>
+    <h2 class="sec">${mix("Kurs xaritasi")}</h2><div class="muted">${mix("Bu boblar uchun darslar tayyorlanmoqda — har bir bob alohida dars bo'ladi.")}</div></div></div>
+  ${BOOKS.filter(b => !b.ready).map(b => {
+    const n = b.parts.reduce((m, p) => m + p.ch.length, 0);
+    return `<details class="card book"><summary><span class="lv">${b.level}</span><span class="t">${esc(b.ru)}</span>
+      <span class="muted">${mix(b.uz)}</span><span class="c">${mix(n + " bob · " + b.pages + "-betlar")}</span></summary>
+      <div class="chlist">${b.parts.map(p => `${p.title ? `<div class="pt">${esc(p.title)}</div>` : ""}<ol>${p.ch.map(c => `<li>${esc(c)}</li>`).join("")}</ol>`).join("")}</div></details>`;
+  }).join("")}
+  <div class="method">
+    <div class="card"><b>${mix("1. So'zlar oldin")}</b><p>${mix("Matnni o'qishdan oldin bobning kalit so'zlarini urg'u bilan o'rganasiz va tinglaysiz.")}</p></div>
+    <div class="card"><b>${mix("2. Grammatika kontekstda")}</b><p>${mix("Har bir mavzu jadval va bobdagi vaziyatlardan olingan misollar bilan tushuntiriladi.")}</p></div>
+    <div class="card"><b>${mix("3. O'qish va tushunish")}</b><p>${mix("Bobning A2 darajaga moslashtirilgan matni: istalgan belgilangan so'zni bosing — tarjima chiqadi.")}</p></div>
+    <div class="card"><b>${mix("4. Mashq va takror")}</b><p>${mix("Mashqlar, juftlash o'yini va Leitner tizimidagi kartochkalar so'zlarni uzoq xotiraga o'tkazadi.")}</p></div>
+  </div>`;
+}
+
+/* ---------- lesson ---------- */
+function markDone(id, i) { const d = S.done[id] || (S.done[id] = []); if (!d.includes(i)) { d.push(i); save(); } }
+function renderLesson(id, step) {
+  const L = LESSONS.find(l => l.id === id), idx = LESSONS.indexOf(L);
+  markDone(id, 0);
+  const d = S.done[id] || [];
+  app.innerHTML = `
+  <a class="crumb" href="#kurs">${ICON.back}${mix("Kursga qaytish")}</a>
+  <div class="lhead"><div class="big">${L.num}</div><div>
+    <div class="eyebrow">${mix(L.num + "-dars · " + BOOKS[0].ru)}</div>
+    <h1>${esc(L.ru)}</h1><div class="sub">${mix(L.uz)}</div>
+    <div class="meta"><span class="chip lv">CEFR ${L.level}</span><span class="chip">${mix(L.page ? "Kitobda " + L.page + "-bet" : "Kirish darsi")}</span><span class="chip">${mix(L.topic)}</span><span class="chip">${mix(L.vocab.length + " ta yangi so'z")}</span></div>
+  </div></div>
+  <div class="layout">
+    <nav class="steps card" aria-label="Dars bosqichlari">${STEPS.map((s, i) => `<button data-step="${i}" class="${d.includes(i) ? "d" : ""}" ${i === step ? 'aria-current="step"' : ""}><span class="k">${d.includes(i) && i !== step ? "✓" : i + 1}</span>${mix(s)}</button>`).join("")}</nav>
+    <section class="panel card" id="panel"></section>
+  </div>`;
+  $$(".steps button").forEach(b => b.onclick = () => { location.hash = L.id + "-" + STEP_IDS[+b.dataset.step]; });
+  const P = $("#panel");
+  const pager = () => {
+    const prev = step > 0 ? `<a class="btn" href="#${L.id}-${STEP_IDS[step - 1]}">${ICON.back}${mix(STEPS[step - 1])}</a>` : `<span></span>`;
+    let nx;
+    if (step < 5) nx = `<a class="btn pri" href="#${L.id}-${STEP_IDS[step + 1]}" data-done="${step}">${mix(STEPS[step + 1])} ${ICON.next}</a>`;
+    else if (LESSONS[idx + 1]) nx = `<a class="btn pri" href="#${LESSONS[idx + 1].id}" data-done="5">${mix("Keyingi dars: " + LESSONS[idx + 1].num)} ${ICON.next}</a>`;
+    else nx = `<a class="btn pri" href="#kurs" data-done="5">${mix("Kitobni tugatdim!")} ${ICON.next}</a>`;
+    return `<div class="pager">${prev}${nx}</div>`;
+  };
+  [stepIntro, stepWords, stepGrammar, stepReading, stepExercises, stepFinal][step](P, L);
+  P.insertAdjacentHTML("beforeend", pager());
+  $$("[data-done]", P).forEach(a => a.addEventListener("click", () => markDone(L.id, +a.dataset.done)));
+}
+
+function stepIntro(P, L) {
+  P.innerHTML = `<h2>${mix("Kirish")}</h2>
+  <p class="lede">${mix(L.intro)}</p>
+  <h3>${mix("Dars oxirida men...")}</h3>
+  <ul class="can">${L.cando.map(c => `<li><span style="color:var(--ok);font-weight:700">✓</span><span>${mix(c)}</span></li>`).join("")}</ul>
+  <h3>${mix("O'ylab ko'ring (rus yoki o'zbek tilida)")}</h3>
+  <ul class="pts">${L.warmup.map(q => `<li>${mix(q)}</li>`).join("")}</ul>
+  <h3>${mix("Madaniy izoh")}</h3>
+  <div class="note">${H(L.culture)}</div>`;
+}
+
+function vocabItem(e, showTag) {
+  const on = !!S.star[e.id];
+  return `<div class="vitem"><div class="tx"><div class="ru">${T(e.ru)}</div><div class="uz">${T(e.uz)}</div>${e.ex ? `<div class="ex">${T(e.ex)}</div>` : ""}${showTag ? `<div class="tag">${mix(e.num + "-dars")}</div>` : ""}</div>
+    <button class="ibtn" data-a="say" data-t="${esc(plain(e.ru))}" aria-label="Tinglash">${ICON.play}</button>
+    <button class="ibtn ${on ? "on" : ""}" data-a="star" data-id="${esc(e.id)}" aria-label="Saqlash">${on ? ICON.starOn : ICON.star}</button></div>`;
+}
+const lessonEntries = L => L.vocab.map(v => ({ ru: v[0], uz: v[1], ex: v[2] || "", lesson: L.id, num: L.num, id: norm(v[0]) }));
+
+function stepWords(P, L) {
+  const list = lessonEntries(L);
+  P.innerHTML = `<h2>${mix("Yangi so'zlar")}</h2>
+  <p class="muted" style="margin-top:-4px">${mix("Urg'u belgisi (а́) qaysi bo'g'in kuchli aytilishini ko'rsatadi. Fe'llar juftligi: tugallanmagan / tugallangan aspekt. Yulduzcha — so'zni «Lug'atim»ga saqlash.")}</p>
+  <div class="vtools"><button class="btn sm" id="fcBtn">${ICON.cards}${mix("Kartochkalar bilan yodlash")}</button>
+  <button class="btn sm" id="allSay">${ICON.play}${mix("Hammasini tinglash")}</button></div>
+  <div id="fcHost"></div>
+  <div class="vlist">${list.map(e => vocabItem(e)).join("")}</div>`;
+  $("#fcBtn").onclick = () => { const h = $("#fcHost"); if (h.innerHTML) { h.innerHTML = ""; return; } flashcards(h, shuffle(list), true); h.scrollIntoView({ behavior: "smooth", block: "nearest" }); };
+  $("#allSay").onclick = () => speak(list.map(e => plain(e.ru).replace(/\(.*?\)/g, "")).join(". "), 0.8);
+}
+
+function stepGrammar(P, L) {
+  const G = L.grammar;
+  P.innerHTML = `<h2>${mix(G.title)}</h2>
+  <div class="gintro">${H(G.intro)}</div>
+  ${G.tables.map(t => `<div class="tbl"><table><caption>${mix(t.caption)}</caption><thead><tr>${t.head.map(h => `<th>${mix(h)}</th>`).join("")}</tr></thead>
+    <tbody>${t.rows.map(r => `<tr>${r.map(c => `<td>${H(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`).join("")}
+  <h3>${mix("Eslab qoling")}</h3>
+  <ul class="pts">${G.points.map(p => `<li>${H(p)}</li>`).join("")}</ul>
+  <h3>${mix(G.usageTitle || "Bobda qanday qo'llangan")}</h3>
+  <div class="usage">${G.usage.map(u => `<div class="ux"><button class="ibtn" data-a="say" data-t="${esc(plain(u[0]).replace(/\*/g, ""))}" aria-label="Tinglash">${ICON.play}</button>
+    <div class="ru">${H(u[0])}</div><div class="uz">${mix(u[1])}</div><div class="why">${mix(u[2])}</div></div>`).join("")}</div>`;
+}
+
+function readingHTML(text) {
+  return text.split(/\n\n+/).map(par => {
+    let out = "", last = 0; const re = /\{([^}|]+)(?:\|([^}]+))?\}/g; let m;
+    while ((m = re.exec(par))) {
+      out += mix(esc(par.slice(last, m.index)));
+      out += `<button class="w" data-k="${esc(norm(m[2] || m[1]))}">${mix(esc(m[1]))}</button>`;
+      last = re.lastIndex;
+    }
+    out += mix(esc(par.slice(last)));
+    return `<p class="${/^—/.test(par) ? "dlg" : ""}">${out}</p>`;
+  }).join("");
+}
+let hlOn = true;
+try { hlOn = localStorage.getItem(KEY + "-hl") !== "0"; } catch (e) {}
+function stepReading(P, L) {
+  const clean = L.reading.replace(/\{([^}|]+)(?:\|[^}]+)?\}/g, "$1");
+  P.innerHTML = `<h2>${mix("O'qish")}</h2>
+  <div class="rtools">
+    <button class="btn sm" id="hlBtn" aria-pressed="${hlOn}">${mix(hlOn ? "So'zlar belgisini yashirish" : "Yangi so'zlarni belgilash")}</button>
+    <button class="btn sm" id="sayAll">${ICON.play}${mix("Matnni tinglash")}</button>
+    <button class="btn sm" id="stopSay">${mix("To'xtatish")}</button>
+    <span class="muted" style="font-size:14px">${mix("Belgilangan so'zni bosing — tarjimasi chiqadi.")}</span>
+  </div>
+  <article class="sheet ${hlOn ? "hl" : ""}" id="sheet" lang="ru">${readingHTML(L.reading)}</article>
+  <p class="src muted">${L.srcNote ? mix(L.srcNote) + "</p><p hidden>" : ""}${mix("Bu — bobning A2 darajaga moslashtirilgan qisqa bayoni (asl matn emas). Asl bobni kitobning " + L.page + "-betidan o'qing; matnni «Matn tahlili» bo'limiga qo'ysangiz, tanish so'zlar tarjimasi bilan belgilanadi.")} <a href="#tahlil">${mix("Matn tahlili →")}</a></p>
+  <h3>${mix("Matnni tushundingizmi?")}</h3>
+  <div id="qs"></div>`;
+  $("#hlBtn").onclick = () => { hlOn = !hlOn; try { localStorage.setItem(KEY + "-hl", hlOn ? "1" : "0"); } catch (e) {} stepReadingRefresh(); };
+  const stepReadingRefresh = () => { $("#sheet").classList.toggle("hl", hlOn); $("#hlBtn").textContent = mix(hlOn ? "So'zlar belgisini yashirish" : "Yangi so'zlarni belgilash"); $("#hlBtn").setAttribute("aria-pressed", hlOn); };
+  $("#sayAll").onclick = () => speak(clean.replace(/\n+/g, " "), 0.85);
+  $("#stopSay").onclick = () => { try { speechSynthesis.cancel(); } catch (e) {} };
+  quiz($("#qs"), L, L.questions, "q");
+}
+
+/* ---------- quiz engine ---------- */
+const normAns = s => norm(s).replace(/[^а-яa-z\s-]/g, "").trim();
+function quiz(host, L, items, slot) {
+  const state = items.map(() => null);
+  const draw = () => {
+    const done = state.filter(x => x !== null).length, ok = state.filter(x => x === true).length;
+    host.innerHTML = `<div class="score"><span class="val">${ok}/${items.length}</span><div class="bar"><i style="width:${items.length ? done / items.length * 100 : 0}%"></i></div>
+      <button class="btn sm" data-reset>${mix("Qayta boshlash")}</button></div>
+      <div class="qlist">${items.map((it, i) => qHTML(it, i, state[i])).join("")}</div>`;
+    $("[data-reset]", host).onclick = () => { state.fill(null); draw(); };
+    $$(".q", host).forEach((q, i) => {
+      const it = items[i];
+      if (state[i] !== null) return;
+      $$(".opt", q).forEach(b => b.onclick = () => { state[i] = +b.dataset.v === answerIndex(it); record(); draw(); });
+      const inp = $(".gap", q);
+      if (inp) {
+        const go = () => { if (!inp.value.trim()) return; state[i] = it.a.some(a => normAns(a) === normAns(inp.value)); q.dataset.val = inp.value; inputs[i] = inp.value; record(); draw(); };
+        inp.addEventListener("keydown", e => { if (e.key === "Enter") go(); });
+        $(".chk", q).onclick = go;
+      }
+    });
+  };
+  const inputs = {};
+  const answerIndex = it => it.t === "tf" ? (it.a ? 0 : 1) : it.a;
+  const qHTML = (it, i, st) => {
+    let body = "", fb = "";
+    if (it.t === "gap") {
+      const parts = esc(it.q).split("___");
+      const cls = st === null ? "" : st ? "right" : "wrong";
+      body = `<div class="qt"><span>${parts[0]}<input class="gap ${cls}" aria-label="Javob" autocomplete="off" autocapitalize="off" spellcheck="false" ${st !== null ? `value="${esc(inputs[i] || "")}" disabled` : ""}>${mix(parts[1] || "")}</span></div>
+        ${st === null ? `<div class="opts"><button class="btn sm chk">${mix("Tekshirish")}</button></div>` : ""}`;
+      if (st !== null) fb = st ? mix("To'g'ri!") : mix("To'g'ri javob: ") + esc(it.a[0]);
+    } else {
+      const opts = it.t === "tf" ? ["Верно", "Неверно"] : it.o;
+      const q = it.t === "tf" ? it.s : it.q;
+      const ai = answerIndex(it);
+      body = `<div class="qt"><span>${esc(q)}</span></div><div class="opts">${opts.map((o, j) => {
+        let c = ""; if (st !== null) { if (j === ai) c = "right"; else if (j === (it._pick)) c = "wrong"; }
+        return `<button class="opt ${c}" data-v="${j}" ${st !== null ? "disabled" : ""}>${esc(o)}${it.t === "tf" ? ` <span class="muted" style="font-size:13px">(${mix(j ? "noto'g'ri" : "to'g'ri")})</span>` : ""}</button>`;
+      }).join("")}</div>`;
+      if (st !== null) fb = st ? mix("To'g'ri!") : mix("Xato.");
+    }
+    if (st !== null && it.ex) fb += " " + mix(it.ex);
+    return `<div class="q">${body}${st !== null ? `<div class="fb ${st ? "ok" : ""}">${fb}</div>` : ""}</div>`;
+  };
+  // remember wrong pick for mc
+  host.addEventListener("click", e => { const b = e.target.closest(".opt"); if (!b || b.disabled) return; const i = $$(".q", host).indexOf(b.closest(".q")); if (i >= 0) items[i]._pick = +b.dataset.v; }, true);
+  const record = () => {
+    const done = state.filter(x => x !== null).length;
+    if (done === items.length) {
+      const sc = S.score[L.id] || (S.score[L.id] = {});
+      sc[slot] = Math.max(sc[slot] || 0, state.filter(Boolean).length / items.length);
+      save();
+      if (slot === "q") markDone(L.id, 3);
+      if (slot === "ex") markDone(L.id, 4);
+    }
+  };
+  draw();
+}
+
+function stepExercises(P, L) {
+  P.innerHTML = `<h2>${mix("Mashqlar")}</h2>
+  <p class="muted" style="margin-top:-4px">${mix("Bo'sh joyga to'g'ri shaklni yozing (Enter yoki «Tekshirish»), yoki variantni tanlang. «ё» o'rniga «е» yozsangiz ham qabul qilinadi.")}</p>
+  <h3>${mix("Grammatika: " + L.grammar.title)}</h3>
+  <div id="ex"></div>
+  <h3>${mix("So'z juftlash")}</h3>
+  <p class="muted" style="margin-top:-4px">${mix("Chapdagi rus so'zini, keyin o'ngdagi tarjimasini bosing.")}</p>
+  <div id="match"></div>`;
+  quiz($("#ex"), L, L.exercises, "ex");
+  matchGame($("#match"), lessonEntries(L));
+}
+
+function matchGame(host, pool) {
+  const set = shuffle(pool).slice(0, 6);
+  const right = shuffle(set);
+  let sel = null, solved = 0;
+  host.innerHTML = `<div class="match">${set.map((e, i) => `<button class="l" data-i="${i}">${T(e.ru.replace(/\s*\(.*?\)/g, ""))}</button><button class="r" data-j="${set.indexOf(right[i])}">${T(right[i].uz)}</button>`).join("")}</div>
+  <div class="row" style="margin-top:10px"><button class="btn sm" id="mNew">${mix("Yangi to'plam")}</button><span class="muted" id="mMsg"></span></div>`;
+  // reorder: lefts in col1, rights in col2 (grid auto-flow already pairs l/r per row)
+  $$(".l", host).forEach(b => b.onclick = () => { if (b.classList.contains("ok")) return; $$(".l.sel", host).forEach(x => x.classList.remove("sel")); b.classList.add("sel"); sel = b; });
+  $$(".r", host).forEach(b => b.onclick = () => {
+    if (!sel || b.classList.contains("ok")) return;
+    if (sel.dataset.i === b.dataset.j) { sel.classList.remove("sel"); sel.classList.add("ok"); b.classList.add("ok"); speak(plain(set[+b.dataset.j].ru)); sel = null; solved++;
+      if (solved === set.length) $("#mMsg", host).textContent = mix("Barakalla! Hammasi to'g'ri.");
+    } else { b.classList.add("bad"); setTimeout(() => b.classList.remove("bad"), 450); }
+  });
+  $("#mNew", host).onclick = () => matchGame(host, pool);
+}
+
+function stepFinal(P, L) {
+  const can = S.cando[L.id] || [];
+  const sc = S.score[L.id] || {};
+  P.innerHTML = `<h2>${mix("Yakun")}</h2>
+  <h3 style="margin-top:0">${mix("Vazifa · " + L.task.type)}</h3>
+  <p class="lede">${mix(L.task.prompt)}</p>
+  <textarea class="inp" id="draft" lang="ru" placeholder="${esc(mix("Shu yerga rus tilida yozing..."))}"></textarea>
+  <div class="row" style="margin-top:8px"><button class="btn sm" id="showS">${mix("Namuna javobni ko'rish")}</button><button class="btn sm" id="sayS">${ICON.play}${mix("Namunani tinglash")}</button></div>
+  <pre class="sample" id="sample" hidden lang="ru">${esc(L.task.sample)}</pre>
+  <h3>${mix("O'zingizni baholang")}</h3>
+  <ul class="can">${L.cando.map((c, i) => `<li><input type="checkbox" id="cd-${L.id}-${i}" ${can.includes(i) ? "checked" : ""}><label for="cd-${L.id}-${i}">${mix(c)}</label></li>`).join("")}</ul>
+  <p class="muted" style="font-size:14px">${mix("Natijalar: o'qish savollari " + (sc.q != null ? Math.round(sc.q * 100) + "%" : "—") + " · mashqlar " + (sc.ex != null ? Math.round(sc.ex * 100) + "%" : "—"))}</p>
+  <h3>${mix("Bob lug'ati")}</h3>
+  <div class="dict"><table><thead><tr><th>${mix("Ruscha")}</th><th>${mix("O'zbekcha")}</th><th></th></tr></thead><tbody>
+  ${lessonEntries(L).map(e => `<tr><td class="r">${T(e.ru)}</td><td>${T(e.uz)}</td><td style="white-space:nowrap"><button class="ibtn" data-a="say" data-t="${esc(plain(e.ru))}" aria-label="Tinglash">${ICON.play}</button></td></tr>`).join("")}
+  </tbody></table></div>`;
+  const dk = KEY + "-draft-" + L.id;
+  try { $("#draft").value = localStorage.getItem(dk) || ""; } catch (e) {}
+  $("#draft").oninput = e => { try { localStorage.setItem(dk, e.target.value); } catch (er) {} };
+  $("#showS").onclick = () => { const s = $("#sample"); s.hidden = !s.hidden; $("#showS").textContent = mix(s.hidden ? "Namuna javobni ko'rish" : "Namunani yashirish"); };
+  $("#sayS").onclick = () => speak(L.task.sample.replace(/\n/g, " "), 0.85);
+  $$(".can input").forEach((c, i) => c.onchange = () => {
+    const a = S.cando[L.id] || (S.cando[L.id] = []);
+    if (c.checked && !a.includes(i)) a.push(i); if (!c.checked) a.splice(a.indexOf(i), 1);
+    save();
+  });
+}
+
+/* ---------- flashcards ---------- */
+function flashcards(host, cards, practiceOnly, onEnd) {
+  let i = 0, known = 0;
+  const dir = () => S.dir || "ru";
+  const draw = () => {
+    if (i >= cards.length) {
+      host.innerHTML = `<div class="fc-wrap"><div class="card empty"><div style="font:32px var(--f-hand);color:var(--red)">${known}/${cards.length}</div>${mix("Bu to'plam tugadi. Barakalla!")}<div class="row" style="justify-content:center;margin-top:12px"><button class="btn sm" id="again">${mix("Yana bir bor")}</button></div></div></div>`;
+      $("#again", host).onclick = () => { i = 0; known = 0; cards = shuffle(cards); draw(); };
+      if (onEnd) onEnd();
+      return;
+    }
+    const e = cards[i], ru = dir() === "ru";
+    host.innerHTML = `<div class="fc-wrap">
+      <div class="row" style="justify-content:space-between"><span class="muted">${i + 1} / ${cards.length}</span>
+      <button class="btn sm" id="dirBtn">${mix(ru ? "Ruscha → o'zbekcha" : "O'zbekcha → ruscha")}</button></div>
+      <div class="fc" id="card" tabindex="0" role="button" aria-label="Kartochkani aylantirish"><div class="fc-in">
+        <div class="fc-face"><div class="main">${T(ru ? e.ru : e.uz)}</div><div class="hint">${mix("Bosing — javobni ko'rish")}</div></div>
+        <div class="fc-face back"><div class="main">${T(ru ? e.uz : e.ru)}</div>${e.ex ? `<div class="ex">${T(e.ex)}</div>` : ""}</div>
+      </div></div>
+      <div class="fc-btns"><button class="btn no" id="no">${mix("Bilmadim")}</button><button class="btn yes" id="yes">${mix("Bildim")}</button></div></div>`;
+    const card = $("#card", host);
+    const flip = () => { card.classList.toggle("flip"); if (card.classList.contains("flip") || ru === false) speak(plain(e.ru)); };
+    card.onclick = flip; card.onkeydown = ev => { if (ev.key === " " || ev.key === "Enter") { ev.preventDefault(); flip(); } };
+    if (ru) speak(plain(e.ru), 0.9, true);
+    $("#dirBtn", host).onclick = () => { S.dir = ru ? "uz" : "ru"; save(); draw(); };
+    $("#no", host).onclick = () => { grade(e.id, false); i++; draw(); };
+    $("#yes", host).onclick = () => { grade(e.id, true); known++; i++; draw(); };
+  };
+  draw();
+}
+
+/* ---------- dictionary page ---------- */
+function renderDict() {
+  app.innerHTML = `<div class="sec-head"><div><div class="eyebrow">${mix("Barcha darslar")}</div><h2 class="sec">${mix("Lug'atim")}</h2>
+    <div class="muted">${mix(ENTRIES.length + " ta so'z va ibora. Yulduzcha bilan saqlanganlari alohida filtrlanadi.")}</div></div></div>
+  <div class="dtools"><input class="inp grow" id="q" type="search" placeholder="${esc(mix("Qidirish: ruscha yoki o'zbekcha..."))}" aria-label="Qidirish">
+    <select class="inp" id="f" aria-label="Filtr"><option value="">${mix("Barcha darslar")}</option><option value="star">${mix("Saqlanganlar")}</option>
+    ${LESSONS.map(l => `<option value="${l.id}">${mix(l.num + "-dars · ")}${esc(l.ru)}</option>`).join("")}</select></div>
+  <div class="dict"><table><thead><tr><th>${mix("Ruscha")}</th><th>${mix("O'zbekcha")}</th><th>${mix("Dars")}</th><th></th></tr></thead><tbody id="rows"></tbody></table></div>`;
+  const draw = () => {
+    const q = norm($("#q").value), f = $("#f").value;
+    const rows = ENTRIES.filter(e => (!f || (f === "star" ? S.star[e.id] : e.lesson === f)) && (!q || e.id.includes(q) || e.uz.toLowerCase().includes($("#q").value.toLowerCase().trim())));
+    $("#rows").innerHTML = rows.length ? rows.map(e => {
+      const on = !!S.star[e.id], b = S.srs[e.id] ? S.srs[e.id].b : 0;
+      return `<tr><td class="r">${T(e.ru)}${b ? ` <span class="muted" style="font:12px var(--f-body)" title="Leitner qutisi">${"●".repeat(b)}</span>` : ""}</td><td>${T(e.uz)}</td><td class="t">${e.num}</td>
+      <td style="white-space:nowrap"><button class="ibtn" data-a="say" data-t="${esc(plain(e.ru))}" aria-label="Tinglash">${ICON.play}</button><button class="ibtn ${on ? "on" : ""}" data-a="star" data-id="${esc(e.id)}" aria-label="Saqlash">${on ? ICON.starOn : ICON.star}</button></td></tr>`;
+    }).join("") : `<tr><td colspan="4" class="empty">${mix(f === "star" ? "Hali saqlangan so'z yo'q. So'z yonidagi yulduzchani bosing." : "Hech narsa topilmadi.")}</td></tr>`;
+  };
+  $("#q").oninput = draw; $("#f").onchange = draw; draw();
+}
+
+/* ---------- review page ---------- */
+function renderReview() {
+  const boxes = [1, 2, 3, 4, 5].map(b => ENTRIES.filter(e => S.srs[e.id] && S.srs[e.id].b === b).length);
+  const unseen = ENTRIES.filter(e => !S.srs[e.id]).length;
+  app.innerHTML = `<div class="sec-head"><div><div class="eyebrow">${mix("Leitner tizimi")}</div><h2 class="sec">${mix("Takrorlash")}</h2>
+    <div class="muted">${mix("«Bildim» desangiz so'z keyingi qutiga o'tadi va kamroq takrorlanadi (1 → 3 → 7 → 16 kun). «Bilmadim» — 1-qutiga qaytadi va bugun yana chiqadi.")}</div></div>
+    <select class="inp" id="rf" aria-label="Filtr"><option value="">${mix("Barcha darslar")}</option><option value="star">${mix("Saqlanganlar")}</option>${LESSONS.map(l => `<option value="${l.id}">${mix(l.num + "-dars")}</option>`).join("")}</select></div>
+  <div class="boxes"><div><b>${unseen}</b><span>${mix("yangi")}</span></div>${boxes.map((n, i) => `<div><b>${n}</b><span>${mix((i + 1) + "-quti")}</span></div>`).join("")}</div>
+  <div id="rv"></div>`;
+  const go = () => {
+    const f = $("#rf").value;
+    const list = dueList(e => !f || (f === "star" ? S.star[e.id] : e.lesson === f));
+    if (!list.length) { $("#rv").innerHTML = `<div class="card empty">${mix("Bugungi takrorlash tugadi. Ertaga qayting yoki yangi dars o'ting.")}</div>`; return; }
+    flashcards($("#rv"), list, false, () => updateBadge());
+  };
+  $("#rf").onchange = go; go();
+}
+
+/* ---------- analyzer ---------- */
+const SAMPLE = "Алиса пришла домой с красной сумкой. Вдруг сумка зашевелилась. В сумке сидел маленький зверёк с большими глазами. Папа удивился и спросил, где она была. Алиса ответила, что была на космодроме и подарила космонавту букет роз.";
+function renderAnalyzer() {
+  let saved = "";
+  try { saved = localStorage.getItem(KEY + "-tx") || ""; } catch (e) {}
+  app.innerHTML = `<div class="sec-head"><div><div class="eyebrow">${mix("Kitobdan matn qo'ying")}</div><h2 class="sec">${mix("Matn tahlili")}</h2>
+    <div class="muted">${mix("Kitobning asl bobidan (o'z nusxangizdan) bir parcha nusxa olib shu yerga qo'ying. Kurs lug'atidagi so'zlar ajratib ko'rsatiladi — istalgan so'zni bosib tarjimasini ko'ring.")}</div></div></div>
+  <textarea class="inp" id="tx" lang="ru" aria-label="Rus tilidagi matn">${esc(saved || SAMPLE)}</textarea>
+  <div class="row" style="margin:10px 0 16px"><button class="btn pri" id="go">${mix("Tahlil qilish")}</button><button class="btn" id="clr">${mix("Tozalash")}</button><span class="muted" id="st"></span></div>
+  <article class="sheet hl" id="out" lang="ru"></article>
+  <p class="muted" style="font-size:14px;margin-top:10px">${mix("Uzluksiz chiziq — lug'atdagi aniq shakl; uzuq chiziq — taxminiy moslik (o'zak bo'yicha). Belgilanmagan so'zni ham bosish mumkin: talaffuzni tinglaysiz yoki Viktsionariyda ochasiz.")}</p>`;
+  const run = () => {
+    const tx = $("#tx").value; try { localStorage.setItem(KEY + "-tx", tx); } catch (e) {}
+    let found = 0, words = 0;
+    const html = tx.split(/\n{2,}/).map(par => `<p>${par.split(/([А-Яа-яЁё]+(?:-[А-Яа-яЁё]+)?)/).map((tok, i) => {
+      if (i % 2 === 0) return esc(tok).replace(/\n/g, "<br>");
+      words++; const r = lookup(tok);
+      if (r) { found++; return `<button class="w ${r.fuzzy ? "fz" : ""}" data-k="${esc(r.key)}">${esc(tok)}</button>`; }
+      return `<button class="w un">${esc(tok)}</button>`;
+    }).join("")}</p>`).join("");
+    $("#out").innerHTML = html || `<p class="muted">${mix("Matn kiriting.")}</p>`;
+    $("#st").textContent = words ? mix(words + " so'zdan " + found + " tasi lug'atda topildi") : "";
+  };
+  $("#go").onclick = run;
+  $("#clr").onclick = () => { $("#tx").value = ""; run(); $("#tx").focus(); };
+  run();
+}
+
+
+(function () {
+  var tg = window.Telegram && Telegram.WebApp;
+  if (!tg || !tg.initData) return;               // oddiy brauzerda hech narsa o'zgarmaydi
+  tg.ready(); tg.expand();
+  try { if (tg.disableVerticalSwipes) tg.disableVerticalSwipes(); } catch (e) {}
+  var root = document.documentElement;
+  function theme() {
+    root.dataset.theme = tg.colorScheme === "dark" ? "dark" : "light";
+    var bg = getComputedStyle(root).getPropertyValue("--bg").trim() || "#f3f6fa";
+    try { tg.setHeaderColor(bg); tg.setBackgroundColor(bg); } catch (e) {}
+  }
+  theme(); tg.onEvent("themeChanged", theme);
+
+  // Telegram "orqaga" tugmasi
+  function back() { var h = location.hash.slice(1); if (h && h !== "kurs") tg.BackButton.show(); else tg.BackButton.hide(); }
+  tg.BackButton.onClick(function () { var h = location.hash.slice(1); location.hash = /^l\d+-/.test(h) ? "#" + h.split("-")[0] : "#kurs"; });
+  addEventListener("hashchange", back); back();
+
+  // Ovoz yo'q bo'lsa (ba'zi Android Telegram'larda) — brauzerda ochishni taklif qilish
+  window.__noVoice = function () {
+    var go = function () { tg.openLink(location.href.split("#")[0]); };
+    try { tg.showConfirm("Telegram ichida ovoz ishlamayapti. Ilovani brauzerda ochib, so'zlarni tinglaysizmi?", function (ok) { if (ok) go(); }); } catch (e) { go(); }
+  };
+
+  // Natijalarni Telegram bulutida saqlash (barcha qurilmalarda bir xil)
+  if (!tg.CloudStorage || !(tg.isVersionAtLeast && tg.isVersionAtLeast("6.9"))) return;
+  var CS = tg.CloudStorage, P = "s", timer = null, oldN = 0;
+  function push() {
+    var str = JSON.stringify(S), parts = str.match(/[\s\S]{1,3500}/g) || [""];
+    parts.forEach(function (p, i) { CS.setItem(P + i, p); });
+    for (var i = parts.length; i < oldN; i++) CS.removeItem(P + i);
+    oldN = parts.length; CS.setItem(P + "n", String(parts.length));
+  }
+  window.__onSave = function () { clearTimeout(timer); timer = setTimeout(push, 1200); };
+  CS.getItem(P + "n", function (err, n) {
+    n = parseInt(n || "0", 10); oldN = n;
+    if (err || !n) { if (S.ts) push(); return; }
+    var keys = []; for (var i = 0; i < n; i++) keys.push(P + i);
+    CS.getItems(keys, function (e2, vals) {
+      if (e2 || !vals) return;
+      try {
+        var c = JSON.parse(keys.map(function (k) { return vals[k] || ""; }).join(""));
+        if ((c.ts || 0) > (S.ts || 0)) {
+          Object.keys(c).forEach(function (k) { S[k] = c[k]; });
+          try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {}
+          updateBadge(); route();
+        } else if ((S.ts || 0) > (c.ts || 0)) push();
+      } catch (e) {}
+    });
+  });
+})();
+updateBadge();
+route();
+})();
+
+</script>
